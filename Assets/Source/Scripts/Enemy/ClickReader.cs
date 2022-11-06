@@ -6,6 +6,7 @@ public class ClickReader : MonoBehaviour
     private IDamageable _damageable;
 
     private void Awake()
+
     {
         _damageable = GetComponent<IDamageable>();
     }
