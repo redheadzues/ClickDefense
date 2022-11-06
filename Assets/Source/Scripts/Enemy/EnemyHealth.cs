@@ -9,8 +9,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         if(damage > 0)
             _value -= damage;
 
-        print("ouch");
-
         TryDie();
     }
 
