@@ -1,11 +1,17 @@
 using UnityEngine;
 
+[RequireComponent(typeof(IDamageable))]
 public class ClickReader : MonoBehaviour
 {
-    [SerializeField] private EnemyHealth _health;
+    private IDamageable _damageable;
+
+    private void Awake()
+    {
+        _damageable = GetComponent<IDamageable>();
+    }
 
     private void OnMouseDown()
     {
-        _health.TakeDamage(1);
+        _damageable.TakeDamage(1);
     }
 }
