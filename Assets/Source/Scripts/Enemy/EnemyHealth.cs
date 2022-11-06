@@ -20,6 +20,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         TryDie();
     }
 
+    public void SetValue(int value)
+    {
+        _value = value;
+        ValueChanged?.Invoke(_value);
+    }
+
     private void TryDie()
     {
         if (_value <= 0)
