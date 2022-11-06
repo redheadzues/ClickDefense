@@ -24,7 +24,7 @@ public class EnemyDataDisplayer : MonoBehaviour
         _damageable.ValueChanged += OnValueChanged;
     }
 
-    private void OnValueChanged(int health)
+    private void OnValueChanged(double health)
     {
         _textHealth.text = health.ToString();
     }

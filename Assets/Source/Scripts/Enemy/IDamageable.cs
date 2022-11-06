@@ -2,9 +2,9 @@ using System;
 
 public interface IDamageable
 {
-    void TakeDamage(int damage);
+    void TakeDamage(double damage);
 
-    public int Value {get;}
+    public double Value {get;}
 
-    public event Action<int> ValueChanged;
+    public event Action<double> ValueChanged;
 }

@@ -1,14 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private void Start()
+    private Coroutine _coroutine;
+
+    private void OnEnable()
     {
-        StartCoroutine(OnMove());
+        StartMove();
+    }
+
+    private void StartMove()
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(OnMove());
     }
 
     private void Move()

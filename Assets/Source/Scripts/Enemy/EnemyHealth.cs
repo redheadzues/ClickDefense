@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _value;
+    [SerializeField] private double _value;
 
-    public int Value => _value;
+    public double Value => _value;
 
-    public event Action<int> ValueChanged;
+    public event Action<double> ValueChanged;
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(double damage)
     {
         if(damage > 0)
         {
@@ -20,7 +20,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         TryDie();
     }
 
-    public void SetValue(int value)
+    public void SetValue(double value)
     {
         _value = value;
         ValueChanged?.Invoke(_value);
