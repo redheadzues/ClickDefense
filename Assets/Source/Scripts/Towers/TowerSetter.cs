@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class TowerSetter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Tower _template;
+
+    private Camera _mainCamera;
+
+    private void Awake()
     {
-        
+        _mainCamera = Camera.main;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        if(Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+            int x = Mathf.RoundToInt(hitInfo.point.x);
+            int y = Mathf.RoundToInt(hitInfo.point.z);
+
+            
+
+            Instantiate(_template, new Vector3(x, 0.5f + _template.transform.localScale.y /2 , y), Quaternion.identity);
+        }
     }
+
+
+
 }
