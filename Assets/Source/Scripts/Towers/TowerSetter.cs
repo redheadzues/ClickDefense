@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerSetter : MonoBehaviour
 {
     [SerializeField] private Tower _template;
+    [SerializeField] private BuildGrid _buildGrid;
 
     private Camera _mainCamera;
 
@@ -22,12 +23,9 @@ public class TowerSetter : MonoBehaviour
             int x = Mathf.RoundToInt(hitInfo.point.x);
             int y = Mathf.RoundToInt(hitInfo.point.z);
 
-            
-
-            Instantiate(_template, new Vector3(x, 0.5f + _template.transform.localScale.y /2 , y), Quaternion.identity);
+            if(_buildGrid.TryBuild(x,y, 1) == true)
+                Instantiate(_template, new Vector3(x, 0.5f + _template.transform.localScale.y /2 , y), Quaternion.identity);
         }
     }
-
-
 
 }
