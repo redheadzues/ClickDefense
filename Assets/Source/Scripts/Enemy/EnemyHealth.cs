@@ -28,12 +28,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void TryDie()
     {
-        if (_value <= 0)
+        if (_value < 1)
             Die();
     }
 
     private void Die()
     {
-
+        gameObject.SetActive(false);
     }    
 }

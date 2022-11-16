@@ -6,6 +6,6 @@ public class ClickDamageCalculator : MonoBehaviour
 {
     public double GetValue()
     {
-        return 0.1f;
+        return 1;
     }
 }
