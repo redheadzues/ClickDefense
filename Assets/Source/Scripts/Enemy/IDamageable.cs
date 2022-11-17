@@ -7,4 +7,5 @@ public interface IDamageable
     public double Value {get;}
 
     public event Action<double> ValueChanged;
+    public event Action<double> Died;
 }

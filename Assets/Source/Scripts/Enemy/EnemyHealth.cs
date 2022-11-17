@@ -5,9 +5,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [SerializeField] private double _value;
 
+    private double _startValue;
+
     public double Value => _value;
 
     public event Action<double> ValueChanged;
+    public event Action<double> Died;
 
     public void TakeDamage(double damage)
     {
@@ -22,6 +25,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void SetValue(double value)
     {
+
+        _startValue = value;
         _value = value;
         ValueChanged?.Invoke(_value);
     }
@@ -34,6 +39,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        Died?.Invoke(_startValue);
         gameObject.SetActive(false);
     }    
 }

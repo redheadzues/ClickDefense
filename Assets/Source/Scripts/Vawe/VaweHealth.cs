@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class VaweHealth : MonoBehaviour
 {
-    private int _vawe = 0;
+    [SerializeField] private VaweCounter _vaweCounter;
+
     private float _healthMultiplicator = 1.5f;
     private float _baseHealth = 10;
-    private int _enemyCount = 10;
 
-    private double GetVaweHealth()
+
+    public double GetVaweHealth(int enemyCount = 10)
     {
-        return _baseHealth * Mathf.Pow(_healthMultiplicator, _vawe) * _enemyCount;
+        return _baseHealth * Mathf.Pow(_healthMultiplicator, _vaweCounter.Number) * enemyCount;
     }
 }

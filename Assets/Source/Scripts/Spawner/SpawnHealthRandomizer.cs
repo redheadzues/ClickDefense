@@ -10,7 +10,7 @@ public class SpawnHealthRandomizer : MonoBehaviour
     private int _count;
 
 
-    public void Initialize(double health, int count)
+    public void Initialize(double health, int count = 10)
     {
         _health = health;
         _count = count;

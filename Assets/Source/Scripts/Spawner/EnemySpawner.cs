@@ -9,6 +9,7 @@ public class EnemySpawner : ObjectsPool
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private float _secondsBetweenSpawn;
     [SerializeField] private VaweHealth _vaweHealth;
+    [SerializeField] private VaweCounter _vaweCounter;
     [SerializeField] private SpawnHealthRandomizer _randomizer;
 
     public event Action VaweFinished;
@@ -18,18 +19,41 @@ public class EnemySpawner : ObjectsPool
         InitializePool<EnemyHealth>(_template);
     }
 
+    private void OnEnable()
+    {
+        _vaweCounter.VaweStarted += OnVaweStarted;
+    }
+
+    private void OnDisable()
+    {
+        _vaweCounter.VaweStarted -= OnVaweStarted;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            Spawn();
+            TestingSpawn();
     }
 
-    private void StartVawe(double health, int count)
+    private void TestingSpawn()
     {
-        _randomizer.Initialize(health, count);
+        if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
+        {
+            enemy.gameObject.SetActive(true);
+            enemy.SetValue(10);
+            enemy.transform.position = GetRandomPoint();
+        }
     }
 
-    private void Spawn()
+    private void OnVaweStarted()
+    {
+        double health = _vaweHealth.GetVaweHealth();
+        _randomizer.Initialize(health);
+
+        StartCoroutine(OnSpawn());
+    }
+
+    private bool Spawn()
     {
         if (_randomizer.GetHealthValue(out double health) == true)
         {
@@ -39,9 +63,14 @@ public class EnemySpawner : ObjectsPool
                 enemy.SetValue(health);
                 enemy.transform.position = GetRandomPoint();
             }
+
+            return true;
         }
         else
+        {
             VaweFinished?.Invoke();
+            return false;
+        }
     }
 
     private Vector3 GetRandomPoint()
@@ -53,11 +82,7 @@ public class EnemySpawner : ObjectsPool
 
     private IEnumerator OnSpawn()
     {
-        while(true)
-        {
-            Spawn();
+        while (Spawn())
             yield return new WaitForSeconds(_secondsBetweenSpawn);
-        }
     }
-
 }
