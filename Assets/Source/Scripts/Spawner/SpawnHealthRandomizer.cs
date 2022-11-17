@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class SpawnHealthRandomizer : MonoBehaviour
 {
+    [SerializeField] private float _healthSpred = 0.2f;
+
     private double _health;
     private int _count;
-    private float _upperBound;
-    private float _lowerBound;
+
 
     public void Initialize(double health, int count)
     {
@@ -15,8 +16,19 @@ public class SpawnHealthRandomizer : MonoBehaviour
         _count = count;
     }
 
-    public double GetHealthValue()
+    public bool GetHealthValue(out double value)
     {
-        return _health;
+        if(_count == 1)
+        {
+            value = _health;
+            return _count-- > 0; 
+        }
+
+        float randomHealthMultiplicator = Random.Range(1 - _healthSpred, 1 + _healthSpred);
+
+        value = _health / _count * randomHealthMultiplicator;
+        _health -= value;
+
+        return _count-- > 0;
     }
 }
