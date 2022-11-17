@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7704676236215065311}
   - component: {fileID: 1556758637354046291}
   - component: {fileID: 7633934811223004416}
+  - component: {fileID: 4282104867659148771}
   m_Layer: 0
   m_Name: Calculators
   m_TagString: Untagged
@@ -72,3 +73,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d0dac718c43b64a841297bfc801443, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4282104867659148771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7704676236215065310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6699d9fe13f715a42b541a74989e2a93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _level: {fileID: 0}
