@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,11 @@ public class EnemySpawner : ObjectsPool
     [SerializeField] private VaweHealth _vaweHealth;
     [SerializeField] private SpawnHealthRandomizer _randomizer;
 
+    public event Action VaweFinished;
+
     private void Awake()
     {
         InitializePool<EnemyHealth>(_template);
-
     }
 
     private void Update()
@@ -22,19 +24,29 @@ public class EnemySpawner : ObjectsPool
             Spawn();
     }
 
+    private void StartVawe(double health, int count)
+    {
+        _randomizer.Initialize(health, count);
+    }
+
     private void Spawn()
     {
-        if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
+        if (_randomizer.GetHealthValue(out double health) == true)
         {
-            enemy.gameObject.SetActive(true);
-            enemy.SetValue(10);
-            enemy.transform.position = GetRandomPoint();
+            if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
+            {
+                enemy.gameObject.SetActive(true);
+                enemy.SetValue(health);
+                enemy.transform.position = GetRandomPoint();
+            }
         }
+        else
+            VaweFinished?.Invoke();
     }
 
     private Vector3 GetRandomPoint()
     {
-        int index = Random.Range(0, _spawnPoints.Count);
+        int index = UnityEngine.Random.Range(0, _spawnPoints.Count);
 
         return _spawnPoints[index].position;
     }
