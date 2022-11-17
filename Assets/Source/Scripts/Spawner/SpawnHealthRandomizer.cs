@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpawnHealthRandomizer : MonoBehaviour
 {
@@ -20,13 +21,13 @@ public class SpawnHealthRandomizer : MonoBehaviour
     {
         if(_count == 1)
         {
-            value = _health;
+            value = Math.Round(_health);
             return _count-- > 0; 
         }
 
-        float randomHealthMultiplicator = Random.Range(1 - _healthSpred, 1 + _healthSpred);
+        float randomHealthMultiplicator = UnityEngine.Random.Range(1 - _healthSpred, 1 + _healthSpred);
 
-        value = _health / _count * randomHealthMultiplicator;
+        value = Math.Round(_health / _count * randomHealthMultiplicator);
         _health -= value;
 
         return _count-- > 0;
