@@ -1,11 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ClickDamageCalculator : MonoBehaviour
 {
+    [SerializeField] private PlayerLevel _playerLevel;
+
     public double GetValue()
     {
-        return 1;
+        return _playerLevel.Value;
     }
 }
