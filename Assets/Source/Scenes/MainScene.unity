@@ -1541,6 +1541,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c2ed9baef4dc514c95351feae4e7a6d, type: 3}
+--- !u!114 &4618482645214226311 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3974813756089537418, guid: 5c2ed9baef4dc514c95351feae4e7a6d, type: 3}
+  m_PrefabInstance: {fileID: 4618482645214226310}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22a6e18ebb1762489e473522ad94427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7704676236780180644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1596,5 +1607,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Calculators
       objectReference: {fileID: 0}
+    - target: {fileID: 7704676236215065311, guid: b8e656935650ce84585c1fb4f499c560, type: 3}
+      propertyPath: _playerLevel
+      value: 
+      objectReference: {fileID: 4618482645214226311}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8e656935650ce84585c1fb4f499c560, type: 3}
