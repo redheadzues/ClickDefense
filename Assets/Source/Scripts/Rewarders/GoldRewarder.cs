@@ -7,6 +7,9 @@ public class GoldRewarder : MonoBehaviour
 {
     [SerializeField] private GoldCalculator _goldCalculator;
     [SerializeField] private EnemySpawner _enemySpawner;
+    [SerializeField] private Wallet _wallet;
+
+    private float _enemyHpMultiplicator = 0.15f;
 
     private void OnEnable()
     {
@@ -18,8 +21,10 @@ public class GoldRewarder : MonoBehaviour
         _enemySpawner.EnemyDied -= OnEnemyDied;
     }
 
-    private void OnEnemyDied(double obj)
+    private void OnEnemyDied(double value)
     {
-        throw new NotImplementedException();
+        double reward = value * _enemyHpMultiplicator * _goldCalculator.Multiplicator;
+
+        _wallet.AddMoney(reward);
     }
 }
