@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Wallet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private double _balance;
+
+    public bool TrySpendMoney(double value)
     {
-        
+        if((_balance - value) > 0)
+        {
+            _balance -= value;
+            return true;
+        }
+        else
+            return false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddMoney(double value)
     {
-        
+        _balance += value;
     }
+
 }
