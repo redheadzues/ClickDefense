@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerLevel : MonoBehaviour
 {
-    private int _value;
+    private int _value = 1;
 
     public int Value => _value;
 

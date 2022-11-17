@@ -19,6 +19,6 @@ public class UIMoney : MonoBehaviour
 
     private void OnBalanceChanged(double value)
     {
-        _textMoney.text = Math.Round(value).ToString();
+        _textMoney.text = "Gold: " +  Math.Round(value).ToString();
     }
 }

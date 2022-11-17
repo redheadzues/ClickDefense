@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CriticalStrikeCalculator : MonoBehaviour
 {
-    private float _criticalStrikeChance = 1;
+    private float _criticalStrikeChance = 5;
     private float _criticalStrikeMultiplicator = 1.5f;
 
     public float GetValue()
