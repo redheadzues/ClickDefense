@@ -12,11 +12,15 @@ public class EnemySpawner : ObjectsPool
     [SerializeField] private VaweCounter _vaweCounter;
     [SerializeField] private SpawnHealthRandomizer _randomizer;
 
+    private List<IDamageable> _enemies = new List<IDamageable>();
+
     public event Action VaweFinished;
+    public event Action<double> EnemyDied;
 
     private void Awake()
     {
         InitializePool<EnemyHealth>(_template);
+        FillDamageableList();
     }
 
     private void OnEnable()
@@ -27,12 +31,27 @@ public class EnemySpawner : ObjectsPool
     private void OnDisable()
     {
         _vaweCounter.VaweStarted -= OnVaweStarted;
+
+        for (int i = 0; i < _enemies.Count; i++)
+            _enemies[i].Died -= OnDied;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
             TestingSpawn();
+    }
+
+    private void FillDamageableList()
+    {
+        for(int i = 0; i< _pool.Count; i++)
+        {
+            if (_pool[i].TryGetComponent(out IDamageable damageable))
+            {
+                _enemies.Add(damageable);
+                damageable.Died += OnDied;
+            }
+        }
     }
 
     private void TestingSpawn()
@@ -84,5 +103,10 @@ public class EnemySpawner : ObjectsPool
     {
         while (Spawn())
             yield return new WaitForSeconds(_secondsBetweenSpawn);
+    }
+
+    private void OnDied(double value)
+    {
+        EnemyDied?.Invoke(value);
     }
 }

@@ -7,8 +7,8 @@ public class ObjectsPool : MonoBehaviour
     [SerializeField] private int _capacity;
     [SerializeField] private GameObject _container;
 
-    private List<GameObject> _pool = new List<GameObject>();
-    
+    protected List<GameObject> _pool = new List<GameObject>();
+
     protected void InitializePool<T>(T sample) where T : MonoBehaviour
     {
         GameObject template = sample.gameObject;
