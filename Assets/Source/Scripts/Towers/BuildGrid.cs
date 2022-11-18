@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildGrid : MonoBehaviour
@@ -32,12 +29,10 @@ public class BuildGrid : MonoBehaviour
             Vector2 gridPosition = DefineGridPosition(positionX, positionY);
 
             for (int i = (int)gridPosition.x - borderSize; i < gridPosition.x + borderSize + 1; i++)
-                if((i >= 0) && (i < _rowsCount - 1))
-                    for (int j = (int)gridPosition.y - borderSize; i < gridPosition.y + borderSize + 1; j++)
-                        if((j >= 0) && (j < _columnsCount - 1))
+                if(i >= 0 && i < _rowsCount)
+                    for (int j = (int)gridPosition.y - borderSize; j < gridPosition.y + borderSize + 1; j++)
+                        if(j >= 0 && j < _columnsCount)
                             grid[i, j] = false;
-
-
 
             return true;
         }
