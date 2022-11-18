@@ -39,6 +39,7 @@ public class BuildGrid : MonoBehaviour
                     }
                     catch(IndexOutOfRangeException)
                     {
+                        print("catch");
                     }
 
             

@@ -724,6 +724,8 @@ GameObject:
   - component: {fileID: 539219274}
   - component: {fileID: 539219273}
   - component: {fileID: 539219272}
+  - component: {fileID: 539219277}
+  - component: {fileID: 539219276}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -809,6 +811,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &539219276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539219271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 090846154be92e2489367292c2c4b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rowsCount: 10
+  _columnsCount: 10
+  _gridStartPosition: {x: 0, y: 0, z: 0}
+--- !u!114 &539219277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539219271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03c32a8a2555ad14d997bce3e4b0466a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _template: {fileID: -6981898998885817563, guid: 096339c9ae7a6eb469848c9e64507865, type: 3}
+  _buildGrid: {fileID: 539219276}
 --- !u!114 &539309438 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8501870265253025971, guid: 5c2ed9baef4dc514c95351feae4e7a6d, type: 3}
@@ -1893,7 +1924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.015000001, y: 0.026}
   m_AnchorMax: {x: 0.077125, y: 0.10544445}
-  m_AnchoredPosition: {x: 2.5, y: -4.319702}
+  m_AnchoredPosition: {x: 2.5, y: -4.31958}
   m_SizeDelta: {x: 2.0408936, y: 5.525818}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1539586310
