@@ -44,7 +44,7 @@ public class UIHeroLevelShop : MonoBehaviour
 
     private void OnBalanceChanged(double value)
     {
-        if (value < _playerCost.CurrentLevelUpgradeCost)
+        if (Math.Round(value) < Math.Round(_playerCost.CurrentLevelUpgradeCost))
             _buttonUpgrade.interactable = false;
         else
             _buttonUpgrade.interactable = true;

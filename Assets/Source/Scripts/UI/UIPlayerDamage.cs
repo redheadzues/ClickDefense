@@ -2,10 +2,10 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class UIHeroDamage : MonoBehaviour
+public class UIPlayerDamage : MonoBehaviour
 {
     [SerializeField] private ClickDamageCalculator _clickDamage;
-    [SerializeField] private TMP_Text _textHeroDamage;
+    [SerializeField] private TMP_Text _textPlayerDamage;
 
     private void OnEnable()
     {
@@ -19,6 +19,6 @@ public class UIHeroDamage : MonoBehaviour
 
     private void OnValueChanged(double value)
     {
-        _textHeroDamage.text = "Урон героя: " + Math.Round(value).ToString();
+        _textPlayerDamage.text = "Урон героя: " + Math.Round(value).ToString();
     }
 }

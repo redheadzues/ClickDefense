@@ -9,7 +9,7 @@ public class Wallet : MonoBehaviour
 
     public bool TrySpendMoney(double value)
     {
-        if((_balance - value) > 0)
+        if((Math.Round(_balance) - Math.Round(value)) >= 0)
         {
             _balance -= value;
             BalanceChanged?.Invoke(_balance);

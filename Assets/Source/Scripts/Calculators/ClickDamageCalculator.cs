@@ -17,6 +17,7 @@ public class ClickDamageCalculator : MonoBehaviour
 
     private void Start()
     {
+        _damage = 1;
         ValueChanged?.Invoke(_damage);
     }
 
