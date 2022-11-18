@@ -34,4 +34,6 @@ public class ModeSwitcher : MonoBehaviour
 
         BuildingModeChanged?.Invoke();
     }
+
+    // new Vector3(2.8f,18.2f,-1.8f);
 }

@@ -15,7 +15,7 @@ public class TowerSetter : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if( _modeSwitcher.IsBuildModeActivated == true)
+        if (_modeSwitcher.IsBuildModeActivated == true)
         {
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
 
