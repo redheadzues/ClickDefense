@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,14 @@ public class BuildGrid : MonoBehaviour
 
             for (int i = (int)gridPosition.x - borderSize; i < gridPosition.x + borderSize + 1; i++)
                 for (int j = (int)gridPosition.y - borderSize; i < gridPosition.y + borderSize + 1; j++)
-                    grid[i, j] = false;
+                    try 
+                    {
+                        grid[i, j] = false;
+                    }
+                    catch(IndexOutOfRangeException)
+                    {
+                    }
+
             
             return true;
         }
@@ -68,7 +76,7 @@ public class BuildGrid : MonoBehaviour
     private Vector2  DefineGridPosition(int positionX, int positionY)
     {
         int XpostitionOnGrid = positionX - ((int)_gridStartPosition.x);
-        int YpostitionOnGrid = positionY - ((int)_gridStartPosition.z);
+        int YpostitionOnGrid = ((int)_gridStartPosition.z) - positionY;
 
         return new Vector2(XpostitionOnGrid, YpostitionOnGrid);
     }
