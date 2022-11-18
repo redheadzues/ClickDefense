@@ -1,26 +1,35 @@
+using System;
 using UnityEngine;
 
 public class BuildGrid : MonoBehaviour
 {
-    [SerializeField] private int _rowsCount;
-    [SerializeField] private int _columnsCount;
+    [SerializeField] protected int _columnsCount;
+    [SerializeField] protected int _rowsCount;
     [SerializeField] private Vector3 _gridStartPosition;
+    [SerializeField] private SpriteRenderer _spriteCell;
+    [SerializeField] private Color _colorEnable;
+    [SerializeField] private Color _colorDisable;
+    [SerializeField] private ModeSwitcher _modeSwitcher;
 
+    private SpriteRenderer[,] _visualGrid;
     private bool[,] grid;
 
     private void Awake()
     {
-        grid = new bool[_rowsCount, _columnsCount];
+        CreateGrid();
+        CreateVisualGrid();
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        for (int i = 0; i < _rowsCount; i++)
-            for (int j = 0; j < _columnsCount; j++)
-            {
-                grid[i, j] = true;
-            }
+        _modeSwitcher.BuildingModeChanged += OnBuildingModeChange;
     }
+
+    private void OnDisable()
+    {
+        _modeSwitcher.BuildingModeChanged -= OnBuildingModeChange;
+    }
+
 
     public bool TryBuild(int positionX, int positionY, int borderSize)
     {
@@ -29,10 +38,12 @@ public class BuildGrid : MonoBehaviour
             Vector2 gridPosition = DefineGridPosition(positionX, positionY);
 
             for (int i = (int)gridPosition.x - borderSize; i < gridPosition.x + borderSize + 1; i++)
-                if(i >= 0 && i < _rowsCount)
+                if(i >= 0 && i < _columnsCount)
                     for (int j = (int)gridPosition.y - borderSize; j < gridPosition.y + borderSize + 1; j++)
-                        if(j >= 0 && j < _columnsCount)
+                        if(j >= 0 && j < _rowsCount)
                             grid[i, j] = false;
+
+            ColorizeGrid();
 
             return true;
         }
@@ -41,25 +52,25 @@ public class BuildGrid : MonoBehaviour
             print("Нельзя");
             return false;
         }
+    }
 
+    private void CreateGrid()
+    {
+        grid = new bool[_columnsCount, _rowsCount];
+
+        for (int i = 0; i < _columnsCount; i++)
+            for (int j = 0; j < _rowsCount; j++)
+                grid[i, j] = true;
     }
 
     private bool CheckAvailabilityBuild(int positionX, int positionY)
     {
         Vector2 gridPosition = DefineGridPosition(positionX, positionY);
-        print(positionX + " " + positionY);
-        print(gridPosition.x + " " + gridPosition.y);
 
-        if ((gridPosition.x >= _rowsCount) || (gridPosition.x < 0))
-        {
-            print(false);
+        if ((gridPosition.x >= _columnsCount) || (gridPosition.x < 0))
             return false;
-        }
-        if ((gridPosition.y >= _columnsCount) || (gridPosition.y < 0))
-        {
-            print(false);
+        if ((gridPosition.y >= _rowsCount) || (gridPosition.y < 0))
             return false;
-        }
 
 
         return grid[(int)gridPosition.x, (int)gridPosition.y];
@@ -71,5 +82,44 @@ public class BuildGrid : MonoBehaviour
         int YpostitionOnGrid = ((int)_gridStartPosition.z) - positionY;
 
         return new Vector2(XpostitionOnGrid, YpostitionOnGrid);
+    }
+
+    private void CreateVisualGrid()
+    {
+        _visualGrid = new SpriteRenderer[_columnsCount, _rowsCount];
+
+        for (int i = 0; i < _columnsCount; i++)
+            for (int j = 0; j < _rowsCount; j++)
+            {
+                Vector3 point = new Vector3(_gridStartPosition.x + i, 0.6f, _gridStartPosition.z - j);
+                SpriteRenderer sprite = Instantiate(_spriteCell, point, Quaternion.Euler(90, 0, 0));
+                _visualGrid[i, j] = sprite;
+            }
+
+        ColorizeGrid();
+    }
+
+    private void ColorizeGrid()
+    {
+        for (int i = 0; i < _columnsCount; i++)
+            for (int j = 0; j < _rowsCount; j++)
+            {
+                if (grid[i, j] == true)
+                    _visualGrid[i, j].color = _colorEnable;
+                else
+                    _visualGrid[i, j].color = _colorDisable;
+            }
+    }
+
+    private void OnBuildingModeChange()
+    {
+        for(int i = 0; i < _columnsCount; i++)
+            for(int j = 0; j < _rowsCount; j++)
+            {
+                if (_modeSwitcher.IsBuildModeActivated == true)
+                    _visualGrid[i, j].gameObject.SetActive(true);
+                else
+                    _visualGrid[i, j].gameObject.SetActive(false);
+            }
     }
 }
