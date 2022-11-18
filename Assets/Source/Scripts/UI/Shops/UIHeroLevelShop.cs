@@ -14,6 +14,7 @@ public class UIHeroLevelShop : MonoBehaviour
     private void OnEnable()
     {
         _buttonUpgrade.onClick.AddListener(OnButtonUpgradeClick);
+        _wallet.BalanceChanged += OnBalanceChanged;
     }
 
     private void Start()
@@ -24,6 +25,7 @@ public class UIHeroLevelShop : MonoBehaviour
     private void OnDisable()
     {
         _buttonUpgrade.onClick.RemoveListener(OnButtonUpgradeClick);
+        _wallet.BalanceChanged -= OnBalanceChanged;
     }
 
     private void OnButtonUpgradeClick()
@@ -37,6 +39,16 @@ public class UIHeroLevelShop : MonoBehaviour
 
     private void FillButtonUpgrade()
     {
-        _textCost.text = "Улучшить" + _playerCost.CurrentLevelUpgradeCost.ToString();
+        _textCost.text = "Улучшить: " + Math.Round(_playerCost.CurrentLevelUpgradeCost).ToString();
     }
+
+    private void OnBalanceChanged(double value)
+    {
+        if (value < _playerCost.CurrentLevelUpgradeCost)
+            _buttonUpgrade.interactable = false;
+        else
+            _buttonUpgrade.interactable = true;
+    }
+
+
 }
