@@ -32,17 +32,13 @@ public class BuildGrid : MonoBehaviour
             Vector2 gridPosition = DefineGridPosition(positionX, positionY);
 
             for (int i = (int)gridPosition.x - borderSize; i < gridPosition.x + borderSize + 1; i++)
-                for (int j = (int)gridPosition.y - borderSize; i < gridPosition.y + borderSize + 1; j++)
-                    try 
-                    {
-                        grid[i, j] = false;
-                    }
-                    catch(IndexOutOfRangeException)
-                    {
-                        print("catch");
-                    }
+                if((i >= 0) && (i < _rowsCount - 1))
+                    for (int j = (int)gridPosition.y - borderSize; i < gridPosition.y + borderSize + 1; j++)
+                        if((j >= 0) && (j < _columnsCount - 1))
+                            grid[i, j] = false;
 
-            
+
+
             return true;
         }
         else
