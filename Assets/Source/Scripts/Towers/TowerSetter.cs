@@ -1,16 +1,24 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TowerSetter : MonoBehaviour
 {
     [SerializeField] private Tower _template;
     [SerializeField] private BuildGrid _buildGrid;
     [SerializeField] private ModeSwitcher _modeSwitcher;
+    [SerializeField] private NavMeshSurface _navMeshSurface;
 
     private Camera _mainCamera;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Space))
+            _navMeshSurface.BuildNavMesh();
     }
 
     private void OnMouseDown()
@@ -25,7 +33,11 @@ public class TowerSetter : MonoBehaviour
                 int y = Mathf.RoundToInt(hitInfo.point.z);
 
                 if (_buildGrid.TryBuild(x, y, 1) == true)
-                    Instantiate(_template, new Vector3(x, 0.5f + _template.transform.localScale.y / 2, y), Quaternion.identity);
+                {
+                    Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
+                    _navMeshSurface.BuildNavMesh();
+                }
+                    
             }
         }
     }

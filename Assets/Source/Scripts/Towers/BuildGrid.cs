@@ -10,6 +10,8 @@ public class BuildGrid : MonoBehaviour
     [SerializeField] private Color _colorEnable;
     [SerializeField] private Color _colorDisable;
     [SerializeField] private ModeSwitcher _modeSwitcher;
+    [SerializeField] private Transform _transformVisualGridParent;
+
 
     private SpriteRenderer[,] _visualGrid;
     private bool[,] grid;
@@ -92,7 +94,7 @@ public class BuildGrid : MonoBehaviour
             for (int j = 0; j < _rowsCount; j++)
             {
                 Vector3 point = new Vector3(_gridStartPosition.x + i, 0.6f, _gridStartPosition.z - j);
-                SpriteRenderer sprite = Instantiate(_spriteCell, point, Quaternion.Euler(90, 0, 0));
+                SpriteRenderer sprite = Instantiate(_spriteCell, point, Quaternion.Euler(90, 0, 0), _transformVisualGridParent);
                 _visualGrid[i, j] = sprite;
             }
 
