@@ -74,7 +74,6 @@ public class BuildGrid : MonoBehaviour
         if ((gridPosition.y >= _rowsCount) || (gridPosition.y < 0))
             return false;
 
-
         return grid[(int)gridPosition.x, (int)gridPosition.y];
     }
 

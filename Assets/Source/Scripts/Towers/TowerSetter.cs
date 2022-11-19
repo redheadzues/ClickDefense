@@ -15,12 +15,6 @@ public class TowerSetter : MonoBehaviour
         _mainCamera = Camera.main;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.Space))
-            _navMeshSurface.BuildNavMesh();
-    }
-
     private void OnMouseDown()
     {
         if (_modeSwitcher.IsBuildModeActivated == true)
