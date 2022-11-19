@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 6927858523948143010}
   - component: {fileID: 7707941933640809134}
   - component: {fileID: 7064622260651053862}
-  - component: {fileID: -6981898998885817563}
   - component: {fileID: 3036163635875463307}
   - component: {fileID: 1965698320032532649}
   - component: {fileID: 5390712821798625207}
   m_Layer: 2
-  m_Name: Tower
+  m_Name: TowerBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,18 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-6981898998885817563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2249124426388007177}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad50ad5c51682654aad5a1f78473ae7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!136 &3036163635875463307
 CapsuleCollider:
   m_ObjectHideFlags: 0
