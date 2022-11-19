@@ -32,7 +32,7 @@ public class TowerSetter : MonoBehaviour
                 int x = Mathf.RoundToInt(hitInfo.point.x);
                 int y = Mathf.RoundToInt(hitInfo.point.z);
 
-                if (_buildGrid.TryBuild(x, y, 1) == true)
+                if (_buildGrid.TryBuild(x, y, 2) == true)
                 {
                     Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
                     _navMeshSurface.BuildNavMesh();

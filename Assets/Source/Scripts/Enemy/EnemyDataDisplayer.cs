@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -26,5 +27,18 @@ public class EnemyDataDisplayer : MonoBehaviour
     private void OnValueChanged(double health)
     {
         _textHealth.text = health.ToString();
+    }
+
+    private IEnumerator RotateToPlayer()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        while (_textHealth.gameObject.transform.rotation != Quaternion.LookRotation(Vector3.forward, Vector3.up))
+        {
+            print("coroutine");
+
+            _textHealth.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
+            yield return new WaitForSeconds(2f);
+        }
     }
 }
