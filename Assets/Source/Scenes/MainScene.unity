@@ -907,6 +907,7 @@ MonoBehaviour:
   _buildGrid: {fileID: 539219276}
   _modeSwitcher: {fileID: 601373368}
   _navMeshSurface: {fileID: 1316722944}
+  _spawner: {fileID: 3106338774791057166}
 --- !u!114 &539309438 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8501870265253025971, guid: 5c2ed9baef4dc514c95351feae4e7a6d, type: 3}
