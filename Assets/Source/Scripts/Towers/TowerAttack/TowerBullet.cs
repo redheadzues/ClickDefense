@@ -12,6 +12,8 @@ public class TowerBullet : MonoBehaviour
     {
         _target = target;
         _damage = damage;
+
+        StartCoroutine(OnMove());
     }
 
     private void OnCollisionEnter(Collision collision)
