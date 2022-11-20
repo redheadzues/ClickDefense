@@ -29,12 +29,19 @@ public class TowerBullet : MonoBehaviour
     private void MoveToTarget()
     {
         transform.position = Vector3.MoveTowards(transform.position, _target.Position, _speed * Time.deltaTime);
+
     }
 
     private IEnumerator OnMove()
     {
         while(gameObject.activeSelf == true)
         {
+            if (_target.Value < 1)
+            {
+                gameObject.SetActive(false);
+                yield break;
+            }
+
             MoveToTarget();
             yield return new WaitForSeconds(0.01f);
         }
