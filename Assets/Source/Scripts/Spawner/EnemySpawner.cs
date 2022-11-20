@@ -36,12 +36,6 @@ public class EnemySpawner : ObjectsPool
             _enemies[i].Died -= OnDied;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-            TestingSpawn();
-    }
-
     private void FillDamageableList()
     {
         for(int i = 0; i< _pool.Count; i++)

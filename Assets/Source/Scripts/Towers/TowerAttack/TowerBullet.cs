@@ -8,7 +8,7 @@ public class TowerBullet : MonoBehaviour
     private IDamageable _target;
     private double _damage;
 
-    private void Initialize(IDamageable target, double damage)
+    public void Initialize(IDamageable target, double damage)
     {
         _target = target;
         _damage = damage;
