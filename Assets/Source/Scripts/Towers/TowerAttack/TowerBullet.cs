@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,8 +13,16 @@ public class TowerBullet : MonoBehaviour
     {
         _target = target;
         _damage = damage;
+        _target.Killed += OnKilled;
 
         StartCoroutine(OnMove());
+    }
+
+    private void OnKilled(IDamageable damageable)
+    {
+        damageable.Killed -= OnKilled;
+        StopCoroutine(OnMove());
+        gameObject.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -22,6 +31,7 @@ public class TowerBullet : MonoBehaviour
             if (damageable == _target)
             {
                 _target.TakeDamage(_damage);
+                _target.Killed -= OnKilled;
                 gameObject.SetActive(false);
             }
     }
@@ -36,12 +46,6 @@ public class TowerBullet : MonoBehaviour
     {
         while(gameObject.activeSelf == true)
         {
-            if (_target.Value < 1)
-            {
-                gameObject.SetActive(false);
-                yield break;
-            }
-
             MoveToTarget();
             yield return new WaitForSeconds(0.01f);
         }

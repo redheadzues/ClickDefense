@@ -10,4 +10,5 @@ public interface IDamageable
 
     public event Action<double> ValueChanged;
     public event Action<double> Died;
+    public event Action<IDamageable> Killed;
 }

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class TowerAttaker : MonoBehaviour
 {
@@ -24,15 +25,12 @@ public class TowerAttaker : MonoBehaviour
     {
         IDamageable target = GetTarget();
         _bulletSpawner.Spawn(_attackPoint.position, target, _damage);
-
-        if(target.Value < 1)
-            _targets.Remove(target);
     }
 
     private IDamageable GetTarget()
     {
         IDamageable target = _targets.OrderBy(t => t.Position.x).First();
-           
+
         return target;
     }
 
@@ -41,16 +39,26 @@ public class TowerAttaker : MonoBehaviour
         if (other.TryGetComponent(out IDamageable damageable))
         {
             _targets.Add(damageable);
-
+            damageable.Killed += OnKilled;
+            
             if (_coroutine == null)
                 _coroutine = StartCoroutine(OnAttack());
         }
     }
 
+    private void OnKilled(IDamageable damageable)
+    {
+        _targets.Remove(damageable);
+        damageable.Killed -= OnKilled;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out IDamageable damageable))
+        {
+            damageable.Killed -= OnKilled;
             _targets.Remove(damageable);
+        }
     }
 
     private IEnumerator OnAttack()

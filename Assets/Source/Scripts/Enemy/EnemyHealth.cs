@@ -12,6 +12,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public event Action<double> ValueChanged;
     public event Action<double> Died;
+    public event Action<IDamageable> Killed;
 
     public void TakeDamage(double damage)
     {
@@ -41,6 +42,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Died?.Invoke(_startValue);
+        Killed?.Invoke(this);
         gameObject.SetActive(false);
     }    
 }
