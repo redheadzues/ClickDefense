@@ -23,7 +23,7 @@ public class TowerAttaker : MonoBehaviour
 
     private IDamageable GetTarget()
     {
-        IDamageable target = _targets.OrderBy(t => t.PositionX).First();
+        IDamageable target = _targets.OrderBy(t => t.Position.x).First();
            
         return target;
     }

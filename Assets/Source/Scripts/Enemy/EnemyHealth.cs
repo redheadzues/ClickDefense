@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     private double _startValue;
 
     public double Value => _value;
-    public float PositionX => transform.position.x;
+    public Vector3 Position => transform.position;
 
     public event Action<double> ValueChanged;
     public event Action<double> Died;
