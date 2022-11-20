@@ -9,7 +9,7 @@ public class BulletSpawner : ObjectsPool
         InitializePool<TowerBullet>(_template);
     }
 
-    private void Spawn(Vector3 spawnPoint, IDamageable target, double damage)
+    public void Spawn(Vector3 spawnPoint, IDamageable target, double damage)
     {
         if(TryGetObject<TowerBullet>(out TowerBullet bullet) == true)
         {

@@ -7,6 +7,7 @@ public class TowerSetter : MonoBehaviour
     [SerializeField] private BuildGrid _buildGrid;
     [SerializeField] private ModeSwitcher _modeSwitcher;
     [SerializeField] private NavMeshSurface _navMeshSurface;
+    [SerializeField] private BulletSpawner _spawner;
 
     private Camera _mainCamera;
 
@@ -28,7 +29,8 @@ public class TowerSetter : MonoBehaviour
 
                 if (_buildGrid.TryBuild(x, y, 2) == true)
                 {
-                    Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
+                    Tower tower = Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
+                    tower.Initialize(_spawner);
                     _navMeshSurface.BuildNavMesh();
                 }
                     

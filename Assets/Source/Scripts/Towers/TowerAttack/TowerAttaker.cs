@@ -7,15 +7,23 @@ public class TowerAttaker : MonoBehaviour
 {
     [SerializeField] private double _damage;
     [SerializeField] private float _delay;
+    [SerializeField] private Transform _attackPoint;
 
     private Coroutine _coroutine;
+    private BulletSpawner _bulletSpawner;
 
     private List<IDamageable> _targets = new List<IDamageable>();
+
+
+    public void Initialize(BulletSpawner bulletSpawner)
+    {
+        _bulletSpawner = bulletSpawner;
+    }
 
     private void Attack()
     {
         IDamageable target = GetTarget();
-        target.TakeDamage(_damage);
+        _bulletSpawner.Spawn(_attackPoint.position, target, _damage);
 
         if(target.Value < 1)
             _targets.Remove(target);
