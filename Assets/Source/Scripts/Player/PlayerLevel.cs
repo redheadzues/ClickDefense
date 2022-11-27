@@ -10,10 +10,15 @@ public class PlayerLevel : MonoBehaviour
     public int Value => _value;
     public event Action Increased;
 
-    private void Start()
+    private void Awake()
     {
         _saverLevel = new SaverPlayerLevel();
         _value = _saverLevel.ReadValue();
+    }
+
+    private void Start()
+    {
+        Increased?.Invoke();
     }
 
     public void Increase()
