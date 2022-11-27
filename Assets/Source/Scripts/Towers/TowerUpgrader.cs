@@ -1,11 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class TowerUpgrader : MonoBehaviour
+using System;
+
+public class TowerUpgrader : Tower
 {
-    private void OnMouseDown()
+    private int _upgradePoints;
+
+    private void OnEnable()
     {
-        print("Yep Upgrade avaliable");
+        LevelIncreased += OnLevelIncreased;
+    }
+
+    private void OnDisable()
+    {
+        LevelIncreased -= OnLevelIncreased;
+    }
+
+    private void OnLevelIncreased()
+    {
+        _upgradePoints++;
+    }
+
+    public bool TryUpgradeRange()
+    {
+        if(_upgradePoints > 0)
+        {
+            _upgradePoints--;
+            IncreaseRange(1);
+
+            return true;
+        }
+        else
+            return false;
     }
 }
