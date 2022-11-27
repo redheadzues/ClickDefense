@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [RequireComponent(typeof(ITowerData))]
-public class TowerParametrCalculator : MonoBehaviour, ITowerCalculatedData
+public class TowerParametrsCalculator : MonoBehaviour, ITowerCalculatedData
 {
     private ITowerData _tower;
 
