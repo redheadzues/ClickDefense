@@ -33,21 +33,24 @@ public abstract class Tower : MonoBehaviour, ITowerData
     {
         _range += value;
         _saverTower.WriteRange(_range);
+        IncreaseLevel();
     }
 
     public void IncreaseAttackRate(float value)
     {
         _attackRate += value;
         _saverTower.WriteRange(_attackRate);
+        IncreaseLevel();
     }
 
     public void IncreaseDamage(double value)
     {
         _damage += value;
         _saverTower.WriteDamage(_damage);
+        IncreaseLevel();
     }
 
-    public void IncreaseLevel()
+    private void IncreaseLevel()
     {
         _level++;
         _saverTower.WriteLevel(_level);
