@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Saver : MonoBehaviour
 {
-    protected void SaveInt(string key, int value)
+    protected void SetInt(string key, int value)
     {
         PlayerPrefs.SetInt(key, value);
     }

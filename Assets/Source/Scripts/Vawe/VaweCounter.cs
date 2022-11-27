@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using VaweSaver;
 
 public class VaweCounter : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class VaweCounter : MonoBehaviour
     [SerializeField] private Button _buttonNextVawe;
 
     private int _vawe;
+    private SaverVawe _saverVawe;
 
     public int Number => _vawe;
-
     public event Action VaweStarted;
 
     private void OnEnable()
@@ -21,6 +22,8 @@ public class VaweCounter : MonoBehaviour
 
     private void Start()
     {
+        _saverVawe = new SaverVawe();
+        _vawe = _saverVawe.ReadValue();
         VaweStarted?.Invoke();
         _buttonNextVawe.gameObject.SetActive(false);
     }
@@ -34,6 +37,7 @@ public class VaweCounter : MonoBehaviour
     private void OnVaweFinished()
     {
         _vawe++;
+        _saverVawe.WriteValue(_vawe);
         _buttonNextVawe.gameObject.SetActive(true);
     }
 
@@ -41,5 +45,23 @@ public class VaweCounter : MonoBehaviour
     {
         VaweStarted?.Invoke();
         _buttonNextVawe.gameObject.SetActive(false);
+    }
+}
+
+namespace VaweSaver
+{
+    public class SaverVawe : Saver
+    {
+        private const string _keyVawe = "SavedVawe";
+
+        public void WriteValue(int value)
+        {
+            SetInt(_keyVawe, value);
+        }
+
+        public int ReadValue()
+        {
+            return GetInt(_keyVawe);
+        }
     }
 }

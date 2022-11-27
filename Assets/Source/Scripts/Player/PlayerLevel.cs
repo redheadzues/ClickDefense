@@ -1,16 +1,44 @@
 using System;
 using UnityEngine;
+using PlayerLevelSaver;
 
 public class PlayerLevel : MonoBehaviour
 {
-    private int _value = 1;
+    private SaverPlayerLevel _saverLevel;
+    private int _value;
 
     public int Value => _value;
     public event Action Increased;
 
+    private void Start()
+    {
+        _saverLevel = new SaverPlayerLevel();
+        _value = _saverLevel.ReadValue();
+    }
+
     public void Increase()
     {
         _value++;
+        _saverLevel.WtiteValue(_value);
         Increased?.Invoke();
+    }
+}
+
+namespace PlayerLevelSaver
+{   
+    public class SaverPlayerLevel : Saver
+    {
+        private const string _keyLevel = "SavedPlayerLevel";
+        private const int _defaultPlayerLevel = 1;
+
+        public void WtiteValue(int level)
+        {
+            SetInt(_keyLevel, level);
+        }
+
+        public int ReadValue()
+        {
+            return GetInt(_keyLevel, _defaultPlayerLevel);
+        }
     }
 }
