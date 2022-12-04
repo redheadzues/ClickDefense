@@ -3,7 +3,6 @@ using UnityEngine;
 public abstract class Saver : MonoBehaviour
 {
     private delegate T LoadObject<T>(string key);
-    private StringToVector3Converter _converter = new StringToVector3Converter();
 
     protected void SetInt(string key, int value)
     {
@@ -52,7 +51,7 @@ public abstract class Saver : MonoBehaviour
     protected Vector3 GetVector3(string key, Vector3 defaultPoint)
     {
         if (PlayerPrefs.HasKey(key))
-            return _converter.ConvertStringToVector(PlayerPrefs.GetString(key));
+            return StringToVector3Converter.ConvertStringToVector(PlayerPrefs.GetString(key));
         else
             return defaultPoint;
     }

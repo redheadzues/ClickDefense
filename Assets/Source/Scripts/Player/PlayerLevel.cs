@@ -4,7 +4,7 @@ using PlayerLevelSaver;
 
 public class PlayerLevel : MonoBehaviour
 {
-    private SaverPlayerLevel _saverLevel;
+    private SaverPlayerLevel _saverLevel = new SaverPlayerLevel();
     private int _value;
 
     public int Value => _value;
@@ -12,7 +12,6 @@ public class PlayerLevel : MonoBehaviour
 
     private void Awake()
     {
-        _saverLevel = new SaverPlayerLevel();
         _value = _saverLevel.ReadValue();
     }
 

@@ -9,7 +9,7 @@ public class VaweCounter : MonoBehaviour
     [SerializeField] private Button _buttonNextVawe;
 
     private int _vawe;
-    private SaverVawe _saverVawe;
+    private SaverVawe _saverVawe = new SaverVawe();
 
     public int Number => _vawe;
     public event Action VaweStarted;
@@ -22,7 +22,6 @@ public class VaweCounter : MonoBehaviour
 
     private void Start()
     {
-        _saverVawe = new SaverVawe();
         _vawe = _saverVawe.ReadValue();
         VaweStarted?.Invoke();
         _buttonNextVawe.gameObject.SetActive(false);

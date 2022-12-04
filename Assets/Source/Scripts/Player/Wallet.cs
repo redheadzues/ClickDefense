@@ -4,7 +4,7 @@ using MoneySaver;
 
 public class Wallet : MonoBehaviour
 {
-    private SaverMoney _saverMoney;
+    private SaverMoney _saverMoney = new SaverMoney();
 
     private double _balance;
 
@@ -12,7 +12,6 @@ public class Wallet : MonoBehaviour
 
     private void Start()
     {
-        _saverMoney = new SaverMoney();
         _balance = _saverMoney.ReadValue();
         BalanceChanged?.Invoke(_balance);
     }

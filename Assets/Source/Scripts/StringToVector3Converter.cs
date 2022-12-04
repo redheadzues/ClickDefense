@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class StringToVector3Converter : MonoBehaviour
+public static class StringToVector3Converter
 {
-    public Vector3 ConvertStringToVector(string stringVector)
+    public static Vector3 ConvertStringToVector(string stringVector)
     {
         string[] coordintes = stringVector.Split(",");
 
