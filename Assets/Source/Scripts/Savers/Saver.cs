@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class Saver : MonoBehaviour
+public abstract class Saver
 {
     private delegate T LoadObject<T>(string key);
 

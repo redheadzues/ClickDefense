@@ -104,7 +104,7 @@ namespace TowerSaver
 
         public void WritePositon(Vector3 point)
         {
-            SetVector3(_keyTowerPosition + name, point);
+            SetVector3(_keyTowerPosition + _name, point);
         }
 
         public void WriteLevel(int level)
