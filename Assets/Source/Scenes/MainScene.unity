@@ -903,7 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c32a8a2555ad14d997bce3e4b0466a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _template: {fileID: 0}
+  _template: {fileID: 4485557129958538795, guid: e245770f757a216478fdb86b8024ab31, type: 3}
   _buildGrid: {fileID: 539219276}
   _modeSwitcher: {fileID: 601373368}
   _navMeshSurface: {fileID: 1316722944}
