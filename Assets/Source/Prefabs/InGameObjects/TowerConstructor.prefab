@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1109924554809087507}
   - component: {fileID: 6070448549439097564}
   - component: {fileID: 4485557129958538795}
-  - component: {fileID: 9052322142962125222}
   m_Layer: 0
   m_Name: TowerConstructor
   m_TagString: Untagged
@@ -60,19 +59,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b278dcb2d6e8c48bb3ce82f669b473, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9052322142962125222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818825154571659448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad50ad5c51682654aad5a1f78473ae7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _attacker: {fileID: 2906650096174420214}
+  _name: 
+  _rank: 0
 --- !u!1001 &3679985058552993887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -130,17 +118,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 096339c9ae7a6eb469848c9e64507865, type: 3}
---- !u!114 &2906650096174420214 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1965698320032532649, guid: 096339c9ae7a6eb469848c9e64507865, type: 3}
-  m_PrefabInstance: {fileID: 3679985058552993887}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5bb04d037156274d9f5d059c5c43027, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5995800143337392637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6927858523948143010, guid: 096339c9ae7a6eb469848c9e64507865, type: 3}
