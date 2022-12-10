@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using MoneySaver;
+using Saver;
 
 public class Wallet : MonoBehaviour
 {
@@ -38,24 +38,4 @@ public class Wallet : MonoBehaviour
         _saverMoney.WriteValue(_balance);
         BalanceChanged?.Invoke(_balance);
     }
-
 }
-
-namespace MoneySaver
-{
-    public class SaverMoney : Saver
-    {
-        private const string _keyMoney = "SavedMoney";
-
-        public void WriteValue(double value)
-        {
-            SetDouble(_keyMoney, value);
-        }
-
-        public double ReadValue()
-        {
-            return GetDouble(_keyMoney);
-        }
-    }
-}
-
