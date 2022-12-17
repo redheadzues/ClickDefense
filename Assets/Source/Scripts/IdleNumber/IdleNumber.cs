@@ -104,6 +104,57 @@ namespace NumbersForIdle
 
             return new IdleNumber(resultValue, resultDegree);
         }
+
+        public static bool operator >(IdleNumber leftNumber, IdleNumber rightNumber)
+        {
+            if(leftNumber.Degree >= rightNumber.Degree)
+            {
+                if(leftNumber.Degree == rightNumber.Degree)
+                {
+                    return leftNumber.Value > rightNumber.Value;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool operator >(IdleNumber leftNumber, float f)
+        {
+            IdleNumber rightNumber = new(f);
+
+            return leftNumber > rightNumber;
+        }
+
+        public static bool operator <(IdleNumber leftNumber, IdleNumber rightNumber)
+        {
+            if (leftNumber.Degree <= rightNumber.Degree)
+            {
+                if (leftNumber.Degree == rightNumber.Degree)
+                {
+                    return leftNumber.Value < rightNumber.Value;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool operator <(IdleNumber leftNumber, float f)
+        {
+            IdleNumber rightNumber = new(f);
+
+            return leftNumber < rightNumber;
+        }
+
+        public static bool operator >=(IdleNumber leftNumber, IdleNumber rightNumber)
+        {
+            return !(leftNumber < rightNumber);
+        }
+
+
     }
 }
 
