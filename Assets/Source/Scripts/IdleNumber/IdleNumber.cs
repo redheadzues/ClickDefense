@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
 namespace NumbersForIdle
 {
@@ -9,12 +7,14 @@ namespace NumbersForIdle
         public float Value;
         public int Degree;
 
+        private int _id;
         private const int _tenCubed = 1000;
-        
+
         public IdleNumber(float value, int degree)
         {
             Value = value;
             Degree = degree;
+            _id = System.Guid.NewGuid().GetHashCode();
 
             NormalizedNumber();
         }
@@ -23,13 +23,14 @@ namespace NumbersForIdle
         {
             Value = value;
             Degree = 0;
+            _id = Guid.NewGuid().GetHashCode();
 
             NormalizedNumber();
         }
 
         private void NormalizedNumber()
         {
-            while(Mathf.Abs(Value) >= _tenCubed)
+            while(Math.Abs(Value) >= _tenCubed)
             {
                 Value /= _tenCubed;
                 Degree += 3;
@@ -42,14 +43,14 @@ namespace NumbersForIdle
             if(leftNumber.Degree >= rightNumber.Degree)
             {
                 int difference = leftNumber.Degree - rightNumber.Degree;
-                float resultValue = leftNumber.Value + rightNumber.Value / Mathf.Pow(10, difference);
+                float resultValue = leftNumber.Value + rightNumber.Value / (float)Math.Pow(10, difference);
 
                 return new IdleNumber(resultValue, leftNumber.Degree);
             }
             else
             {
                 int difference = rightNumber.Degree - leftNumber.Degree;
-                float resultValue = rightNumber.Value + leftNumber.Value / Mathf.Pow(10, difference);
+                float resultValue = rightNumber.Value + leftNumber.Value / (float)Math.Pow(10, difference);
 
                 return new IdleNumber(resultValue, rightNumber.Degree);
             }
@@ -57,14 +58,14 @@ namespace NumbersForIdle
 
         public static IdleNumber operator+(IdleNumber idleNumber, float f)
         {
-            float resultValue = idleNumber.Value + f/ Mathf.Pow(10, idleNumber.Degree);
+            float resultValue = idleNumber.Value + f/ (float)Math.Pow(10, idleNumber.Degree);
 
             return new IdleNumber(resultValue , idleNumber.Degree);
         }
 
         public static IdleNumber operator+(IdleNumber idleNumber, int i)
         {
-            float resultValue = idleNumber.Value + i / Mathf.Pow(10, idleNumber.Degree);
+            float resultValue = idleNumber.Value + i / (float)Math.Pow(10, idleNumber.Degree);
 
             return new IdleNumber(resultValue, idleNumber.Degree);
         }
@@ -72,14 +73,14 @@ namespace NumbersForIdle
         public static IdleNumber operator-(IdleNumber leftNumber, IdleNumber rightNumber)
         {
             int difference = leftNumber.Degree - rightNumber.Degree;
-            float resultValue = leftNumber.Value - rightNumber.Value / Mathf.Pow(10, difference);
+            float resultValue = leftNumber.Value - rightNumber.Value / (float)Math.Pow(10, difference);
 
             return new IdleNumber(resultValue, leftNumber.Degree);
         }
 
         public static IdleNumber operator-(IdleNumber idleNumber, float f)
         {
-            float resultValue = idleNumber.Value - f / Mathf.Pow(10, idleNumber.Degree);
+            float resultValue = idleNumber.Value - f / (float)Math.Pow(10, idleNumber.Degree);
 
             return new IdleNumber(resultValue, idleNumber.Degree);
         }
@@ -190,7 +191,27 @@ namespace NumbersForIdle
             return !(leftNumber == rightNumber);
         }
 
+        public static bool operator !=(IdleNumber leftNumber, float f)
+        {
+            IdleNumber rightNumber = new(f);
 
+            return leftNumber != rightNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            IdleNumber idleNumber = (IdleNumber)(obj as IdleNumber?);
+            if (idleNumber == null)
+            {
+                return false;
+            }
+            return _id == idleNumber.GetHashCode();
+        }
+
+        public override int GetHashCode()
+        {
+            return _id;
+        }
     }
 }
 
