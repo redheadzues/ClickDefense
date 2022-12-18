@@ -19,6 +19,6 @@ public class ClickReader : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _damageable.TakeDamage(_clickDamage.GetValue());
+        //_damageable.TakeDamage(_clickDamage.GetValue());
     }
 }

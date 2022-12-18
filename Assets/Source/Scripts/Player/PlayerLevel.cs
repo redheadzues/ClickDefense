@@ -1,29 +1,28 @@
-using System;
-using UnityEngine;
 using Saver;
+using System;
 
-public class PlayerLevel : MonoBehaviour
+namespace Player
 {
-    private SaverPlayerLevel _saverLevel = new SaverPlayerLevel();
-    private int _value;
-
-    public int Value => _value;
-    public event Action Increased;
-
-    private void Awake()
+    public class PlayerLevel : IDataChangedNotifyer
     {
-        _value = _saverLevel.ReadValue();
-    }
+        private SaverPlayerLevel _saverLevel;
+        private int _value;
 
-    private void Start()
-    {
-        Increased?.Invoke();
-    }
+        public event Action DataChanged;
 
-    public void Increase()
-    {
-        _value++;
-        _saverLevel.WtiteValue(_value);
-        Increased?.Invoke();
+        public int Value => _value;
+
+        public PlayerLevel()
+        {
+            _saverLevel = new SaverPlayerLevel();
+            _value = _saverLevel.ReadValue();
+        }
+
+        public void Increase()
+        {
+            _value++;
+            DataChanged?.Invoke();
+            _saverLevel.WtiteValue(_value);
+        }
     }
 }

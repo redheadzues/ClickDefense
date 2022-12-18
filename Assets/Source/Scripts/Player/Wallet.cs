@@ -2,40 +2,43 @@ using System;
 using Saver;
 using NumbersForIdle;
 
-public class Wallet : IWallet
+namespace Player
 {
-    private SaverMoney _saverMoney;
-    private IdleNumber _balance;
-
-    public event Action<IdleNumber> BalanceChanged;
-
-    public Wallet()
+    public class Wallet : IWallet
     {
-        _saverMoney = new SaverMoney();
-        _balance = _saverMoney.ReadValue();
-        BalanceChanged?.Invoke(_balance);
-    }
+        private SaverMoney _saverMoney;
+        private IdleNumber _balance;
 
-    public bool TrySpendMoney(IdleNumber value)
-    {
-        if((_balance - value) >= 0)
+        public event Action<IdleNumber> BalanceChanged;
+
+        public Wallet()
         {
-            BalanceChange(value * -1);
-            return true;
+            _saverMoney = new SaverMoney();
+            _balance = _saverMoney.ReadValue();
+            BalanceChanged?.Invoke(_balance);
         }
-        else
-            return false;
-    }
 
-    public void AddMoney(IdleNumber value)
-    {
-        BalanceChange(value);
-    }
+        public bool TrySpendMoney(IdleNumber value)
+        {
+            if ((_balance - value) >= 0)
+            {
+                BalanceChange(value * -1);
+                return true;
+            }
+            else
+                return false;
+        }
 
-    private void BalanceChange(IdleNumber value)
-    {
-        _balance += value;
-        _saverMoney.WriteValue(_balance);
-        BalanceChanged?.Invoke(_balance);
+        public void AddMoney(IdleNumber value)
+        {
+            BalanceChange(value);
+        }
+
+        private void BalanceChange(IdleNumber value)
+        {
+            _balance += value;
+            _saverMoney.WriteValue(_balance);
+            BalanceChanged?.Invoke(_balance);
+        }
     }
 }

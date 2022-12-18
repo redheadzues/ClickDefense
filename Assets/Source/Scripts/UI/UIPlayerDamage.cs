@@ -9,12 +9,12 @@ public class UIPlayerDamage : MonoBehaviour
 
     private void OnEnable()
     {
-        _clickDamage.ValueChanged += OnValueChanged;
+        //_clickDamage.ValueChanged += OnValueChanged;
     }
 
     private void OnDisable()
     {
-        _clickDamage.ValueChanged -= OnValueChanged;
+        //_clickDamage.ValueChanged -= OnValueChanged;
     }
 
     private void OnValueChanged(double value)
