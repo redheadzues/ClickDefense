@@ -1,17 +1,20 @@
+using NumbersForIdle;
+
 namespace Saver
 {
     public class SaverMoney : Saver
     {
         private const string _keyMoney = "SavedMoney";
 
-        public void WriteValue(double value)
+        public void WriteValue(IdleNumber value)
         {
-            SetDouble(_keyMoney, value);
+            SetIdleNumber(_keyMoney, value);
         }
 
-        public double ReadValue()
+        public IdleNumber ReadValue()
         {
-            return GetDouble(_keyMoney);
+            IdleNumber defaultValue = new(0);
+            return GetIdleNumber(_keyMoney, defaultValue);
         }
     }
 }

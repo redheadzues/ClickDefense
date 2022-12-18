@@ -1,4 +1,5 @@
 using UnityEngine;
+using NumbersForIdle;
 
 namespace Saver
 {
@@ -26,6 +27,12 @@ namespace Saver
             PlayerPrefs.SetString(key, point.ToString());
         }
 
+        protected void SetIdleNumber(string key, IdleNumber value)
+        {
+            PlayerPrefs.SetFloat(key + "Value", value.Value);
+            PlayerPrefs.SetInt(key + "Degree", value.Degree);
+        }
+
         protected int GetInt(string key, int defaultValue = 0)
         {
             if (PlayerPrefs.HasKey(key))
@@ -48,6 +55,14 @@ namespace Saver
                 return double.Parse(PlayerPrefs.GetString(key));
             else
                 return defalutValue;
+        }
+
+        protected IdleNumber GetIdleNumber(string key, IdleNumber defaultValue)
+        {
+            if (PlayerPrefs.HasKey(key + "value"))
+                return new IdleNumber(PlayerPrefs.GetFloat(key + "Value"), PlayerPrefs.GetInt(key + "Degree"));
+            else
+                return defaultValue;
         }
 
         protected Vector3 GetVector3(string key, Vector3 defaultPoint)

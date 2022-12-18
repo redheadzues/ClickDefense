@@ -1,72 +1,71 @@
-using UnityEngine;
 using Saver;
-using System;
 
-public abstract class Tower : MonoBehaviour, ITowerData
+public class Tower : ITowerData, ITowerUpgrader
 {
-    [SerializeField] private string _name;
-    [SerializeField] private int _rank;
+    private const float _baseRange = 3;
+    private const float _baseAttackRate = 1;
+    private const double _baseDamage = 5;
+    private const int _baseLevel = 1;
+    private const float _baseIncreaserRange = 0.1f;
 
-    private float _baseRange = 3;
-    private float _baseAttackRate = 1;
-    private double _baseDamage = 5;
-    private int _level = 1;
+    private string _name;
+    private int _rank;
+    private float _range;
+    private float _attackRate;
+    private double _damage;
+    private int _level;
 
     private SaverTower _saverTower;
 
-    public float Range => _baseRange;
+    public float Range => _range;
 
-    public float AttackRate => _baseAttackRate;
+    public float AttackRate => _attackRate;
 
-    public double Damage => _baseDamage;
+    public double Damage => _damage;
 
     public int Level => _level;
 
     public int Rank => _rank;
 
-    public event Action LevelIncreased;
 
-    private void Awake()
+    private Tower(string name, int rank)
     {
+        _name = name;
+        _rank = rank;
+
         _saverTower = new SaverTower(_name);
-        ReadSaverData();
+
+        _range = _saverTower.ReadRange(_baseRange);
+        _attackRate = _saverTower.ReadAttackRate(_baseAttackRate);
+        _damage = _saverTower.ReadDamage(_baseDamage);
+        _level = _saverTower.ReadLevel(_baseLevel);
     }
 
-    protected void IncreaseRange(float value)
+    public void IncreaseRange()
     {
-        _baseRange += value;
-        _saverTower.WriteRange(_baseRange);
+        _range += _baseIncreaserRange;
+        _saverTower.WriteRange(_range);
         IncreaseLevel();
     }
 
-    protected void IncreaseAttackRate(float value)
+    public void IncreaseAttackRate()
     {
-        _baseAttackRate += value;
-        _saverTower.WriteRange(_baseAttackRate);
+        _attackRate += _baseAttackRate;
+        _saverTower.WriteRange(_attackRate);
         IncreaseLevel();
     }
 
-    protected void IncreaseDamage(double value)
+    public void IncreaseDamage()
     {
-        _baseDamage += value;
-        _saverTower.WriteDamage(_baseDamage);
+        _damage += _baseDamage;
+        _saverTower.WriteDamage(_damage);
         IncreaseLevel();
     }
 
     private void IncreaseLevel()
     {
         _level++;
-        LevelIncreased?.Invoke();
         _saverTower.WriteLevel(_level);
-    }
-
-    private void ReadSaverData()
-    {
-        _baseRange = _saverTower.ReadRange(_baseRange);
-        _baseAttackRate = _saverTower.ReadAttackRate(_baseAttackRate);
-        _baseDamage = _saverTower.ReadDamage(_baseDamage);
-        _level = _saverTower.ReadLevel(_level);
-        transform.position = _saverTower.ReadPosition(transform.position);
     }
 }
 

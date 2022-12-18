@@ -4,8 +4,8 @@ namespace NumbersForIdle
 {
     public struct IdleNumber
     {
-        public float Value;
-        public int Degree;
+        public float Value { get; private set; }
+        public int Degree { get; private set; }
 
         private int _id;
         private const int _tenCubed = 1000;
@@ -14,7 +14,7 @@ namespace NumbersForIdle
         {
             Value = value;
             Degree = degree;
-            _id = System.Guid.NewGuid().GetHashCode();
+            _id = Guid.NewGuid().GetHashCode();
 
             NormalizedNumber();
         }
@@ -28,19 +28,28 @@ namespace NumbersForIdle
             NormalizedNumber();
         }
 
+        public IdleNumber(double value)
+        {
+            Value = (float)value;
+            Degree = 0;
+            _id = Guid.NewGuid().GetHashCode();
+
+            NormalizedNumber();
+        }
+
         private void NormalizedNumber()
         {
-            while(Math.Abs(Value) >= _tenCubed)
+            while (Math.Abs(Value) >= _tenCubed)
             {
                 Value /= _tenCubed;
                 Degree += 3;
             }
         }
 
-        public static IdleNumber operator+(IdleNumber leftNumber, IdleNumber rightNumber)
+        public static IdleNumber operator +(IdleNumber leftNumber, IdleNumber rightNumber)
         {
 
-            if(leftNumber.Degree >= rightNumber.Degree)
+            if (leftNumber.Degree >= rightNumber.Degree)
             {
                 int difference = leftNumber.Degree - rightNumber.Degree;
                 float resultValue = leftNumber.Value + rightNumber.Value / (float)Math.Pow(10, difference);
@@ -56,21 +65,21 @@ namespace NumbersForIdle
             }
         }
 
-        public static IdleNumber operator+(IdleNumber idleNumber, float f)
+        public static IdleNumber operator +(IdleNumber idleNumber, float f)
         {
-            float resultValue = idleNumber.Value + f/ (float)Math.Pow(10, idleNumber.Degree);
+            float resultValue = idleNumber.Value + f / (float)Math.Pow(10, idleNumber.Degree);
 
-            return new IdleNumber(resultValue , idleNumber.Degree);
+            return new IdleNumber(resultValue, idleNumber.Degree);
         }
 
-        public static IdleNumber operator+(IdleNumber idleNumber, int i)
+        public static IdleNumber operator +(IdleNumber idleNumber, int i)
         {
             float resultValue = idleNumber.Value + i / (float)Math.Pow(10, idleNumber.Degree);
 
             return new IdleNumber(resultValue, idleNumber.Degree);
         }
 
-        public static IdleNumber operator-(IdleNumber leftNumber, IdleNumber rightNumber)
+        public static IdleNumber operator -(IdleNumber leftNumber, IdleNumber rightNumber)
         {
             int difference = leftNumber.Degree - rightNumber.Degree;
             float resultValue = leftNumber.Value - rightNumber.Value / (float)Math.Pow(10, difference);
@@ -78,14 +87,14 @@ namespace NumbersForIdle
             return new IdleNumber(resultValue, leftNumber.Degree);
         }
 
-        public static IdleNumber operator-(IdleNumber idleNumber, float f)
+        public static IdleNumber operator -(IdleNumber idleNumber, float f)
         {
             float resultValue = idleNumber.Value - f / (float)Math.Pow(10, idleNumber.Degree);
 
             return new IdleNumber(resultValue, idleNumber.Degree);
         }
 
-        public static IdleNumber operator*(IdleNumber leftNumber, IdleNumber rightNumber)
+        public static IdleNumber operator *(IdleNumber leftNumber, IdleNumber rightNumber)
         {
             float resultValue = leftNumber.Value * rightNumber.Value;
             int resultDegree = leftNumber.Degree + rightNumber.Degree;
@@ -93,17 +102,31 @@ namespace NumbersForIdle
             return new IdleNumber(resultValue, resultDegree);
         }
 
-        public static IdleNumber operator*(IdleNumber idle, float f)
+        public static IdleNumber operator *(IdleNumber idle, float f)
         {
             return new IdleNumber(idle.Value * f, idle.Degree);
         }
 
-        public static IdleNumber operator/(IdleNumber dividend, IdleNumber divider)
+        public static IdleNumber operator *(IdleNumber leftNumber, double d)
+        {
+            IdleNumber rightNumber = new(d);
+
+            return leftNumber * rightNumber;
+        }
+
+        public static IdleNumber operator /(IdleNumber dividend, IdleNumber divider)
         {
             float resultValue = dividend.Value / divider.Value;
             int resultDegree = dividend.Degree - divider.Degree;
 
             return new IdleNumber(resultValue, resultDegree);
+        }
+
+        public static IdleNumber operator /(IdleNumber divided, float f)
+        {
+            IdleNumber divider = new(f);
+
+            return divided / divider;
         }
 
         public static bool operator >(IdleNumber leftNumber, IdleNumber rightNumber)

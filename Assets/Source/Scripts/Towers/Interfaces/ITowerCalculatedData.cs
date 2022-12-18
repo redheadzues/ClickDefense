@@ -1,8 +1,8 @@
+using NumbersForIdle;
 public interface ITowerCalculatedData
 {
     float CurrentRange { get; }
     float CurrentAttackRate { get; }
-    double CurrentDamage { get; }
-
-    double CurrentUpgradeCost { get; }
+    IdleNumber CurrentDamage { get; }
+    IdleNumber CurrentUpgradeCost { get; }
 }

@@ -1,38 +1,38 @@
 using System;
-using UnityEngine;
 using Saver;
+using NumbersForIdle;
 
-public class Wallet : MonoBehaviour
+public class Wallet : IWallet
 {
-    private SaverMoney _saverMoney = new SaverMoney();
+    private SaverMoney _saverMoney;
+    private IdleNumber _balance;
 
-    private double _balance;
+    public event Action<IdleNumber> BalanceChanged;
 
-    public event Action<double> BalanceChanged;
-
-    private void Start()
+    private Wallet()
     {
+        _saverMoney = new SaverMoney();
         _balance = _saverMoney.ReadValue();
         BalanceChanged?.Invoke(_balance);
     }
 
-    public bool TrySpendMoney(double value)
+    public bool TrySpendMoney(IdleNumber value)
     {
-        if((Math.Round(_balance) - Math.Round(value)) >= 0)
+        if((_balance - value) >= 0)
         {
-            BalanceChange(-value);
+            BalanceChange(value * -1);
             return true;
         }
         else
             return false;
     }
 
-    public void AddMoney(double value)
+    public void AddMoney(IdleNumber value)
     {
         BalanceChange(value);
     }
 
-    private void BalanceChange(double value)
+    private void BalanceChange(IdleNumber value)
     {
         _balance += value;
         _saverMoney.WriteValue(_balance);

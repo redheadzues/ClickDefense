@@ -29,7 +29,7 @@ public class TowerSetter : MonoBehaviour
 
                 if (_buildGrid.TryBuild(x, y, 2) == true)
                 {
-                    Tower tower = Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
+                    //Tower tower = Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
                     _navMeshSurface.BuildNavMesh();
                 }                    
             }

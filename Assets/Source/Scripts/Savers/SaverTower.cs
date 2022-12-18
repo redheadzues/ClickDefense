@@ -1,5 +1,3 @@
-using Vector3 = UnityEngine.Vector3;
-
 namespace Saver
 {
     public class SaverTower : Saver
@@ -7,7 +5,6 @@ namespace Saver
         private const string _keyTowerRange = "TowerRange";
         private const string _keyTowerAttakRate = "TowerAttackRate";
         private const string _keyTowerDamage = "TowerDamage";
-        private const string _keyTowerPosition = "TowerPosition";
         private const string _keyTowerLevel = "TowerLevel";
 
         private string _name;
@@ -32,10 +29,6 @@ namespace Saver
             SetDouble(_keyTowerDamage + _name, value);
         }
 
-        public void WritePositon(Vector3 point)
-        {
-            SetVector3(_keyTowerPosition + _name, point);
-        }
 
         public void WriteLevel(int level)
         {
@@ -55,11 +48,6 @@ namespace Saver
         public double ReadDamage(double defaultValue)
         {
             return GetDouble(_keyTowerDamage + _name, defaultValue);
-        }
-
-        public Vector3 ReadPosition(Vector3 defaultPoint)
-        {
-            return GetVector3(_keyTowerPosition + _name, defaultPoint);
         }
 
         public int ReadLevel(int defaultLevel)

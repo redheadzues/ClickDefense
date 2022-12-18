@@ -1,8 +1,7 @@
 using System;
-using UnityEngine;
+using NumbersForIdle;
 
-[RequireComponent(typeof(ITowerData))]
-public class TowerParametrsCalculator : MonoBehaviour, ITowerCalculatedData
+public class TowerParametrsCalculator : ITowerCalculatedData
 {
     private ITowerData _tower;
 
@@ -14,13 +13,13 @@ public class TowerParametrsCalculator : MonoBehaviour, ITowerCalculatedData
 
     public float CurrentAttackRate => CalculateAttackRate();
 
-    public double CurrentDamage => CalculateDamage();
+    public IdleNumber CurrentDamage => CalculateDamage();
 
-    public double CurrentUpgradeCost => CalculateCost();
+    public IdleNumber CurrentUpgradeCost => CalculateCost();
 
-    private void Awake()
+    public TowerParametrsCalculator(ITowerData tower)
     {
-        _tower = GetComponent<ITowerData>();
+        _tower = tower;
     }
 
     private float CalculateRange()
@@ -33,13 +32,19 @@ public class TowerParametrsCalculator : MonoBehaviour, ITowerCalculatedData
         return _tower.AttackRate;
     }
 
-    private double CalculateDamage()
+    private IdleNumber CalculateDamage()
     {
-        return _tower.Damage * Math.Pow(_multiplicator, _tower.Rank);  
+        IdleNumber damage = new(_tower.Damage * Math.Pow(_multiplicator, _tower.Rank));
+
+        return damage;  
     }
 
-    private double CalculateCost()
+    private IdleNumber CalculateCost()
     {
-        return _baseCost * Math.Pow(_baseCostMultiplicator, _tower.Rank * _multiplicator) * _tower.Level;
+        IdleNumber cost = new(_baseCost);
+        cost *= Math.Pow(_baseCostMultiplicator, _tower.Rank * _multiplicator);
+        cost *= _tower.Level;
+
+        return cost;
     }
 }

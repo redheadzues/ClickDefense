@@ -1,35 +1,33 @@
-
-using System;
-
-public class TowerUpgrader : Tower
+public class TowerUpgrader : ITowerUpgrader
 {
-    private int _upgradePoints;
+    private TowerParametrsCalculator _calculator;
+    private ITowerData _towerData;
+    private ITowerUpgrader _upgrader;
+    private IWallet _wallet;
 
-    private void OnEnable()
+    private TowerUpgrader(Tower tower, IWallet wallet)
     {
-        LevelIncreased += OnLevelIncreased;
+        _towerData = tower;
+        _upgrader = tower;
+        _calculator = new TowerParametrsCalculator(_towerData);
+        _wallet = wallet;
     }
 
-    private void OnDisable()
+    public void IncreaseAttackRate()
     {
-        LevelIncreased -= OnLevelIncreased;
+        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+            _upgrader.IncreaseAttackRate();
     }
 
-    private void OnLevelIncreased()
+    public void IncreaseDamage()
     {
-        _upgradePoints++;
+        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+            _upgrader.IncreaseDamage();
     }
 
-    public bool TryUpgradeRange()
+    public void IncreaseRange()
     {
-        if(_upgradePoints > 0)
-        {
-            _upgradePoints--;
-            IncreaseRange(1);
-
-            return true;
-        }
-        else
-            return false;
+        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+            _upgrader.IncreaseRange();
     }
 }
