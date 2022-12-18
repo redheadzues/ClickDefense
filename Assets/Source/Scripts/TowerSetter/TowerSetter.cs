@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class TowerSetter : MonoBehaviour
 {
-    [SerializeField] private Tower _template;
+    //[SerializeField] private Tower _template;
     [SerializeField] private BuildGrid _buildGrid;
     [SerializeField] private ModeSwitcher _modeSwitcher;
     [SerializeField] private NavMeshSurface _navMeshSurface;

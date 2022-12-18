@@ -1,33 +1,34 @@
-public class TowerUpgrader : ITowerUpgrader
+namespace Towers
 {
-    private TowerParametrsCalculator _calculator;
-    private ITowerData _towerData;
-    private ITowerUpgrader _upgrader;
-    private IWallet _wallet;
-
-    private TowerUpgrader(Tower tower, IWallet wallet)
+    public class TowerUpgrader : ITowerUpgrader
     {
-        _towerData = tower;
-        _upgrader = tower;
-        _calculator = new TowerParametrsCalculator(_towerData);
-        _wallet = wallet;
-    }
+        private ITowerUpgrader _upgrader;
+        private IWallet _wallet;
+        private ITowerCalculatedData _calculator;
 
-    public void IncreaseAttackRate()
-    {
-        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
-            _upgrader.IncreaseAttackRate();
-    }
+        public TowerUpgrader(ITowerUpgrader tower, IWallet wallet, ITowerCalculatedData calculator)
+        {
+            _upgrader = tower;
+            _wallet = wallet;
+            _calculator = calculator;
+        }
 
-    public void IncreaseDamage()
-    {
-        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
-            _upgrader.IncreaseDamage();
-    }
+        public void IncreaseAttackRate()
+        {
+            if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+                _upgrader.IncreaseAttackRate();
+        }
 
-    public void IncreaseRange()
-    {
-        if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
-            _upgrader.IncreaseRange();
+        public void IncreaseDamage()
+        {
+            if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+                _upgrader.IncreaseDamage();
+        }
+
+        public void IncreaseRange()
+        {
+            if (_wallet.TrySpendMoney(_calculator.CurrentUpgradeCost))
+                _upgrader.IncreaseRange();
+        }
     }
 }

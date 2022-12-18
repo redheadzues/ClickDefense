@@ -9,7 +9,7 @@ public class Wallet : IWallet
 
     public event Action<IdleNumber> BalanceChanged;
 
-    private Wallet()
+    public Wallet()
     {
         _saverMoney = new SaverMoney();
         _balance = _saverMoney.ReadValue();
