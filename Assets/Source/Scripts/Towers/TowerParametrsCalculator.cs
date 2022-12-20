@@ -5,11 +5,11 @@ namespace Towers
 {
     public class TowerParametrsCalculator : ITowerCalculatedData
     {
-        private ITowerData _tower;
-
         private const float _multiplicator = 1.07f;
         private const float _baseCostMultiplicator = 4.2f;
         private const int _baseCost = 50;
+
+        private ITowerData _tower;
 
         public float CurrentRange => CalculateRange();
 
