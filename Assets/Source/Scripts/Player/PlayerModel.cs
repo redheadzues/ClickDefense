@@ -8,6 +8,7 @@ namespace Player
         private CostCalculator _costCalculator;
 
         public IWallet Wallet => _wallet;
+
         public IDataChangedNotifyer Parametrs => _playerParametrs;
         public IPlayerCalculatedData Damage => _damageCalculator;
         public IPlayerCalculatedData Cost => _costCalculator;
