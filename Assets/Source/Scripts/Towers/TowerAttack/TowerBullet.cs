@@ -1,4 +1,4 @@
-using System;
+using NumbersForIdle;
 using System.Collections;
 using UnityEngine;
 
@@ -7,9 +7,9 @@ public class TowerBullet : MonoBehaviour
     [SerializeField] private float _speed;
 
     private IDamageable _target;
-    private double _damage;
+    private IdleNumber _damage;
 
-    public void Initialize(IDamageable target, double damage)
+    public void Initialize(IDamageable target, IdleNumber damage)
     {
         _target = target;
         _damage = damage;

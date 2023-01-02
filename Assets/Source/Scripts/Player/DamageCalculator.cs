@@ -3,31 +3,36 @@ using NumbersForIdle;
 
 namespace Player
 {
-    public class DamageCalculator : IPlayerCalculatedData
+    public class DamageCalculator : IPlayerDamage
     {
         private const int _percent = 100;
 
         private IPlayerData _playerData;
-        private Random _random;
         private int _levelMultiplicator = 1;
 
         public DamageCalculator(IPlayerData playerData, IDataChangedNotifyer notyfier)
         {
             _playerData = playerData;
-            _random = new Random();
             notyfier.DataChanged += OnDataChanged;
+        }
+
+        public IdleNumber GetPureValue()
+        {
+            IdleNumber damage = new(_playerData.Level * _levelMultiplicator);
+
+            return damage;
         }
 
         public IdleNumber GetValue()
         {
-            IdleNumber damage = new(_playerData.Level * _levelMultiplicator * GetCriticalStrike());
+            IdleNumber damage = GetPureValue() * GetCriticalStrike();
 
             return damage;
         }
 
         private float GetCriticalStrike()
         {
-            if (_playerData.CriticalChance >= (float)_random.Next(0, _percent))
+            if (_playerData.CriticalChance >= RandomFloat.Next(0, _percent))
                 return _playerData.CriticalMultiplicator;
             else
                 return 1;

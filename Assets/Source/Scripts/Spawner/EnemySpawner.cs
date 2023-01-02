@@ -2,38 +2,37 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NumbersForIdle;
 
 public class EnemySpawner : ObjectsPool
 {
     [SerializeField] private EnemyHealth _template;
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private float _secondsBetweenSpawn;
-    [SerializeField] private VaweHealth _vaweHealth;
-    [SerializeField] private VaweCounter _vaweCounter;
-    [SerializeField] private SpawnHealthRandomizer _randomizer;
+    [SerializeField] private float _healthSpred;
 
+    private SpawnHealthRandomizer _randomizer;
+    private IGetEnemyHealth _health;
+    private Vawe _vawe;
     private List<IDamageable> _enemies = new List<IDamageable>();
 
-    public event Action VaweFinished;
-    public event Action<double> EnemyDied;
-
-    private void Awake()
-    {
-        InitializePool<EnemyHealth>(_template);
-        FillDamageableList();
-    }
-
-    private void OnEnable()
-    {
-        _vaweCounter.VaweStarted += OnVaweStarted;
-    }
+    public event Action Finished;
 
     private void OnDisable()
     {
-        _vaweCounter.VaweStarted -= OnVaweStarted;
+        _vawe.Started -= OnVaweStarted;
+    }
 
-        for (int i = 0; i < _enemies.Count; i++)
-            _enemies[i].Died -= OnDied;
+    public void Initialize(IGetEnemyHealth healthGetter, Vawe vawe)
+    {
+        InitializePool<EnemyHealth>(_template);
+        FillDamageableList();
+        _randomizer = new SpawnHealthRandomizer(_healthSpred, healthGetter);
+        _vawe = vawe;
+        _vawe.Started += OnVaweStarted;
+
+        _health = healthGetter;
+
     }
 
     private void FillDamageableList()
@@ -43,7 +42,6 @@ public class EnemySpawner : ObjectsPool
             if (_pool[i].TryGetComponent(out IDamageable damageable))
             {
                 _enemies.Add(damageable);
-                damageable.Died += OnDied;
             }
         }
     }
@@ -54,21 +52,19 @@ public class EnemySpawner : ObjectsPool
         {
             enemy.transform.position = GetRandomPoint();
             enemy.gameObject.SetActive(true);
-            enemy.SetValue(10);
+            enemy.SetValue(new IdleNumber(10));
         }
     }
 
     private void OnVaweStarted()
     {
-        double health = _vaweHealth.GetVaweHealth();
-        _randomizer.Initialize(health);
-
+        _randomizer.Set(10);
         StartCoroutine(OnSpawn());
     }
 
     private bool Spawn()
     {
-        if (_randomizer.GetHealthValue(out double health) == true)
+        if (_randomizer.GetHealthValue(out IdleNumber health) == true)
         {
             if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
             {
@@ -81,7 +77,7 @@ public class EnemySpawner : ObjectsPool
         }
         else
         {
-            VaweFinished?.Invoke();
+            Finished?.Invoke();
             return false;
         }
     }
@@ -97,10 +93,5 @@ public class EnemySpawner : ObjectsPool
     {
         while (Spawn())
             yield return new WaitForSeconds(_secondsBetweenSpawn);
-    }
-
-    private void OnDied(double value)
-    {
-        EnemyDied?.Invoke(value);
     }
 }

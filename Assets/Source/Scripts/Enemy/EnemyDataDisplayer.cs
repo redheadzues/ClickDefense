@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using NumbersForIdle;
 
 [RequireComponent(typeof(IDamageable))]
 public class EnemyDataDisplayer : MonoBehaviour
@@ -24,7 +25,7 @@ public class EnemyDataDisplayer : MonoBehaviour
         _damageable.ValueChanged += OnValueChanged;
     }
 
-    private void OnValueChanged(double health)
+    private void OnValueChanged(IdleNumber health)
     {
         _textHealth.text = health.ToString();
     }
@@ -35,8 +36,6 @@ public class EnemyDataDisplayer : MonoBehaviour
 
         while (_textHealth.gameObject.transform.rotation != Quaternion.LookRotation(Vector3.forward, Vector3.up))
         {
-            print("coroutine");
-
             _textHealth.gameObject.transform.rotation = Quaternion.LookRotation(Vector3.forward, Vector3.up);
             yield return new WaitForSeconds(2f);
         }

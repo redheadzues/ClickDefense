@@ -1,48 +1,47 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Saver;
 
-public class VaweCounter : MonoBehaviour
+public class Vawe : MonoBehaviour
 {
     [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private Button _buttonNextVawe;
+    [SerializeField] private GameLevelUnity _gameLevel;
 
-    private int _vawe;
-    private SaverVawe _saverVawe = new SaverVawe();
+    public event Action Started;
 
-    public int Number => _vawe;
-    public event Action VaweStarted;
+    private void Awake()
+    {
+        _spawner.Initialize(_gameLevel, this);
+    }
 
     private void OnEnable()
     {
-        _spawner.VaweFinished += OnVaweFinished;
+        _spawner.Finished += OnVaweFinished;
         _buttonNextVawe.onClick.AddListener(OnButtonNextVaweClick);
     }
 
     private void Start()
     {
-        _vawe = _saverVawe.ReadValue();
-        VaweStarted?.Invoke();
+        Started?.Invoke();
         _buttonNextVawe.gameObject.SetActive(false);
     }
 
     private void OnDisable()
     {
-        _spawner.VaweFinished -= OnVaweFinished;
+        _spawner.Finished -= OnVaweFinished;
         _buttonNextVawe.onClick.RemoveListener(OnButtonNextVaweClick);
     }
 
     private void OnVaweFinished()
     {
-        _vawe++;
-        _saverVawe.WriteValue(_vawe);
+        _gameLevel.Increase();
         _buttonNextVawe.gameObject.SetActive(true);
     }
 
     private void OnButtonNextVaweClick()
     {
-        VaweStarted?.Invoke();
+        Started?.Invoke();
         _buttonNextVawe.gameObject.SetActive(false);
     }
 }

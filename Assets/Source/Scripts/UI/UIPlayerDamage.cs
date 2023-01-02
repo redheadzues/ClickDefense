@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIPlayerDamage : MonoBehaviour
 {
-    [SerializeField] private ClickDamageCalculator _clickDamage;
+    //[SerializeField] private ClickDamageCalculator _clickDamage;
     [SerializeField] private TMP_Text _textPlayerDamage;
 
     private void OnEnable()

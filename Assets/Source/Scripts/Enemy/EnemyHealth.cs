@@ -1,20 +1,21 @@
 using System;
 using UnityEngine;
+using NumbersForIdle;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private double _value;
+    [SerializeField] private IdleNumber _value;
 
-    private double _startValue;
+    private IdleNumber _startValue;
 
-    public double Value => _value;
+    public IdleNumber Value => _value;
     public Vector3 Position => transform.position;
 
-    public event Action<double> ValueChanged;
-    public event Action<double> Died;
+    public event Action<IdleNumber> ValueChanged;
+    public event Action<IdleNumber> Died;
     public event Action<IDamageable> Killed;
 
-    public void TakeDamage(double damage)
+    public void TakeDamage(IdleNumber damage)
     {
         if(damage > 0)
         {
@@ -22,10 +23,15 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             ValueChanged?.Invoke(_value);
         }
 
-        TryDie();
+        if(TryDie())
+        {
+            Died?.Invoke(_startValue);
+            Killed?.Invoke(this);
+        }
+
     }
 
-    public void SetValue(double value)
+    public void SetValue(IdleNumber value)
     {
 
         _startValue = value;
@@ -33,16 +39,19 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         ValueChanged?.Invoke(_value);
     }
 
-    private void TryDie()
+    private bool TryDie()
     {
         if (_value < 1)
+        {
             Die();
+            return true;
+        }
+        else
+            return false;
     }
 
     private void Die()
     {
-        Died?.Invoke(_startValue);
-        Killed?.Invoke(this);
         gameObject.SetActive(false);
     }    
 }

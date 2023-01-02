@@ -3,7 +3,7 @@ using System;
 
 namespace Player
 {
-    public class CostCalculator : IPlayerCalculatedData
+    public class CostCalculator : IPlayerCalculatedCost
     {
         private IPlayerData _playerData;
 

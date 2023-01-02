@@ -1,4 +1,5 @@
 using UnityEngine;
+using NumbersForIdle;
 
 public class BulletSpawner : ObjectsPool
 {
@@ -9,7 +10,7 @@ public class BulletSpawner : ObjectsPool
         InitializePool<TowerBullet>(_template);
     }
 
-    public void Spawn(Vector3 spawnPoint, IDamageable target, double damage)
+    public void Spawn(Vector3 spawnPoint, IDamageable target, IdleNumber  damage)
     {
         if(TryGetObject<TowerBullet>(out TowerBullet bullet) == true)
         {

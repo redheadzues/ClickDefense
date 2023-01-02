@@ -24,7 +24,7 @@ public class TowerAttaker : MonoBehaviour
     private void Attack()
     {
         IDamageable target = GetTarget();
-        _bulletSpawner.Spawn(_attackPoint.position, target, _damage);
+        //_bulletSpawner.Spawn(_attackPoint.position, target, _damage);
     }
 
     private IDamageable GetTarget()

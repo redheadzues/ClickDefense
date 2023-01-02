@@ -1,6 +1,6 @@
 ﻿using NumbersForIdle;
 
-public interface IPlayerCalculatedData
+public interface IPlayerCalculatedCost
 {
     IdleNumber GetValue();
 }

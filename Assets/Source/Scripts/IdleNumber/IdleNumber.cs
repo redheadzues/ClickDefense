@@ -235,6 +235,11 @@ namespace NumbersForIdle
         {
             return _id;
         }
+
+        public override string ToString()
+        {
+            return Math.Round(Value) + " " + PowTenToName.Get(Degree);
+        }
     }
 }
 

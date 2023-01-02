@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class UIVaweNumber : MonoBehaviour
 {
-    [SerializeField] private VaweCounter _vaweCounter;
+    [SerializeField] private Vawe _vaweCounter;
     [SerializeField] private TMP_Text _textVaweNumber;
 
     private void OnEnable()
     {
-        _vaweCounter.VaweStarted += OnVaweStarted;
+        _vaweCounter.Started += OnVaweStarted;
     }
 
     private void OnDisable()
     {
-        _vaweCounter.VaweStarted -= OnVaweStarted;
+        _vaweCounter.Started -= OnVaweStarted;
     }
 
     private void OnVaweStarted()
     {
-        _textVaweNumber.text = "Волна № " + _vaweCounter.Number.ToString();
+        //_textVaweNumber.text = "Волна № " + _vaweCounter.Number.ToString();
     }
 }

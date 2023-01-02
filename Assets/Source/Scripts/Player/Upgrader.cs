@@ -5,10 +5,10 @@ namespace Player
     public class Upgrader : IPlayerUpgrader
     {
         private IPlayerUpgrader _upgrader;
-        private IPlayerCalculatedData _calculatedData;
+        private IPlayerCalculatedCost _calculatedData;
         private IWallet _wallet;
 
-        public Upgrader(IPlayerUpgrader upgrader, IPlayerCalculatedData calculatedData, IWallet wallet)
+        public Upgrader(IPlayerUpgrader upgrader, IPlayerCalculatedCost calculatedData, IWallet wallet)
         {
             _upgrader = upgrader;
             _calculatedData = calculatedData;

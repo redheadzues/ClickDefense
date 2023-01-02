@@ -1,34 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using NumbersForIdle;
 using UnityEngine;
-using System;
 
-public class SpawnHealthRandomizer : MonoBehaviour
-{
-    [SerializeField] private float _healthSpred = 0.2f;
+public class SpawnHealthRandomizer
+{ 
+    private float _healthSpred;
+    private IGetEnemyHealth _healthGetter;
 
-    private double _health;
+    private IdleNumber _totalVaweHealth;
     private int _count;
 
-
-    public void Initialize(double health, int count = 10)
+    public SpawnHealthRandomizer(float healthSpred, IGetEnemyHealth healthGetter)
     {
-        _health = health;
-        _count = count;
+        _healthSpred = healthSpred;
+        _healthGetter = healthGetter;
     }
 
-    public bool GetHealthValue(out double value)
+    public void Set(int count = 10)
+    {
+        _count = count;
+        _totalVaweHealth = _healthGetter.EnemyHealthValue * count;
+    }
+
+    public bool GetHealthValue(out IdleNumber value)
     {
         if(_count == 1)
         {
-            value = Math.Round(_health);
+            value = _totalVaweHealth;
             return _count-- > 0; 
         }
 
-        float randomHealthMultiplicator = UnityEngine.Random.Range(1 - _healthSpred, 1 + _healthSpred);
-
-        value = Math.Round(_health / _count * randomHealthMultiplicator);
-        _health -= value;
+        float randomHealthMultiplicator = RandomFloat.Next(1 - _healthSpred, 1 + _healthSpred );
+        
+        value = _totalVaweHealth / _count * randomHealthMultiplicator;
+        _totalVaweHealth -= value;
 
         return _count-- > 0;
     }

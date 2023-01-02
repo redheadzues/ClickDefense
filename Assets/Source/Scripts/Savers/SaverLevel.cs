@@ -1,8 +1,8 @@
 namespace Saver
 {
-    public class SaverVawe : Saver
+    public class SaverLevel : Saver
     {
-        private const string _keyVawe = "SavedVawe";
+        private const string _keyVawe = "SavedLevel";
 
         public void WriteValue(int value)
         {
