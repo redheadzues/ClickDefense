@@ -18,7 +18,6 @@ public class GameLevelUnity : MonoBehaviour, IGetEnemyHealth, IGameLevel
 
     public void Increase()
     {
-        print("LevelIncrease");
         _level.Increase();
     }
 }

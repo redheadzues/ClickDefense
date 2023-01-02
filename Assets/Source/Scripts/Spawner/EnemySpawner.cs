@@ -50,7 +50,6 @@ public class EnemySpawner : ObjectsPool
         }
         else
         {
-            print("finished");
             Finished?.Invoke();
             return false;
         }

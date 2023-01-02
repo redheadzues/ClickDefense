@@ -7,7 +7,7 @@ public class SpawnHealthRandomizer
     private IGetEnemyHealth _healthGetter;
 
     private IdleNumber _totalVaweHealth;
-    public int _count;
+    private int _count;
 
     public SpawnHealthRandomizer(float healthSpred, IGetEnemyHealth healthGetter)
     {

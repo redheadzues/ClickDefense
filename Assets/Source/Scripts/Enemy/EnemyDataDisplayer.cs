@@ -27,8 +27,6 @@ public class EnemyDataDisplayer : MonoBehaviour
 
     private void OnValueChanged(IdleNumber health)
     {
-        print(health.Value);
-        print(health.Degree);
         _textHealth.text = health.ToString();
     }
 
