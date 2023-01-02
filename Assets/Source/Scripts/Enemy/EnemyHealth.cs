@@ -4,7 +4,7 @@ using NumbersForIdle;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private IdleNumber _value;
+    private IdleNumber _value;
 
     private IdleNumber _startValue;
 

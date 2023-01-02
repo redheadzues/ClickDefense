@@ -39,10 +39,16 @@ namespace NumbersForIdle
 
         private void NormalizedNumber()
         {
-            while (Math.Abs(Value) >= _tenCubed)
+            while(Math.Abs(Value) >= _tenCubed)
             {
                 Value /= _tenCubed;
                 Degree += 3;
+            }
+
+            while(Math.Abs(Value)*_tenCubed < _tenCubed)
+            {
+                Value *= _tenCubed;
+                Degree -= 3;
             }
         }
 
@@ -116,6 +122,9 @@ namespace NumbersForIdle
 
         public static IdleNumber operator /(IdleNumber dividend, IdleNumber divider)
         {
+            if (divider.Value == 0 || dividend.Value == 0)
+                return new IdleNumber(0);
+
             float resultValue = dividend.Value / divider.Value;
             int resultDegree = dividend.Degree - divider.Degree;
 
