@@ -1,24 +1,21 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(IDamageable))]
 public class ClickReader : MonoBehaviour
 {
     private IDamageable _damageable;
-    //private ClickDamageCalculator _clickDamage;
+
+    public event Action<IDamageable> Clicked;
 
     private void Awake()
     {
         _damageable = GetComponent<IDamageable>();
+        FindObjectOfType<ClickListener>().Add(this);
     }
-
-    //private void OnEnable()
-    //{
-    //    if(_clickDamage == null)
-    //        _clickDamage = FindObjectOfType<ClickDamageCalculator>();
-    //}
 
     private void OnMouseDown()
     {
-        //_damageable.TakeDamage(_clickDamage.GetValue());
+        Clicked?.Invoke(_damageable);
     }
 }

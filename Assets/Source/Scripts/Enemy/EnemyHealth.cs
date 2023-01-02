@@ -28,7 +28,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             Died?.Invoke(_startValue);
             Killed?.Invoke(this);
         }
-
     }
 
     public void SetValue(IdleNumber value)

@@ -12,9 +12,7 @@ public class EnemySpawner : ObjectsPool
     [SerializeField] private float _healthSpred;
 
     private SpawnHealthRandomizer _randomizer;
-    private IGetEnemyHealth _health;
     private Vawe _vawe;
-    private List<IDamageable> _enemies = new List<IDamageable>();
 
     public event Action Finished;
 
@@ -26,34 +24,9 @@ public class EnemySpawner : ObjectsPool
     public void Initialize(IGetEnemyHealth healthGetter, Vawe vawe)
     {
         InitializePool<EnemyHealth>(_template);
-        FillDamageableList();
         _randomizer = new SpawnHealthRandomizer(_healthSpred, healthGetter);
         _vawe = vawe;
         _vawe.Started += OnVaweStarted;
-
-        _health = healthGetter;
-
-    }
-
-    private void FillDamageableList()
-    {
-        for(int i = 0; i< _pool.Count; i++)
-        {
-            if (_pool[i].TryGetComponent(out IDamageable damageable))
-            {
-                _enemies.Add(damageable);
-            }
-        }
-    }
-
-    private void TestingSpawn()
-    {
-        if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
-        {
-            enemy.transform.position = GetRandomPoint();
-            enemy.gameObject.SetActive(true);
-            enemy.SetValue(new IdleNumber(10));
-        }
     }
 
     private void OnVaweStarted()
@@ -68,9 +41,9 @@ public class EnemySpawner : ObjectsPool
         {
             if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
             {
-                enemy.gameObject.SetActive(true);
-                enemy.SetValue(health);
                 enemy.transform.position = GetRandomPoint();
+                enemy.SetValue(health);
+                enemy.gameObject.SetActive(true);
             }
 
             return true;
