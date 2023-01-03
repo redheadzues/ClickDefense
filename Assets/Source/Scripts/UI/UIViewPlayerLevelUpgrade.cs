@@ -2,7 +2,6 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using NumbersForIdle;
 
 public class UIViewPlayerLevelUpgrade : MonoBehaviour
 {
@@ -21,9 +20,14 @@ public class UIViewPlayerLevelUpgrade : MonoBehaviour
         _buttonIncreaseLevel.onClick.RemoveListener(OnButtonIncreaseLevelClicked);
     }
 
-    public void DisplayCurrentData(IdleNumber cost)
+    public void DisplayCurrentData(string cost)
     {
-        _textCost.text = "Улучшить: " + cost.ToString();
+        _textCost.text = "Улучшить: " + cost;
+    }
+
+    public void SetButtonAvailAbleStatus(bool isAvailable)
+    {
+        _buttonIncreaseLevel.enabled = isAvailable;
     }
 
     private void OnButtonIncreaseLevelClicked()

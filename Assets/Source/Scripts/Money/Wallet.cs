@@ -4,7 +4,7 @@ using NumbersForIdle;
 
 namespace Money
 {
-    public class Wallet : IWallet
+    public class Wallet : IWallet, IBalanceNotifyer
     {
         private SaverMoney _saverMoney;
         private IdleNumber _balance;

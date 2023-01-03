@@ -1,5 +1,4 @@
 using NumbersForIdle;
-using System;
 
 namespace Shops
 {
@@ -9,7 +8,7 @@ namespace Shops
         private IPlayerUpgrader _playerUpgrader;
         private IPlayerCalculatedCost _cost;
 
-        public string Price => _cost.GetValue().ToString();
+        public IdleNumber Price => _cost.GetValue();
 
         public ShopPlayer(IWallet wallet, IPlayerUpgrader upgrader, IPlayerCalculatedCost cost)
         {
