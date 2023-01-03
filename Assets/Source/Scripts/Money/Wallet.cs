@@ -2,13 +2,14 @@ using System;
 using Saver;
 using NumbersForIdle;
 
-namespace Player
+namespace Money
 {
     public class Wallet : IWallet
     {
         private SaverMoney _saverMoney;
         private IdleNumber _balance;
 
+        public IdleNumber Balance => _balance;
         public event Action<IdleNumber> BalanceChanged;
 
         public Wallet()

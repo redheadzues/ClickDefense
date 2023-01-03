@@ -9,6 +9,7 @@ public class Vawe : MonoBehaviour
     [SerializeField] private GameLevelUnity _gameLevel;
 
     public event Action Started;
+    public int Number => _gameLevel.Number;
 
     private void Awake()
     {

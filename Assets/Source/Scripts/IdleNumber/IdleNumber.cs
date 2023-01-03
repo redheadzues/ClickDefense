@@ -39,11 +39,22 @@ namespace NumbersForIdle
 
         private void NormalizedNumber()
         {
+            if (Math.Abs(Value) < 1 && Degree != 0)
+            {
+                while (Math.Abs(Value) < 1)
+                {
+                    Value *= _tenCubed;
+                    Degree -= 3;
+                }
+            }
+
             while (Math.Abs(Value) >= _tenCubed)
             {
                 Value /= _tenCubed;
                 Degree += 3;
             }
+
+
         }
 
         public static IdleNumber operator +(IdleNumber leftNumber, IdleNumber rightNumber)

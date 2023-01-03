@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClickListener : MonoBehaviour
 {
-    [SerializeField] private PlayerModel _playerModel;
+    [SerializeField] private PlayerUnity _playerModel;
 
     private List<ClickReader> _clickReaders = new List<ClickReader>();
 

@@ -8,11 +8,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private IdleNumber _startValue;
 
+    public IdleNumber StartValue => _startValue;
     public IdleNumber Value => _value;
     public Vector3 Position => transform.position;
 
     public event Action<IdleNumber> ValueChanged;
-    public event Action<IdleNumber> Died;
     public event Action<IDamageable> Killed;
 
     public void TakeDamage(IdleNumber damage)
@@ -24,10 +24,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         }
 
         if(TryDie())
-        {
-            Died?.Invoke(_startValue);
             Killed?.Invoke(this);
-        }
     }
 
     public void SetValue(IdleNumber value)
