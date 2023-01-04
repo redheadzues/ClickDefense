@@ -1,31 +1,53 @@
 using NumbersForIdle;
+using UnityEngine;
+using Money;
 
 namespace Shops
 {
-    public class ShopPlayer
+    public class ShopPlayer : MonoBehaviour
     {
-        private IWallet _wallet;
-        private IPlayerUpgrader _playerUpgrader;
-        private IPlayerCalculatedCost _cost;
+        [SerializeField] private PlayerUnity _player;
+        [SerializeField] private Wallet _wallet;
+        [SerializeField] private UIViewPlayerLevelUpgrade _increaseLevelView;
 
-        public IdleNumber Price => _cost.GetValue();
-
-        public ShopPlayer(IWallet wallet, IPlayerUpgrader upgrader, IPlayerCalculatedCost cost)
+        private void OnEnable()
         {
-            _wallet = wallet;
-            _playerUpgrader = upgrader; 
-            _cost = cost;
+            _increaseLevelView.ButtonClicked += OnButtonIncreaseLevelClicked;
+            _wallet.BalanceChanged += OnBalanceChanged;
         }
 
-        public bool IncreaseLevel()
+        private void OnDisable()
         {
-            if (_wallet.TrySpendMoney(_cost.GetValue()))
+            _increaseLevelView.ButtonClicked -= OnButtonIncreaseLevelClicked;
+            _wallet.BalanceChanged -= OnBalanceChanged;
+        }
+
+        private bool IncreaseLevel()
+        {
+            if (_wallet.TrySpendMoney(_player.Cost))
             {
-                _playerUpgrader.IncreaseLevel();
+                _player.Parametrs.IncreaseLevel();
                 return true;
             }
             else
                 return false;
+        }
+
+        private void OnButtonIncreaseLevelClicked()
+        {
+            print("click");
+            if (IncreaseLevel())
+            {
+                _increaseLevelView.DisplayCurrentData(_player.Cost.ToString());
+                print("try increase");
+            }
+        }
+
+        private void OnBalanceChanged(IdleNumber balance)
+        {
+            bool isAvailable = balance >= _player.Cost;
+
+            _increaseLevelView.SetButtonAvailAbleStatus(isAvailable);
         }
     }
 }

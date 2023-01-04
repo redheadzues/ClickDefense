@@ -3,21 +3,23 @@ using System;
 
 namespace Player
 {
-    public class CostCalculator : IPlayerCalculatedCost
+    public class CostCalculator
     {
-        private IPlayerData _playerData;
+        private Parametrs _parametrs;
 
         private const float _baseLevelCostMultiplicator = 1.05f;
         private const float _baseCost = 5;
 
-        public CostCalculator(IPlayerData playerData)
+        public IdleNumber CurrentUpgradePrice => GetValue();
+
+        public CostCalculator(Parametrs parametrs)
         {
-            _playerData = playerData;
+            _parametrs = parametrs;
         }
 
-        public IdleNumber GetValue()
+        private IdleNumber GetValue()
         {
-            IdleNumber currentCost = new(_baseCost * Math.Pow(_baseLevelCostMultiplicator, _playerData.Level));
+            IdleNumber currentCost = new(_baseCost * Math.Pow(_baseLevelCostMultiplicator, _parametrs.Level));
 
             return currentCost;
         }

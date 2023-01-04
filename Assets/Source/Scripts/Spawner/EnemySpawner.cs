@@ -21,10 +21,10 @@ public class EnemySpawner : ObjectsPool
         _vawe.Started -= OnVaweStarted;
     }
 
-    public void Initialize(IGetEnemyHealth healthGetter, Vawe vawe)
+    public void Initialize(Vawe vawe)
     {
         InitializePool<EnemyHealth>(_template);
-        _randomizer = new SpawnHealthRandomizer(_healthSpred, healthGetter);
+        _randomizer = new SpawnHealthRandomizer(_healthSpred, vawe);
         _vawe = vawe;
         _vawe.Started += OnVaweStarted;
     }

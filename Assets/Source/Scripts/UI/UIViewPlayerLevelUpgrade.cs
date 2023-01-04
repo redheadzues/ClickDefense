@@ -34,6 +34,4 @@ public class UIViewPlayerLevelUpgrade : MonoBehaviour
     {
         ButtonClicked?.Invoke();
     }
-
-
 }

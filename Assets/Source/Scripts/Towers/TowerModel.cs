@@ -5,9 +5,8 @@ namespace Towers
         private Tower _tower;
         private TowerParametrsCalculator _parametrsCalculator;
 
-        public ITowerCalculatedData TowerCalculatedData => _parametrsCalculator;
-        public ITowerUpgrader TowerUpgrader => _tower;
-        public ITowerData TowerData => _tower;
+        public TowerParametrsCalculator TowerCalculatedData => _parametrsCalculator;
+        public Tower Tower => _tower;
 
         public TowerModel(string name, int rank)
         {

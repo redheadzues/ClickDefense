@@ -1,19 +1,26 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using GameLevel;
+using NumbersForIdle;
 
 public class Vawe : MonoBehaviour
 {
     [SerializeField] private EnemySpawner _spawner;
     [SerializeField] private Button _buttonNextVawe;
-    [SerializeField] private GameLevelUnity _gameLevel;
+
+    private Level _level;
+    private EnemyHealthCalculator _enemyHealthCalculator;
 
     public event Action Started;
-    public int Number => _gameLevel.Number;
+    public int Number => _level.Value;
+    public IdleNumber EnemyHealthValue => _enemyHealthCalculator.GetValue();
 
     private void Awake()
     {
-        _spawner.Initialize(_gameLevel, this);
+        _level = new Level();
+        _enemyHealthCalculator = new EnemyHealthCalculator(_level);
+        _spawner.Initialize(this);
     }
 
     private void OnEnable()
@@ -36,7 +43,7 @@ public class Vawe : MonoBehaviour
 
     private void OnVaweFinished()
     {
-        _gameLevel.Increase();
+        _level.Increase();
         _buttonNextVawe.gameObject.SetActive(true);
     }
 

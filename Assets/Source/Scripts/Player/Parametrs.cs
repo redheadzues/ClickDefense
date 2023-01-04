@@ -3,15 +3,13 @@ using System;
 
 namespace Player
 {
-    public class Parametrs : IPlayerData, IPlayerUpgrader, IDataChangedNotifyer
+    public class Parametrs
     {
         private const int _defaultLevel = 1;
-        private const int _defaultDamage = 1;
         private const float _defaultCriticalChance = 0.5f;
         private const float _defaultCriticalMultiplicator = 1.5f;
 
         private int _level;
-        private int _damage;
         private float _criticalChance;
         private float _criticalMultiplicator;
         private SaverPlayerParametrs _saver;
@@ -19,7 +17,6 @@ namespace Player
         public event Action DataChanged;
 
         public int Level => _level;
-        public int Damage => _damage;
         public float CriticalChance => _criticalChance; 
         public float CriticalMultiplicator => _criticalMultiplicator;
 
@@ -27,7 +24,6 @@ namespace Player
         {
             _saver = new SaverPlayerParametrs();
             _level = _saver.ReadLevel(_defaultLevel);
-            _damage = _saver.ReadDaamge(_defaultDamage);
             _criticalChance = _saver.ReadCriticalChance(_defaultCriticalChance);
             _criticalMultiplicator = _saver.ReadCriticalMultiplicator(_defaultCriticalMultiplicator);
         }

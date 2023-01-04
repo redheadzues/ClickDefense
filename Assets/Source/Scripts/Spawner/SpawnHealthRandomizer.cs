@@ -4,15 +4,15 @@ using UnityEngine;
 public class SpawnHealthRandomizer
 { 
     private float _healthSpred;
-    private IGetEnemyHealth _healthGetter;
+    private Vawe _healthGetter;
 
     private IdleNumber _totalVaweHealth;
     private int _count;
 
-    public SpawnHealthRandomizer(float healthSpred, IGetEnemyHealth healthGetter)
+    public SpawnHealthRandomizer(float healthSpred, Vawe vawe)
     {
         _healthSpred = healthSpred;
-        _healthGetter = healthGetter;
+        _healthGetter = vawe;
     }
 
     public void Set(int count = 10)

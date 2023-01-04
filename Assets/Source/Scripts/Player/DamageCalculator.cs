@@ -3,22 +3,22 @@ using NumbersForIdle;
 
 namespace Player
 {
-    public class DamageCalculator : IPlayerDamage
+    public class DamageCalculator
     {
         private const int _percent = 100;
 
-        private IPlayerData _playerData;
+        private Parametrs _parametrs;
         private int _levelMultiplicator = 1;
 
-        public DamageCalculator(IPlayerData playerData, IDataChangedNotifyer notyfier)
+        public DamageCalculator(Parametrs parametrs)
         {
-            _playerData = playerData;
-            notyfier.DataChanged += OnDataChanged;
+            _parametrs = parametrs;
+            _parametrs.DataChanged += OnDataChanged;
         }
 
         public IdleNumber GetPureValue()
         {
-            IdleNumber damage = new(_playerData.Level * _levelMultiplicator);
+            IdleNumber damage = new(_parametrs.Level * _levelMultiplicator);
 
             return damage;
         }
@@ -32,8 +32,8 @@ namespace Player
 
         private float GetCriticalStrike()
         {
-            if (_playerData.CriticalChance >= RandomFloat.Next(0, _percent))
-                return _playerData.CriticalMultiplicator;
+            if (_parametrs.CriticalChance >= RandomFloat.Next(0, _percent))
+                return _parametrs.CriticalMultiplicator;
             else
                 return 1;
         }
@@ -52,7 +52,7 @@ namespace Player
 
         private int EveryHundredLevelIncreaseDamage()
         {
-            int increaser = _playerData.Level / 100;
+            int increaser = _parametrs.Level / 100;
             increaser *= 3;
             increaser = Math.Clamp(increaser, 1, increaser);
 
@@ -61,7 +61,7 @@ namespace Player
 
         private int EveryTwoHundredLevelIncreaseDamage()
         {
-            int increaser = _playerData.Level / 200;
+            int increaser = _parametrs.Level / 200;
             increaser *= 6;
 
             return increaser;
@@ -71,8 +71,8 @@ namespace Player
         {
             int increaser = 0;
 
-            if (_playerData.Level >= 250)
-                increaser = _playerData.Level / 25;
+            if (_parametrs.Level >= 250)
+                increaser = _parametrs.Level / 25;
 
             increaser *= 4;
 

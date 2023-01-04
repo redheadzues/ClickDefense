@@ -2,7 +2,7 @@ using Saver;
 
 namespace Towers
 {
-    public class Tower : ITowerData, ITowerUpgrader
+    public class Tower
     {
         private const float _baseRange = 3;
         private const float _baseAttackRate = 1;

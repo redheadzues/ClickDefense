@@ -3,13 +3,13 @@ using NumbersForIdle;
 
 namespace Towers
 {
-    public class TowerParametrsCalculator : ITowerCalculatedData
+    public class TowerParametrsCalculator 
     {
         private const float _multiplicator = 1.07f;
         private const float _baseCostMultiplicator = 4.2f;
         private const int _baseCost = 50;
 
-        private ITowerData _tower;
+        private Tower _tower;
 
         public float CurrentRange => CalculateRange();
 
@@ -19,7 +19,7 @@ namespace Towers
 
         public IdleNumber CurrentUpgradeCost => CalculateCost();
 
-        public TowerParametrsCalculator(ITowerData tower)
+        public TowerParametrsCalculator(Tower tower)
         {
             _tower = tower;
         }
