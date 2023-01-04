@@ -39,7 +39,7 @@ public class TowerAttaker : MonoBehaviour
         if (other.TryGetComponent(out IDamageable damageable))
         {
             _targets.Add(damageable);
-            damageable.Killed += OnKilled;
+            damageable.Died += OnKilled;
             
             if (_coroutine == null)
                 _coroutine = StartCoroutine(OnAttack());
@@ -49,14 +49,14 @@ public class TowerAttaker : MonoBehaviour
     private void OnKilled(IDamageable damageable)
     {
         _targets.Remove(damageable);
-        damageable.Killed -= OnKilled;
+        damageable.Died -= OnKilled;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent(out IDamageable damageable))
         {
-            damageable.Killed -= OnKilled;
+            damageable.Died -= OnKilled;
             _targets.Remove(damageable);
         }
     }

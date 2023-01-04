@@ -13,14 +13,14 @@ public class TowerBullet : MonoBehaviour
     {
         _target = target;
         _damage = damage;
-        _target.Killed += OnKilled;
+        _target.Died += OnKilled;
 
         StartCoroutine(OnMove());
     }
 
     private void OnKilled(IDamageable damageable)
     {
-        damageable.Killed -= OnKilled;
+        damageable.Died -= OnKilled;
         StopCoroutine(OnMove());
         gameObject.SetActive(false);
     }
@@ -31,7 +31,7 @@ public class TowerBullet : MonoBehaviour
             if (damageable == _target)
             {
                 _target.TakeDamage(_damage);
-                _target.Killed -= OnKilled;
+                _target.Died -= OnKilled;
                 gameObject.SetActive(false);
             }
     }

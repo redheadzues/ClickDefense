@@ -23,6 +23,10 @@ namespace Player
         public Parametrs()
         {
             _saver = new SaverPlayerParametrs();
+        }
+
+        public void LoadSaves()
+        {
             _level = _saver.ReadLevel(_defaultLevel);
             _criticalChance = _saver.ReadCriticalChance(_defaultCriticalChance);
             _criticalMultiplicator = _saver.ReadCriticalMultiplicator(_defaultCriticalMultiplicator);

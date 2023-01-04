@@ -11,5 +11,5 @@ public interface IDamageable
     public Vector3 Position { get; }
 
     public event Action<IdleNumber> ValueChanged;
-    public event Action<IDamageable> Killed;
+    public event Action<IDamageable> Died;
 }

@@ -29,6 +29,7 @@ namespace Saver
 
         protected void SetIdleNumber(string key, IdleNumber value)
         {
+            PlayerPrefs.SetString(key, key);
             PlayerPrefs.SetFloat(key + "Value", value.Value);
             PlayerPrefs.SetInt(key + "Degree", value.Degree);
         }
@@ -59,7 +60,7 @@ namespace Saver
 
         protected IdleNumber GetIdleNumber(string key, IdleNumber defaultValue)
         {
-            if (PlayerPrefs.HasKey(key + "value"))
+            if (PlayerPrefs.HasKey(key))
                 return new IdleNumber(PlayerPrefs.GetFloat(key + "Value"), PlayerPrefs.GetInt(key + "Degree"));
             else
                 return defaultValue;

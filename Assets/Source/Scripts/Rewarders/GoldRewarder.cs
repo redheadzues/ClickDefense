@@ -1,30 +1,34 @@
-//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using Money;
+using UnityEngine;
+using NumbersForIdle;
+using System.Collections.Generic;
 
-//public class GoldRewarder : MonoBehaviour
-//{
-//    [SerializeField] private GoldCalculator _goldCalculator;
-//    [SerializeField] private EnemySpawner _enemySpawner;
-//    [SerializeField] private Wallet _wallet;
+public class GoldRewarder : MonoBehaviour
+{
+    [SerializeField] private Wallet _wallet;
 
-//    private float _enemyHpMultiplicator = 0.15f;
+    private float _enemyHpMultiplicator = 0.06f;
+    private List<IDamageable> _damageables = new List<IDamageable>();
 
-//    private void OnEnable()
-//    {
-//        _enemySpawner.EnemyDied += OnEnemyDied;
-//    }
+    private void OnDisable()
+    {
+        foreach (IDamageable damageable in _damageables)
+            damageable.Died -= OnDied;
+    }
 
-//    private void OnDisable()
-//    {
-//        _enemySpawner.EnemyDied -= OnEnemyDied;
-//    }
+    public void Add(IDamageable damageable)
+    {
+        if(_damageables.Contains(damageable) == false)
+        {
+            _damageables.Add(damageable);
+            damageable.Died += OnDied;
+        }
+    }
 
-//    private void OnEnemyDied(double value)
-//    {
-//        double reward = value * _enemyHpMultiplicator * _goldCalculator.Multiplicator;
+    private void OnDied(IDamageable damageable)
+    {
+        IdleNumber reward = damageable.StartValue * _enemyHpMultiplicator;
 
-//        _wallet.AddMoney(reward);
-//    }
-//}
+        _wallet.AddMoney(reward);
+    }
+}

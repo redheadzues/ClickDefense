@@ -13,7 +13,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public Vector3 Position => transform.position;
 
     public event Action<IdleNumber> ValueChanged;
-    public event Action<IDamageable> Killed;
+    public event Action<IDamageable> Died;
 
     public void TakeDamage(IdleNumber damage)
     {
@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
         }
 
         if(TryDie())
-            Killed?.Invoke(this);
+            Died?.Invoke(this);
     }
 
     public void SetValue(IdleNumber value)
