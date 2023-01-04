@@ -31,8 +31,6 @@ public class UIInformation : MonoBehaviour
 
     private void OnStartedVawe()
     {
-        print("started");
-        print(_vawe.Number);
         _textVawe.text = _vawe.Number.ToString();
     }
 

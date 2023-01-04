@@ -22,6 +22,11 @@ namespace Shops
             _wallet.BalanceChanged -= OnBalanceChanged;
         }
 
+        private void Start()
+        {
+            _increaseLevelView.DisplayCurrentData(_player.Cost.ToString());
+        }
+
         private bool IncreaseLevel()
         {
             if (_wallet.TrySpendMoney(_player.Cost))
