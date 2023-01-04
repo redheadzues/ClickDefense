@@ -29,6 +29,9 @@ public class GoldRewarder : MonoBehaviour
     {
         IdleNumber reward = damageable.StartValue * _enemyHpMultiplicator;
 
-        _wallet.AddMoney(reward);
+        if (reward < 1)
+            _wallet.AddMoney(new IdleNumber(1));
+        else
+            _wallet.AddMoney(reward);
     }
 }
