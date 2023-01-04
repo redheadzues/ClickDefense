@@ -29,10 +29,8 @@ namespace Shops
 
         private bool IncreaseLevel()
         {
-            print("before check money");
             if (_wallet.TrySpendMoney(_player.Cost))
             {
-                print("afterCheckMoney");
                 _player.Parametrs.IncreaseLevel();
                 return true;
             }
@@ -42,12 +40,8 @@ namespace Shops
 
         private void OnButtonIncreaseLevelClicked()
         {
-            print("click");
             if (IncreaseLevel())
-            {
                 _increaseLevelView.DisplayCurrentData(_player.Cost.ToString());
-                print("try increase");
-            }
         }
 
         private void OnBalanceChanged(IdleNumber balance)

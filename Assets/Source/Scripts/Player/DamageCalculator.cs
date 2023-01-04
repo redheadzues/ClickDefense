@@ -53,10 +53,14 @@ namespace Player
         private int EveryHundredLevelIncreaseDamage()
         {
             int increaser = _parametrs.Level / 100;
-            increaser *= 3;
-            increaser = Math.Clamp(increaser, 1, increaser);
 
-            return increaser;
+            if (increaser == 0)
+                return 1;
+            else
+            {
+                increaser *= 3;            
+                return increaser;
+            }
         }
 
         private int EveryTwoHundredLevelIncreaseDamage()

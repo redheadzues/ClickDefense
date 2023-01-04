@@ -127,6 +127,9 @@ namespace NumbersForIdle
 
         public static IdleNumber operator /(IdleNumber dividend, IdleNumber divider)
         {
+            if(dividend.Value == 0 || divider.Value == 0)
+                return new IdleNumber(0);
+
             float resultValue = dividend.Value / divider.Value;
             int resultDegree = dividend.Degree - divider.Degree;
 
