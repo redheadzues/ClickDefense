@@ -29,8 +29,10 @@ namespace Shops
 
         private bool IncreaseLevel()
         {
+            print("before check money");
             if (_wallet.TrySpendMoney(_player.Cost))
             {
+                print("afterCheckMoney");
                 _player.Parametrs.IncreaseLevel();
                 return true;
             }
