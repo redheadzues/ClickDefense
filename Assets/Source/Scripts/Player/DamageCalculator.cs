@@ -1,4 +1,3 @@
-using System;
 using NumbersForIdle;
 
 namespace Player
@@ -8,27 +7,22 @@ namespace Player
         private const int _percent = 100;
 
         private Parametrs _parametrs;
-        private int _levelMultiplicator = 1;
 
         public DamageCalculator(Parametrs parametrs)
         {
             _parametrs = parametrs;
-            _parametrs.DataChanged += OnDataChanged;
         }
 
         public IdleNumber GetPureValue()
         {
-            IdleNumber damage = new(_parametrs.Level * _levelMultiplicator);
+            IdleNumber damage = new(_parametrs.Level);
 
             return damage;
         }
 
         public IdleNumber GetValue()
         {
-
             IdleNumber damage = GetPureValue() * GetCriticalStrike();
-            if (_parametrs.Level > 10)
-                damage *= 2;
 
             return damage;
         }
@@ -39,51 +33,6 @@ namespace Player
                 return _parametrs.CriticalMultiplicator;
             else
                 return 1;
-        }
-
-        private void OnDataChanged()
-        {
-            _levelMultiplicator = LevelIncreaseDamage();
-        }
-
-        private int LevelIncreaseDamage()
-        {
-            int increaser = EveryHundredLevelIncreaseDamage() + EveryTwoHundredLevelIncreaseDamage() + Every25LevelIncreaser();
-
-            return increaser;
-        }
-
-        private int EveryHundredLevelIncreaseDamage()
-        {
-            int increaser = _parametrs.Level / 100;
-
-            if (increaser == 0)
-                return 1;
-            else
-            {
-                increaser *= 3;            
-                return increaser;
-            }
-        }
-
-        private int EveryTwoHundredLevelIncreaseDamage()
-        {
-            int increaser = _parametrs.Level / 200;
-            increaser *= 6;
-
-            return increaser;
-        }
-
-        private int Every25LevelIncreaser()
-        {
-            int increaser = 0;
-
-            if (_parametrs.Level >= 250)
-                increaser = _parametrs.Level / 25;
-
-            increaser *= 4;
-
-            return increaser;
         }
     }
 }

@@ -1,7 +1,6 @@
 using UnityEngine;
 using Player;
 using NumbersForIdle;
-using System;
 
 public class PlayerUnity : MonoBehaviour
 {
