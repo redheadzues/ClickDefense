@@ -25,7 +25,10 @@ namespace Player
 
         public IdleNumber GetValue()
         {
+
             IdleNumber damage = GetPureValue() * GetCriticalStrike();
+            if (_parametrs.Level > 10)
+                damage *= 2;
 
             return damage;
         }

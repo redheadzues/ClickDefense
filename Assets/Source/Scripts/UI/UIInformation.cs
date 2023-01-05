@@ -29,6 +29,13 @@ public class UIInformation : MonoBehaviour
         _vawe.Started -= OnStartedVawe;
     }
 
+    private void Start()
+    {
+        _textVawe.text = _vawe.Number.ToString();
+        _textDamage.text = _player.Damage.ToString();
+        _textBalance.text = _wallet.Balance.ToString();
+    }
+
     private void OnStartedVawe()
     {
         _textVawe.text = _vawe.Number.ToString();

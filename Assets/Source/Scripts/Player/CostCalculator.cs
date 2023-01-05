@@ -7,7 +7,7 @@ namespace Player
     {
         private Parametrs _parametrs;
 
-        private const float _baseLevelCostMultiplicator = 1.05f;
+        private const float _baseLevelCostMultiplicator = 1.07f;
         private const float _baseCost = 5;
 
         public IdleNumber CurrentUpgradePrice => GetValue();

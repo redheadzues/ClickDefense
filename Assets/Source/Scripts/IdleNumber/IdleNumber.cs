@@ -252,7 +252,14 @@ namespace NumbersForIdle
 
         public override string ToString()
         {
-            return Math.Round(Value) + " " + PowTenToName.Get(Degree);
+            string value;
+
+            if (this > _tenCubed)
+                value = Value.ToString("#.##");
+            else
+                value = Math.Round(Value).ToString();
+
+            return value + " " + PowTenToName.Get(Degree);
         }
     }
 }
