@@ -1,4 +1,4 @@
-﻿namespace Infrustructure
+﻿namespace Assets.Source.Scripts.Infrustructure.States
 {
     public interface IState
     {

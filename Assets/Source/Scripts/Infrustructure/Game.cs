@@ -1,12 +1,14 @@
-﻿namespace Infrustructure
+﻿using Assets.Source.Scripts.Infrustructure.States;
+
+namespace Assets.Source.Scripts.Infrustructure
 {
     public class Game
     {
-        public GameStateMachine GameStateMachine;
+        public GameStateMachine StateMachine;
 
-        public Game()
+        public Game(ICoroutineRunner coroutineRunner)
         {
-            GameStateMachine = new GameStateMachine();
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner));
         }
     }
 }
