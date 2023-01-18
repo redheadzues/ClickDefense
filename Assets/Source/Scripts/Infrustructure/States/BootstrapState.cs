@@ -1,8 +1,8 @@
 ﻿namespace Assets.Source.Scripts.Infrustructure.States
 {
-    internal class BootstrapState : IState
+    internal class BootstrapState : ISimpleState
     {
-        private GameStateMachine _gameStateMachine;
+        private readonly GameStateMachine _gameStateMachine;
         private SceneLoader _sceneLoader;
 
         public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader)
@@ -13,6 +13,7 @@
 
         public void Enter()
         {
+            RegisterServices();
             _sceneLoader.Load("Init", OnLevelLoaded);
         }
 
@@ -22,7 +23,12 @@
 
         private void OnLevelLoaded()
         {
-            _gameStateMachine.Enter<LoadLevelState>();
+            _gameStateMachine.Enter<LoadLevelState, string>("Main");
+        }
+
+        private void RegisterServices()
+        {
+
         }
     }
 }

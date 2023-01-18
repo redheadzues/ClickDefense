@@ -1,6 +1,6 @@
 ﻿namespace Assets.Source.Scripts.Infrustructure.States
 {
-    public class LoadLevelState : IState
+    public class LoadLevelState : IPayLoadedState<string>
     {
         private GameStateMachine _gameStateMachine;
         private SceneLoader _sceneLoader;
@@ -11,9 +11,9 @@
             _sceneLoader = sceneLoader;
         }
 
-        public void Enter()
+        public void Enter(string sceneName)
         {
-            _sceneLoader.Load("MainScene");
+            _sceneLoader.Load(sceneName);
         }
 
         public void Exit()

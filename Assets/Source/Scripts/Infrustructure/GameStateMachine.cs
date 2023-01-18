@@ -18,12 +18,31 @@ namespace Assets.Source.Scripts.Infrustructure
             };
         }
 
-        public void Enter<TState>() where TState : IState
+        public void Enter<TState>() where TState : class, ISimpleState
+        {
+            ISimpleState state = ChangeState<TState>();
+            state.Enter();
+        }
+
+        public void Enter<TState, TPayLoad>(TPayLoad payload) where TState : class,  IPayLoadedState<TPayLoad>
+        {
+            IPayLoadedState<TPayLoad> state = ChangeState<TState>();
+            state.Enter(payload);
+        }
+
+        private TState ChangeState<TState>() where TState : class, IState
         {
             _activeState?.Exit();
-            IState state = _states[typeof(TState)];
-            state.Enter();
+
+            TState state = GetState<TState>();
             _activeState = state;
-        }        
+
+            return state;
+        }
+
+        private TState GetState<TState>() where TState : class, IState
+        {
+            return _states[typeof(TState)] as TState;
+        }
     }
 }
