@@ -1,4 +1,6 @@
-﻿namespace Assets.Source.Scripts.Infrustructure.States
+﻿using UnityEngine;
+
+namespace Assets.Source.Scripts.Infrustructure.States
 {
     public class LoadLevelState : IPayLoadedState<string>
     {
@@ -14,6 +16,11 @@
         public void Enter(string sceneName)
         {
             _sceneLoader.Load(sceneName);
+        }
+
+        private void AddHud()
+        {
+            //Object.Instantiate(Resources.Load<GameObject>("UIInformation"));
         }
 
         public void Exit()
