@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class GoldRewarder : MonoBehaviour
 {
-    [SerializeField] private Wallet _wallet;
+    [SerializeField] private SilverWallet _wallet;
 
     private float _enemyHpMultiplicator = 0.06f;
     private List<IDamageable> _damageables = new List<IDamageable>();

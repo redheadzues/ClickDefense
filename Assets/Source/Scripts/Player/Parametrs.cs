@@ -23,6 +23,7 @@ namespace Player
         public Parametrs()
         {
             _saver = new SaverPlayerParametrs();
+            LoadSaves();
         }
 
         public void LoadSaves()

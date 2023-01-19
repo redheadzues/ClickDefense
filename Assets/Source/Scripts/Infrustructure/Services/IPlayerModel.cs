@@ -1,4 +1,5 @@
-﻿using Player;
+﻿using Money;
+using Player;
 
 namespace Assets.Source.Scripts.Infrustructure.Services
 {
@@ -7,5 +8,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services
         Parametrs Parametrs { get; }
         DamageCalculator DamageCalculator { get; }
         CostCalculator Cost { get; }
+        SilverWallet SilverWallet { get; }
     }
 }

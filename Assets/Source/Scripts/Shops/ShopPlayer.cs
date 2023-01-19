@@ -7,7 +7,7 @@ namespace Shops
     public class ShopPlayer : MonoBehaviour
     {
         [SerializeField] private PlayerUnity _player;
-        [SerializeField] private Wallet _wallet;
+        [SerializeField] private SilverWallet _wallet;
         [SerializeField] private UIViewPlayerLevelUpgrade _increaseLevelView;
 
         private void OnEnable()

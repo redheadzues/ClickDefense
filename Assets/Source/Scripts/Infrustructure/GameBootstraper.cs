@@ -16,5 +16,10 @@ namespace Assets.Source.Scripts.Infrustructure
 
             DontDestroyOnLoad(this);
         }
+
+        public static void Debug(string debug)
+        {
+            print(debug);
+        }
     }
 }

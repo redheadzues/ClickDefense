@@ -7,7 +7,6 @@ using Assets.Source.Scripts.Infrustructure.Services.Factories;
 
 public class EnemySpawner : ObjectsPool
 {
-    [SerializeField] private EnemyHealth _template;
     [SerializeField] private List<Transform> _spawnPoints;
     [SerializeField] private float _secondsBetweenSpawn;
     [SerializeField] private float _healthSpred;
@@ -32,8 +31,6 @@ public class EnemySpawner : ObjectsPool
 
     public void Initialize(Vawe vawe)
     {
-        //InitializePool<EnemyHealth>(_template);
-
         _randomizer = new SpawnHealthRandomizer(_healthSpred, vawe);
         _vawe = vawe;
         _vawe.Started += OnVaweStarted;

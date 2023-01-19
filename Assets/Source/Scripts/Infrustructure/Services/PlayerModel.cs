@@ -1,4 +1,4 @@
-﻿using NumbersForIdle;
+﻿using Money;
 using Player;
 
 namespace Assets.Source.Scripts.Infrustructure.Services
@@ -8,16 +8,19 @@ namespace Assets.Source.Scripts.Infrustructure.Services
         private readonly Parametrs _playerParametrs;
         private readonly DamageCalculator _damageCalculator;
         private readonly CostCalculator _costCalculator;
+        private readonly SilverWallet _silverWallet;
 
         public Parametrs Parametrs => _playerParametrs;
         public DamageCalculator DamageCalculator => _damageCalculator;
         public CostCalculator Cost => _costCalculator;
+        public SilverWallet SilverWallet => _silverWallet;
 
         public PlayerModel()
         {
             _playerParametrs = new Parametrs();
             _damageCalculator = new DamageCalculator(_playerParametrs);
             _costCalculator = new CostCalculator(_playerParametrs);
+            _silverWallet = new SilverWallet();
         }
     }
 }

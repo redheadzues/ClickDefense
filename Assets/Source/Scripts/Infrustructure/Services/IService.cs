@@ -7,6 +7,6 @@
     public interface IPausableService : IService
     {
         void Pause();
-        void Start();
+        void UnPause();
     }
 }

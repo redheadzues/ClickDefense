@@ -6,7 +6,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
     public class ClickListener : IClickListener
     {
         private readonly DamageCalculator _damageCalculator;
-        private readonly List<ClickReader> _clickReaders = new List<ClickReader>();
+        private List<ClickReader> _clickReaders = new List<ClickReader>();
 
         public ClickListener(DamageCalculator damageCalculator)
         {
@@ -27,7 +27,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
             CleanUp();
         }
 
-        public void Start()
+        public void UnPause()
         {
             foreach (ClickReader reader in _clickReaders)
                 reader.Clicked += OnClicked;
@@ -43,7 +43,5 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
         {
             damageable.TakeDamage(_damageCalculator.GetValue());
         }
-
-
     }
 }

@@ -1,13 +1,10 @@
-using UnityEngine;
-using Money;
-using TMPro;
+using Assets.Source.Scripts.Infrustructure.Services;
 using NumbersForIdle;
+using TMPro;
+using UnityEngine;
 
-public class UIInformation : MonoBehaviour
+public class UIHud : MonoBehaviour
 {
-    [Header("Data Components")]
-    [SerializeField] private Wallet _wallet;
-    [SerializeField] private PlayerUnity _player;
     [SerializeField] private Vawe _vawe;
 
     [Header("UI View Text")]
@@ -15,16 +12,25 @@ public class UIInformation : MonoBehaviour
     [SerializeField] private TMP_Text _textDamage;
     [SerializeField] private TMP_Text _textVawe;
 
+    private IPlayerModel _player;
+
+    public void Construct(IPlayerModel player)
+    {
+        _player = player;
+
+        _player.Parametrs.DataChanged += OnPlayerDataChanged;
+        _player.SilverWallet.BalanceChanged += OnBalanceChaged;
+    }
+
     private void OnEnable()
     {
-        _wallet.BalanceChanged += OnBalanceChaged;
-        _player.Parametrs.DataChanged += OnPlayerDataChanged;
         _vawe.Started += OnStartedVawe;
     }
 
+
     private void OnDisable()
     {
-        _wallet.BalanceChanged -= OnBalanceChaged;
+        _player.SilverWallet.BalanceChanged -= OnBalanceChaged;
         _player.Parametrs.DataChanged -= OnPlayerDataChanged;
         _vawe.Started -= OnStartedVawe;
     }
@@ -32,8 +38,8 @@ public class UIInformation : MonoBehaviour
     private void Start()
     {
         _textVawe.text = _vawe.Number.ToString();
-        _textDamage.text = _player.Damage.ToString();
-        _textBalance.text = _wallet.Balance.ToString();
+        _textDamage.text = _player.DamageCalculator.GetValue().ToString();
+        _textBalance.text = _player.SilverWallet.Balance.ToString();
     }
 
     private void OnStartedVawe()
@@ -43,7 +49,7 @@ public class UIInformation : MonoBehaviour
 
     private void OnPlayerDataChanged()
     {
-        _textDamage.text = _player.Damage.ToString();
+        _textDamage.text = _player.DamageCalculator.GetValue().ToString();
     }
 
     private void OnBalanceChaged(IdleNumber balance)

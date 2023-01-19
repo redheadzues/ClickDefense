@@ -1,20 +1,20 @@
 using System;
 using Saver;
 using NumbersForIdle;
-using UnityEngine;
 
 namespace Money
 {
-    public class Wallet : MonoBehaviour
+    public class SilverWallet
     {
-        private SaverMoney _saverMoney = new SaverMoney();
+        private SaverMoney _saverMoney;
         private IdleNumber _balance;
 
         public IdleNumber Balance => _balance;
         public event Action<IdleNumber> BalanceChanged;
 
-        private void Start()
+        public SilverWallet()
         {
+            _saverMoney = new SaverMoney();
             _balance = _saverMoney.ReadValue();
             BalanceChanged?.Invoke(_balance);
         }
