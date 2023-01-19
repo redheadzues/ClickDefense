@@ -4,5 +4,6 @@
     {
         public const string UIInformation = "UI/UIHUD";
         public const string Enemy = "Enemy/Enemy";
+        
     }
 }
