@@ -198,7 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167f87cca9a7494439e8836d1252dc5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wallet: {fileID: 1808338218}
 --- !u!1 &108752716
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +530,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _capacity: 50
   _container: {fileID: 1695643520}
-  _template: {fileID: 3625458488697246667, guid: 1173bb7cdbd99774ea95711325c65b2f, type: 3}
   _spawnPoints:
   - {fileID: 2895152}
   - {fileID: 1576024275}
@@ -912,7 +910,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1647323350}
   - component: {fileID: 1647323349}
-  - component: {fileID: 1647323351}
   m_Layer: 0
   m_Name: Shops
   m_TagString: Untagged
@@ -927,13 +924,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647323348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d83d77b7b5ee1564687285601ab1e27b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _wallet: {fileID: 1808338218}
   _increaseLevelView: {fileID: 1539586313}
 --- !u!4 &1647323350
 Transform:
@@ -950,18 +946,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1647323351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647323348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7b74d71102f0b42bedcd0c11ab4b73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1669039529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1086,7 +1070,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1808338219}
-  - component: {fileID: 1808338218}
   m_Layer: 0
   m_Name: Money
   m_TagString: Untagged
@@ -1094,18 +1077,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1808338218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808338217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bcf3ffa244160a4eabb7306e4956f77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1808338219
 Transform:
   m_ObjectHideFlags: 0
@@ -1139,7 +1110,7 @@ PrefabInstance:
     - target: {fileID: 5184179141139192105, guid: ca48c0183de139f41ae6729f0245ff77, type: 3}
       propertyPath: _wallet
       value: 
-      objectReference: {fileID: 1808338218}
+      objectReference: {fileID: 0}
     - target: {fileID: 5184179141945231264, guid: ca48c0183de139f41ae6729f0245ff77, type: 3}
       propertyPath: m_Name
       value: UIInformation

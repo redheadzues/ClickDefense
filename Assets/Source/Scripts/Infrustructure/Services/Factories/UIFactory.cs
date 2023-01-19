@@ -18,7 +18,8 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud);
 
-            //hud.TryGetComponent(out UIIHud)
+            hud.GetComponentInChildren<UIHud>().Construct(_player);
+
         }
     }
 }

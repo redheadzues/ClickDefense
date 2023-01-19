@@ -7,7 +7,6 @@ public class UIHud : MonoBehaviour
 {
     [SerializeField] private Vawe _vawe;
 
-    [Header("UI View Text")]
     [SerializeField] private TMP_Text _textBalance;
     [SerializeField] private TMP_Text _textDamage;
     [SerializeField] private TMP_Text _textVawe;
@@ -20,31 +19,33 @@ public class UIHud : MonoBehaviour
 
         _player.Parametrs.DataChanged += OnPlayerDataChanged;
         _player.SilverWallet.BalanceChanged += OnBalanceChaged;
+        UpdateData();
     }
 
     private void OnEnable()
     {
-        _vawe.Started += OnStartedVawe;
+        //_vawe.Started += OnStartedVawe;
     }
 
 
     private void OnDisable()
     {
+        
         _player.SilverWallet.BalanceChanged -= OnBalanceChaged;
         _player.Parametrs.DataChanged -= OnPlayerDataChanged;
-        _vawe.Started -= OnStartedVawe;
+        //_vawe.Started -= OnStartedVawe;
     }
 
-    private void Start()
+    private void UpdateData()
     {
-        _textVawe.text = _vawe.Number.ToString();
+        //_textVawe.text = _vawe.Number.ToString();
         _textDamage.text = _player.DamageCalculator.GetValue().ToString();
         _textBalance.text = _player.SilverWallet.Balance.ToString();
     }
 
     private void OnStartedVawe()
     {
-        _textVawe.text = _vawe.Number.ToString();
+        //_textVawe.text = _vawe.Number.ToString();
     }
 
     private void OnPlayerDataChanged()
