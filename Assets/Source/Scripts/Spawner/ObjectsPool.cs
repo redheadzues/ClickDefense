@@ -33,8 +33,15 @@ public class ObjectsPool : MonoBehaviour
 
     protected bool TryGetObject<T>(out T output) where T : MonoBehaviour
     {
-        GameObject exemplar = _pool.FirstOrDefault(deactiveExemplar => deactiveExemplar.activeSelf == false);
-        output = exemplar.GetComponent<T>();
+        if (_pool.Count <= 0)
+            output = null;
+        else
+        {
+            GameObject exemplar = _pool.FirstOrDefault(deactiveExemplar => deactiveExemplar.activeSelf == false);
+            output = exemplar.GetComponent<T>();
+        }
+
+
 
         return output != null;
     }
