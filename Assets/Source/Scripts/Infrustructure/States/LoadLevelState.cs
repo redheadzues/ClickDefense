@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
     public class LoadLevelState : IPayLoadedState<string>
     {
-        private GameStateMachine _gameStateMachine;
-        private SceneLoader _sceneLoader;
+        private readonly GameStateMachine _gameStateMachine;
+        private readonly SceneLoader _sceneLoader;
 
         public LoadLevelState(GameStateMachine gameStateMachine, SceneLoader sceneLoader)
         {
@@ -15,12 +16,12 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Enter(string sceneName)
         {
-            _sceneLoader.Load(sceneName);
+            _sceneLoader.Load(sceneName, OnLoaded);
         }
 
-        private void AddHud()
+        private void OnLoaded()
         {
-            //Object.Instantiate(Resources.Load<GameObject>("UIInformation"));
+            _gameStateMachine.Enter<SceneConstructState>();
         }
 
         public void Exit()

@@ -1,4 +1,6 @@
-﻿using Assets.Source.Scripts.Infrustructure.States;
+﻿using Assets.Source.Scripts.Infrustructure.Services;
+using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.States;
 using System;
 using System.Collections.Generic;
 
@@ -9,12 +11,13 @@ namespace Assets.Source.Scripts.Infrustructure
         private readonly Dictionary<Type, IState> _states;
         private IState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader)
+        public GameStateMachine(SceneLoader sceneLoader, AllServices services)
         {
             _states = new Dictionary<Type, IState>()
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader),
+                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>()),
             };
         }
 
