@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -5,9 +6,18 @@ using UnityEngine;
 public class ObjectsPool : MonoBehaviour
 {
     [SerializeField] private int _capacity;
-    [SerializeField] private GameObject _container;
+    [SerializeField] private Transform _container;
 
     protected List<GameObject> _pool = new List<GameObject>();
+
+    protected void InitializePool(IEnemyFactory enemyFactory)
+    {
+        for(int i = 0; i < _capacity; i++)
+        {
+            GameObject enemy =  enemyFactory.CreateEnemy(_container);
+            _pool.Add(enemy);
+        }
+    }
 
     protected void InitializePool<T>(T sample) where T : MonoBehaviour
     {

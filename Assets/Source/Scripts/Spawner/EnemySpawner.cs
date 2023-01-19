@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NumbersForIdle;
+using Assets.Source.Scripts.Infrustructure.Services.Factories;
 
 public class EnemySpawner : ObjectsPool
 {
@@ -11,10 +12,18 @@ public class EnemySpawner : ObjectsPool
     [SerializeField] private float _secondsBetweenSpawn;
     [SerializeField] private float _healthSpred;
 
+    private IEnemyFactory _enemyFactory;
+
     private SpawnHealthRandomizer _randomizer;
     private Vawe _vawe;
 
     public event Action Finished;
+
+    public void Construct(IEnemyFactory enemyFactory)
+    {
+        _enemyFactory = enemyFactory;
+        InitializePool(_enemyFactory);
+    }
 
     private void OnDisable()
     {
@@ -23,7 +32,8 @@ public class EnemySpawner : ObjectsPool
 
     public void Initialize(Vawe vawe)
     {
-        InitializePool<EnemyHealth>(_template);
+        //InitializePool<EnemyHealth>(_template);
+
         _randomizer = new SpawnHealthRandomizer(_healthSpred, vawe);
         _vawe = vawe;
         _vawe.Started += OnVaweStarted;

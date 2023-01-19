@@ -12,7 +12,6 @@ public class ClickReader : MonoBehaviour
     private void Awake()
     {
         _damageable = GetComponent<IDamageable>();
-        FindObjectOfType<ClickListener>().Register(this);
     }
 
     private void OnMouseDown()

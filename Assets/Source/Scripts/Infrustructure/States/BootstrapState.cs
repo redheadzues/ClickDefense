@@ -39,6 +39,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<IPlayerModel>(new PlayerModel());
             _services.RegisterSingle<IClickListener>(new ClickListener(_services.Single<IPlayerModel>().DamageCalculator));
+            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory(_services.Single<IAssetProvider>(), _services.Single<IClickListener>()));
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
         }
     }

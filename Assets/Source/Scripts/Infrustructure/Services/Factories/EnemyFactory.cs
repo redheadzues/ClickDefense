@@ -15,12 +15,14 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             _clickListener = clickListener;
         }
 
-        public void CreateEnemy()
+        public GameObject CreateEnemy(Transform parent)
         {
-            GameObject enemy = _assetProvider.Instantiate(AssetPath.Enemy);
+            GameObject enemy = _assetProvider.Instantiate(AssetPath.Enemy, parent);
 
             if (enemy.TryGetComponent(out ClickReader clickReader))
                 _clickListener.Register(clickReader);
+
+            return enemy;
         }
     }
 }

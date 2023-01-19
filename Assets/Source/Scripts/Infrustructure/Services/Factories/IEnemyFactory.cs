@@ -1,7 +1,9 @@
-﻿namespace Assets.Source.Scripts.Infrustructure.Services.Factories
+﻿using UnityEngine;
+
+namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
-    public interface IEnemyFactory
+    public interface IEnemyFactory : IService
     {
-        void CreateEnemy();
+        GameObject CreateEnemy(Transform parent);
     }
 }

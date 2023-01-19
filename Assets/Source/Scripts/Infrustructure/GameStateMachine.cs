@@ -17,7 +17,7 @@ namespace Assets.Source.Scripts.Infrustructure
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain),
-                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>(), curtain),
+                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>(), curtain, services.Single<IEnemyFactory>()),
             };
         }
 
