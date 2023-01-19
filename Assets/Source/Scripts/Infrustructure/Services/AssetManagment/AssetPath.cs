@@ -2,6 +2,7 @@
 {
     public static class AssetPath
     {
-        public const string UIInformation = "UIHUD";
+        public const string UIInformation = "UI/UIHUD";
+        public const string Enemy = "Enemy/Enemy";
     }
 }

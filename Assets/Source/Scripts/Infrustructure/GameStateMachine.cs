@@ -11,13 +11,13 @@ namespace Assets.Source.Scripts.Infrustructure
         private readonly Dictionary<Type, IState> _states;
         private IState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, AllServices services)
+        public GameStateMachine(SceneLoader sceneLoader, AllServices services, Curtain curtain)
         {
             _states = new Dictionary<Type, IState>()
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader),
-                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>()),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain),
+                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>(), curtain),
             };
         }
 

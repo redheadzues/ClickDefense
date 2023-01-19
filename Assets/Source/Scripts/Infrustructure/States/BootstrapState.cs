@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services;
 using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
+using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 
 namespace Assets.Source.Scripts.Infrustructure.States
@@ -27,7 +28,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         public void Exit()
         {
         }
-
+        
         private void OnLevelLoaded()
         {
             _gameStateMachine.Enter<LoadLevelState, string>("Main");
@@ -36,8 +37,9 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
             _services.RegisterSingle<IPlayerModel>(new PlayerModel());
+            _services.RegisterSingle<IClickListener>(new ClickListener(_services.Single<IPlayerModel>().DamageCalculator));
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
         }
     }
 }

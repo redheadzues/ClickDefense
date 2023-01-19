@@ -10,16 +10,14 @@ namespace Assets.Source.Scripts.Infrustructure.Services
         private readonly CostCalculator _costCalculator;
 
         public Parametrs Parametrs => _playerParametrs;
-        public IdleNumber Cost => _costCalculator.CurrentUpgradePrice;
-        public IdleNumber Damage => _damageCalculator.GetValue();
+        public DamageCalculator DamageCalculator => _damageCalculator;
+        public CostCalculator Cost => _costCalculator;
 
         public PlayerModel()
         {
             _playerParametrs = new Parametrs();
             _damageCalculator = new DamageCalculator(_playerParametrs);
             _costCalculator = new CostCalculator(_playerParametrs);
-
-            _playerParametrs.LoadSaves();
         }
     }
 }

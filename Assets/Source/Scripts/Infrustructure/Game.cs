@@ -7,9 +7,9 @@ namespace Assets.Source.Scripts.Infrustructure
     {
         public GameStateMachine StateMachine;
 
-        public Game(ICoroutineRunner coroutineRunner)
+        public Game(ICoroutineRunner coroutineRunner, Curtain curtain)
         {
-            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), new AllServices());
+            StateMachine = new GameStateMachine(new SceneLoader(coroutineRunner), new AllServices(), curtain);
         }
     }
 }

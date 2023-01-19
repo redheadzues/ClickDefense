@@ -3,4 +3,10 @@
     public interface IService
     {
     }
+
+    public interface IPausableService : IService
+    {
+        void Pause();
+        void Start();
+    }
 }
