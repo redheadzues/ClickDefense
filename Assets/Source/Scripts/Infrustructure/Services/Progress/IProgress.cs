@@ -2,9 +2,8 @@
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Progress
 {
-    public class ProgressService : IProgressService
+    public interface IProgressService: IService
     {
-        public SceneProgress SceneProgress { get; set; }
-
+        SceneProgress SceneProgress { get; set; }
     }
 }

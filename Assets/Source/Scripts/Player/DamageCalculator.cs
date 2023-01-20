@@ -6,16 +6,16 @@ namespace Player
     {
         private const int _percent = 100;
 
-        private Parametrs _parametrs;
+        private Level _parametrs;
 
-        public DamageCalculator(Parametrs parametrs)
+        public DamageCalculator(Level parametrs)
         {
             _parametrs = parametrs;
         }
 
         public IdleNumber GetPureValue()
         {
-            IdleNumber damage = new(_parametrs.Level);
+            IdleNumber damage = new(_parametrs.Value);
 
             return damage;
         }

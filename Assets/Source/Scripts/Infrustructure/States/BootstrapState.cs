@@ -2,6 +2,7 @@
 using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.Services.Progress;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
@@ -37,6 +38,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void RegisterServices()
         {
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<IProgressService>(new ProgressService());
             _services.RegisterSingle<IPlayerModel>(new PlayerModel());
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IPlayerModel>()));
             _services.RegisterSingle<IClickListener>(new ClickListener(_services.Single<IPlayerModel>().DamageCalculator));
