@@ -4,6 +4,7 @@ using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
@@ -27,6 +28,9 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             //GameObject enemy = _assetProvider.Instantiate(AssetPath.Enemy, parent);
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
             GameObject enemy = Object.Instantiate(enemyData.Prefab, parent);
+
+            enemy.GetComponent<EnemyHealth>().SetValue(enemyData.HP);
+            enemy.GetComponent<NavMeshAgent>().speed = enemyData.Speed;
 
 
             if (enemy.TryGetComponent(out ClickReader clickReader))

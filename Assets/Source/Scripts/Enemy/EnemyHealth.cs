@@ -1,14 +1,9 @@
 using System;
 using UnityEngine;
-using NumbersForIdle;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int _value;
-
-    private int _startValue;
-
-    public int StartValue => _startValue;
+    private int _value;
     public int Value => _value;
     public Vector3 Position => transform.position;
 
@@ -29,8 +24,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     public void SetValue(int value)
     {
-
-        _startValue = value;
         _value = value;
         ValueChanged?.Invoke(_value);
     }
