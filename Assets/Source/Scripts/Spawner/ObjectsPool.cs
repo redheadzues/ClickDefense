@@ -15,7 +15,7 @@ public class ObjectsPool : MonoBehaviour
     {
         for(int i = 0; i < _capacity; i++)
         {
-            GameObject enemy =  enemyFactory.CreateEnemy(_container);
+            GameObject enemy =  enemyFactory.CreateEnemy(_container, enemyTypeId);
             enemy.SetActive(false);
             _pool.Add(enemy);
         }

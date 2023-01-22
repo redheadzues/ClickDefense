@@ -10,7 +10,7 @@ using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 public class EnemySpawner : ObjectsPool
 {
     private float _secondsBetweenSpawn;
-    private EnemyTypeId _mosterTypeId;
+    private EnemyTypeId _enemyTypeId;
 
     private IEnemyFactory _enemyFactory;
 
@@ -23,7 +23,7 @@ public class EnemySpawner : ObjectsPool
     public void Construct(IEnemyFactory enemyFactory)
     {
         _enemyFactory = enemyFactory;
-        InitializePool(_enemyFactory);
+        InitializePool(_enemyFactory, _enemyTypeId);
     }
 
     private void SetSpawnPoint()

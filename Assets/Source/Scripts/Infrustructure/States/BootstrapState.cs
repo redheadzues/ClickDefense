@@ -51,7 +51,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _services.RegisterSingle<IRewarder>(new Rewarder(_services.Single<IWalletHolder>()));
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
             _services.RegisterSingle<IClickInformer>(new ClickInformer());
-            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory(_services.Single<IAssetProvider>(), _services.Single<IClickInformer>(), _services.Single<IRewarder>()));
+            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory(_services.Single<IClickInformer>(), _services.Single<IRewarder>(), _services.Single<IStaticDataService>()));
         }
 
         private void RegisterStaticData()
