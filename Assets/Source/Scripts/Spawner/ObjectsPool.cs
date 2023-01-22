@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
@@ -6,18 +7,20 @@ using UnityEngine;
 
 public class ObjectsPool
 {
-    [SerializeField] private int _capacity;
-    [SerializeField] private Transform _container;
+    private int _capacity = 30;
+    private Transform _container;
 
     protected List<GameObject> _pool = new List<GameObject>();
 
     protected void InitializePool(IEnemyFactory enemyFactory, EnemyTypeId enemyTypeId)
     {
-        for(int i = 0; i < _capacity; i++)
-        {
+
+        for (int i = 0; i < _capacity; i++)
+        {            
             GameObject enemy =  enemyFactory.CreateEnemy(_container, enemyTypeId);
             enemy.SetActive(false);
             _pool.Add(enemy);
+
         }
     }
 
