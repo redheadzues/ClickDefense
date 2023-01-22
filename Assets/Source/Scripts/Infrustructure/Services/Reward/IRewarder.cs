@@ -3,6 +3,6 @@
     public interface IRewarder : IService
     {
         void CleanUp();
-        void RegisterEnemy(IDamageable damageable);
+        void Register(IDamageable damageable);
     }
 }

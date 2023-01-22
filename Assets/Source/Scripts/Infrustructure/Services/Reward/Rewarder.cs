@@ -13,7 +13,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Reward
             _walletHolder = walletHolder;
         }
 
-        public void RegisterEnemy(IDamageable damageable)
+        public void Register(IDamageable damageable)
         {
             if (_damageables.Contains(damageable) == false)
             {
