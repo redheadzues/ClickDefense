@@ -11,7 +11,7 @@ namespace Assets.Source.Scripts.Infrustructure.Data
         public PlayerProgress(string initialLevel)
         {
             GlobalData = new GlobalData(initialLevel);
-            SceneData = new SceneData(1);
+            SceneData = new SceneData();
         }
     }
 }

@@ -1,51 +1,45 @@
+using Assets.Source.Scripts.Infrustructure.Services.Progress;
+using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using System;
-using UnityEngine;
-using UnityEngine.UI;
-using GameLevel;
 
-public class Vawe : MonoBehaviour
+public class Vawe : ISaveProgress
 {
-    //[SerializeField] private EnemySpawner _spawner;
-    //[SerializeField] private Button _buttonNextVawe;
+    private readonly EnemySpawner _spawner;
+    private readonly ISaveLoadService _saveLoad;
+    private int _number;
 
-    private Level _level;
+    public event Action Finished;
 
-    public event Action Started;
-    public int Number => _level.Value;
+    public Vawe(EnemySpawner spawner, ISaveLoadService saveLoad)
+    {
+        _spawner = spawner;
+        _saveLoad = saveLoad;
+        _spawner.Finished += OnVaweFinished;
+    }
 
-    //private void Awake()
-    //{
-    //    _level = new Level();
-    //    _spawner.Initialize(this);
-    //}
+    private void OnVaweFinished()
+    {
+        _saveLoad.SaveProgress();
+    }
 
-    //private void OnEnable()
-    //{
-    //    _spawner.Finished += OnVaweFinished;
-       // _buttonNextVawe.onClick.AddListener(OnButtonNextVaweClick);
-    //}
+    public void StartNewVawe()
+    {
+        _number++;
+        _spawner.StartNewVawe(_number);
+    }
 
-    //private void Start()
-    //{
-    //    Started?.Invoke();
-    //    //_buttonNextVawe.gameObject.SetActive(false);
-    //}
+    public void Register(ISaveLoadService saveLoad)
+    {
+        saveLoad.Register(this);
+    }
 
-    //private void OnDisable()
-    //{
-    //    _spawner.Finished -= OnVaweFinished;
-        //_buttonNextVawe.onClick.RemoveListener(OnButtonNextVaweClick);
-    //}
+    public void SaveProgress(IProgressService progress)
+    {
+        progress.PlayerProgress.SceneData.VaweNumber = _number;
+    }
 
-    //private void OnVaweFinished()
-    //{
-    //    _level.Increase();
-    //    //_buttonNextVawe.gameObject.SetActive(true);
-    //}
-
-    //private void OnButtonNextVaweClick()
-    //{
-    //    Started?.Invoke();
-        //_buttonNextVawe.gameObject.SetActive(false);
-    //}
+    public void LoadProgress(IProgressService progress)
+    {
+        _number = progress.PlayerProgress.SceneData.VaweNumber;
+    }
 }

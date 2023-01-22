@@ -17,8 +17,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly SilverWallet _silverWallet;
         private readonly IClickInformer _clickInformer;
         private readonly IStaticDataService _staticData;
-        private PlayerModel _player;
         private readonly ICoroutineRunner _coroutineRunner;
+        private PlayerModel _player;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
@@ -45,9 +45,11 @@ namespace Assets.Source.Scripts.Infrustructure.States
         public void Enter()
         {
             CreatePlayer();
-            CreateUI();
 
-            EnemySpawner spawner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner); 
+            EnemySpawner spawner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner);
+            Vawe vawe = new Vawe(spawner, _saveload);
+
+            CreateUI();
 
             LoadSceneData();
 

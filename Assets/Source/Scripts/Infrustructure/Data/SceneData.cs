@@ -7,10 +7,13 @@ namespace Assets.Source.Scripts.Infrustructure.Data
     {
         public int PlayerLevel;
         public int SilverAmount;
+        public int VaweNumber;
 
-        public SceneData(int level)
+        public SceneData()
         {
-            PlayerLevel = level;
+            PlayerLevel = 1;
+            SilverAmount = 0;
+            VaweNumber = 1;
         }
 
     }

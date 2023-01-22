@@ -10,9 +10,8 @@ using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 
 public class EnemySpawner : ObjectsPool
 {
-    private float _secondsBetweenSpawn;
-    private List<Vector3> _spawnPoints = new List<Vector3>();
-    private Vawe _vawe;
+    private readonly float _secondsBetweenSpawn;
+    private readonly List<Vector3> _spawnPoints = new List<Vector3>();
     private ICoroutineRunner _coroutineRunner;
     public event Action Finished;
 
@@ -26,13 +25,12 @@ public class EnemySpawner : ObjectsPool
         WriteSpawnPoint(sceneData);
         _secondsBetweenSpawn = sceneData.SecondsBetweenSpawn;
 
-        OnVaweStarted();
+        StartNewVawe(5);
     }
 
-    public void Initialize(Vawe vawe)
+    public void StartNewVawe(int number)
     {
-        _vawe = vawe;
-        _vawe.Started += OnVaweStarted;
+        _coroutineRunner.StartCoroutine(OnSpawn());
     }
 
 
@@ -40,11 +38,6 @@ public class EnemySpawner : ObjectsPool
     {
         foreach (EnemySpawnPoint spawPoint in staticData.EnemySpawnPoint)
             _spawnPoints.Add(spawPoint.Position);
-    }
-
-    private void OnVaweStarted()
-    {
-        _coroutineRunner.StartCoroutine(OnSpawn());
     }
 
     private bool Spawn()
