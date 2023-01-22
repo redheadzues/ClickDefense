@@ -1,11 +1,11 @@
-﻿namespace Assets.Source.Scripts.Infrustructure.Services.Progress
-{
-    public interface ISavedSceneProgress
-    {
-    }
+﻿using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 
-    public interface ISavedPlayerSceneLevelProgress : ISavedSceneProgress
+namespace Assets.Source.Scripts.Infrustructure.Services.Progress
+{
+    public interface ISaveProgress
     {
-        int Value { get; }
+        void Register(ISaveLoadService saveLoad);
+        void SaveProgress(IProgressService progress);
+        void LoadProgress(IProgressService progress);
     }
 }

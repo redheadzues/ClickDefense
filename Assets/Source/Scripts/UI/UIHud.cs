@@ -1,5 +1,4 @@
-using Assets.Source.Scripts.Infrustructure.Services;
-using NumbersForIdle;
+using Assets.Source.Scripts.Player;
 using TMPro;
 using UnityEngine;
 
@@ -11,13 +10,13 @@ public class UIHud : MonoBehaviour
     [SerializeField] private TMP_Text _textDamage;
     [SerializeField] private TMP_Text _textVawe;
 
-    private IPlayerModel _player;
+    private PlayerModel _player;
 
-    public void Construct(IPlayerModel player)
+    public void Construct(PlayerModel player)
     {
         _player = player;
 
-        _player.Parametrs.DataChanged += OnPlayerDataChanged;
+        _player.Level.DataChanged += OnPlayerDataChanged;
         _player.SilverWallet.BalanceChanged += OnBalanceChaged;
         UpdateData();
     }
@@ -32,7 +31,7 @@ public class UIHud : MonoBehaviour
     {
         
         _player.SilverWallet.BalanceChanged -= OnBalanceChaged;
-        _player.Parametrs.DataChanged -= OnPlayerDataChanged;
+        _player.Level.DataChanged -= OnPlayerDataChanged;
         //_vawe.Started -= OnStartedVawe;
     }
 
@@ -53,7 +52,7 @@ public class UIHud : MonoBehaviour
         _textDamage.text = _player.DamageCalculator.GetValue().ToString();
     }
 
-    private void OnBalanceChaged(IdleNumber balance)
+    private void OnBalanceChaged(int balance)
     {
         _textBalance.text = balance.ToString();
     }

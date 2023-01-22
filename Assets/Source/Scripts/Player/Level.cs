@@ -1,10 +1,12 @@
+using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Progress;
+using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Saver;
 using System;
 
 namespace Player
 {
-    public class Level : ISavedPlayerSceneLevelProgress
+    public class Level : ISaveProgress
     {
         private const int _defaultLevel = 1;
 
@@ -16,10 +18,9 @@ namespace Player
         public int Value => _level;
 
 
-        public Level()
+        public Level(ISaveLoadService saveLoad)
         {
-            _saver = new SaverPlayerParametrs();
-            LoadSaves();
+            Register(saveLoad);
         }
 
         public void LoadSaves()
@@ -37,6 +38,21 @@ namespace Player
         private void NotifyAboutChange()
         {
             DataChanged?.Invoke();
+        }
+
+        public void Register(ISaveLoadService saveLoad)
+        {
+            saveLoad.Register(this);
+        }
+
+        public void SaveProgress(IProgressService progress)
+        {
+            progress.PlayerProgress.SceneData.PlayerLevel = _level;
+        }
+
+        public void LoadProgress(IProgressService progress)
+        {
+            _level = progress.PlayerProgress.SceneData.PlayerLevel;
         }
     }
 }

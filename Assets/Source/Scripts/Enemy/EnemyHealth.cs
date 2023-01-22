@@ -4,18 +4,18 @@ using NumbersForIdle;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private IdleNumber _value;
+    [SerializeField] private int _value;
 
-    private IdleNumber _startValue;
+    private int _startValue;
 
-    public IdleNumber StartValue => _startValue;
-    public IdleNumber Value => _value;
+    public int StartValue => _startValue;
+    public int Value => _value;
     public Vector3 Position => transform.position;
 
-    public event Action<IdleNumber> ValueChanged;
+    public event Action<int> ValueChanged;
     public event Action<IDamageable> Died;
 
-    public void TakeDamage(IdleNumber damage)
+    public void TakeDamage(int damage)
     {
         if(damage > 0)
         {
@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
             Died?.Invoke(this);
     }
 
-    public void SetValue(IdleNumber value)
+    public void SetValue(int value)
     {
 
         _startValue = value;

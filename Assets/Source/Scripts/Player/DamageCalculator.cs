@@ -4,35 +4,18 @@ namespace Player
 {
     public class DamageCalculator
     {
-        private const int _percent = 100;
+        private Level _level;
 
-        private Level _parametrs;
-
-        public DamageCalculator(Level parametrs)
+        public DamageCalculator(Level level)
         {
-            _parametrs = parametrs;
+            _level = level;
         }
 
-        public IdleNumber GetPureValue()
+        public int GetValue()
         {
-            IdleNumber damage = new(_parametrs.Value);
+            int damage = _level.Value;
 
             return damage;
-        }
-
-        public IdleNumber GetValue()
-        {
-            IdleNumber damage = GetPureValue() * GetCriticalStrike();
-
-            return damage;
-        }
-
-        private float GetCriticalStrike()
-        {
-            if (_parametrs.CriticalChance >= RandomFloat.Next(0, _percent))
-                return _parametrs.CriticalMultiplicator;
-            else
-                return 1;
-        }
+        }        
     }
 }

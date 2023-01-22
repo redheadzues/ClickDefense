@@ -1,5 +1,9 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services;
+using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.Services.Progress;
+using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
+using Assets.Source.Scripts.Infrustructure.Services.Wallets;
 using Assets.Source.Scripts.Infrustructure.States;
 using System;
 using System.Collections.Generic;
@@ -17,7 +21,16 @@ namespace Assets.Source.Scripts.Infrustructure
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain),
-                [typeof(SceneConstructState)] = new SceneConstructState(services.Single<IUIFactory>(), curtain, services.Single<IEnemyFactory>()),
+                [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IProgressService>(), services.Single<ISaveLoadService>()),
+                
+                [typeof(SceneConstructState)] = new SceneConstructState(
+                    this,
+                    services.Single<IUIFactory>(), 
+                    curtain, 
+                    services.Single<IEnemyFactory>(), 
+                    services.Single<ISaveLoadService>(), 
+                    services.Single<IWalletHolder>().SilverWallet, 
+                    services.Single<IClickInformer>()),
             };
         }
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using NumbersForIdle;
 
 [RequireComponent(typeof(IDamageable))]
 public class EnemyDataDisplayer : MonoBehaviour
@@ -25,7 +24,7 @@ public class EnemyDataDisplayer : MonoBehaviour
         _damageable.ValueChanged += OnValueChanged;
     }
 
-    private void OnValueChanged(IdleNumber health)
+    private void OnValueChanged(int health)
     {
         _textHealth.text = health.ToString();
     }

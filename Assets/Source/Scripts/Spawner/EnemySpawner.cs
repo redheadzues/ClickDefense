@@ -2,19 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NumbersForIdle;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.StaticData;
+using UnityEngine.SceneManagement;
+using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 
 public class EnemySpawner : ObjectsPool
 {
-    [SerializeField] private List<Transform> _spawnPoints;
-    [SerializeField] private float _secondsBetweenSpawn;
-    [SerializeField] private float _healthSpred;
+    private float _secondsBetweenSpawn;
+    private EnemyTypeId _mosterTypeId;
 
     private IEnemyFactory _enemyFactory;
 
-    private SpawnHealthRandomizer _randomizer;
+    private List<Vector3> _spawnPoints;
     private Vawe _vawe;
+    private StaticDataService _staticData;
 
     public event Action Finished;
 
@@ -24,6 +26,15 @@ public class EnemySpawner : ObjectsPool
         InitializePool(_enemyFactory);
     }
 
+    private void SetSpawnPoint()
+    {
+        string sceneKey = SceneManager.GetActiveScene().name;
+        SceneStaticData levelData = _staticData.ForLevel(sceneKey);
+
+        foreach (EnemySpawnPoint spawPoint in levelData.EnemySpawnPoint)
+            _spawnPoints.Add(spawPoint.Position);
+    }
+
     private void OnDisable()
     {
         _vawe.Started -= OnVaweStarted;
@@ -31,34 +42,28 @@ public class EnemySpawner : ObjectsPool
 
     public void Initialize(Vawe vawe)
     {
-        _randomizer = new SpawnHealthRandomizer(_healthSpred, vawe);
         _vawe = vawe;
         _vawe.Started += OnVaweStarted;
     }
 
     private void OnVaweStarted()
     {
-        _randomizer.Set(10);
+        print("started");
         StartCoroutine(OnSpawn());
     }
 
     private bool Spawn()
     {
-        if (_randomizer.GetHealthValue(out IdleNumber health) == true)
+        if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
         {
-            if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
-            {
-                enemy.transform.position = GetRandomPoint();
-                enemy.SetValue(health);
-                enemy.gameObject.SetActive(true);
-            }
-
+            enemy.transform.position = GetRandomPoint();
+            enemy.gameObject.SetActive(true);
             return true;
         }
         else
         {
             Finished?.Invoke();
-            return false;
+            return true;
         }
     }
 
@@ -66,7 +71,7 @@ public class EnemySpawner : ObjectsPool
     {
         int index = UnityEngine.Random.Range(0, _spawnPoints.Count);
 
-        return _spawnPoints[index].position;
+        return Vector3.zero;/*_spawnPoints[index].position*/
     }
 
     private IEnumerator OnSpawn()

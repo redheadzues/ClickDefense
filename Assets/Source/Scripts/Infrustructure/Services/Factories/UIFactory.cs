@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
+using Assets.Source.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
@@ -6,19 +7,17 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
     public class UIFactory : IUIFactory
     {
         private readonly IAssetProvider _assetProvider;
-        private readonly IPlayerModel _player;
 
-        public UIFactory(IAssetProvider assetProvider, IPlayerModel player)
+        public UIFactory(IAssetProvider assetProvider)
         {
             _assetProvider = assetProvider;
-            _player = player;
         }
 
-        public void CreateHud()
+        public void CreateHud(PlayerModel player)
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud);
 
-            hud.GetComponentInChildren<UIHud>().Construct(_player);
+            hud.GetComponentInChildren<UIHud>().Construct(player);
 
         }
     }

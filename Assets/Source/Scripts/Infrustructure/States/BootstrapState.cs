@@ -3,11 +3,16 @@ using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Progress;
+using Assets.Source.Scripts.Infrustructure.Services.Reward;
+using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
+using Assets.Source.Scripts.Infrustructure.Services.StaticData;
+using Assets.Source.Scripts.Infrustructure.Services.Wallets;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
     internal class BootstrapState : ISimpleState
     {
+        private const string InitialSceneName = "Init";
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly AllServices _services;
@@ -23,7 +28,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Enter()
         {
-            _sceneLoader.Load("Init", OnLevelLoaded);
+            _sceneLoader.Load(InitialSceneName, OnLevelLoaded);
         }
 
         public void Exit()
@@ -32,17 +37,28 @@ namespace Assets.Source.Scripts.Infrustructure.States
         
         private void OnLevelLoaded()
         {
-            _gameStateMachine.Enter<LoadLevelState, string>("Main");
+            _gameStateMachine.Enter<LoadProgressState>();
         }
 
         private void RegisterServices()
         {
-            _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            RegisterStaticData();
+
             _services.RegisterSingle<IProgressService>(new ProgressService());
-            _services.RegisterSingle<IPlayerModel>(new PlayerModel());
-            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>(), _services.Single<IPlayerModel>()));
-            _services.RegisterSingle<IClickListener>(new ClickListener(_services.Single<IPlayerModel>().DamageCalculator));
-            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory(_services.Single<IAssetProvider>(), _services.Single<IClickListener>()));
+            _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IProgressService>()));
+            _services.RegisterSingle<IWalletHolder>(new WalletHolder(_services.Single<ISaveLoadService>()));
+            _services.RegisterSingle<IRewarder>(new Rewarder(_services.Single<IWalletHolder>()));
+            _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
+            _services.RegisterSingle<IClickInformer>(new ClickInformer());
+            _services.RegisterSingle<IEnemyFactory>(new EnemyFactory(_services.Single<IAssetProvider>(), _services.Single<IClickInformer>(), _services.Single<IRewarder>()));
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.Load();
+            _services.Container.RegisterSingle(staticData);
         }
     }
 }

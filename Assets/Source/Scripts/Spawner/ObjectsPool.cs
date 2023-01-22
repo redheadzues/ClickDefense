@@ -1,4 +1,5 @@
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class ObjectsPool : MonoBehaviour
 
     protected List<GameObject> _pool = new List<GameObject>();
 
-    protected void InitializePool(IEnemyFactory enemyFactory)
+    protected void InitializePool(IEnemyFactory enemyFactory, EnemyTypeId enemyTypeId)
     {
         for(int i = 0; i < _capacity; i++)
         {

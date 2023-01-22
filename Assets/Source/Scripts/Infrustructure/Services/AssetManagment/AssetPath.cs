@@ -3,7 +3,7 @@
     public static class AssetPath
     {
         public const string Hud = "UI/UIHUD";
-        public const string Enemy = "Enemy/Enemy";
+        public const string Enemy = "Enemy/Smile";
         
     }
 }

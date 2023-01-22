@@ -1,7 +1,9 @@
-﻿namespace Assets.Source.Scripts.Infrustructure.Services.Factories
+﻿using Assets.Source.Scripts.Player;
+
+namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
     public interface IUIFactory : IService
     {
-        void CreateHud();
+        void CreateHud(PlayerModel player);
     }
 }

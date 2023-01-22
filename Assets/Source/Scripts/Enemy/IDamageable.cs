@@ -1,15 +1,14 @@
 using System;
 using UnityEngine;
-using NumbersForIdle;
 
 public interface IDamageable
 {
-    void TakeDamage(IdleNumber damage);
+    void TakeDamage(int damage);
 
-    public IdleNumber Value {get;}
-    public IdleNumber StartValue { get; }
+    public int Value {get;}
+    public int StartValue { get; }
     public Vector3 Position { get; }
 
-    public event Action<IdleNumber> ValueChanged;
+    public event Action<int> ValueChanged;
     public event Action<IDamageable> Died;
 }
