@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
+﻿using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Infrustructure.StaticData;
@@ -33,14 +34,15 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         private static void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
         {
-            enemy.GetComponent<EnemyHealth>().SetValue(enemyData.HP);
+            enemy.GetComponent<EnemyHealth>().SetNewValue(enemyData.HP);
+            enemy.GetComponent<IEnemy>().Reward = enemyData.Reward;
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.Speed;
         }
 
         private void RegisterEnemy(GameObject enemy)
         {
             _clickListener.Register(enemy.GetComponent<ClickReader>());
-            _rewarder.Register(enemy.GetComponent<IDamageable>());
+            _rewarder.Register(enemy.GetComponent<IEnemy>());
         }
     }
 }

@@ -57,6 +57,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void RegisterStaticData()
         {
             IStaticDataService staticData = new StaticDataService();
+
+            GameBootstraper.Debug(staticData.ToString());
             staticData.Load();
             _services.Container.RegisterSingle(staticData);
         }

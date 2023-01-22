@@ -6,6 +6,7 @@ using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using UnityEngine.SceneManagement;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
+using Assets.Source.Scripts.Enemies;
 
 public class EnemySpawner : ObjectsPool
 {

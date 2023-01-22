@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
+﻿using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Player;
 
 namespace Assets.Source.Scripts.Player

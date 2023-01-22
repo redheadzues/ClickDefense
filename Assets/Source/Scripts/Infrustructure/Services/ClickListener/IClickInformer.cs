@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Source.Scripts.Enemies;
+using System;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
 {

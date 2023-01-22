@@ -1,11 +1,12 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.Wallets;
+﻿using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure.Services.Wallets;
 using System.Collections.Generic;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Reward
 {
     public class Rewarder : IRewarder
     {
-        private List<IDamageable> _damageables = new List<IDamageable>();
+        private List<IEnemy> _damageables = new List<IEnemy>();
         private readonly IWalletHolder _walletHolder;
 
         public Rewarder(IWalletHolder walletHolder)
@@ -13,26 +14,24 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Reward
             _walletHolder = walletHolder;
         }
 
-        public void Register(IDamageable damageable)
+        public void Register(IEnemy damageable)
         {
             if (_damageables.Contains(damageable) == false)
             {
                 _damageables.Add(damageable);
-                damageable.Died += OnDie;
+                damageable.Died += OnDied;
             }
         }
 
         public void CleanUp()
         {
-            foreach (IDamageable damageable in _damageables)
-            {
-                damageable.Died -= OnDie;
-            }
+            foreach (IEnemy damageable in _damageables)
+                damageable.Died -= OnDied;
         }
 
-        private void OnDie(IDamageable damageable)
+        private void OnDied(IEnemy enemy)
         {
-            _walletHolder.SilverWallet.AddMoney(1);
+            _walletHolder.SilverWallet.AddMoney(enemy.Reward);
         }
     }
 }
