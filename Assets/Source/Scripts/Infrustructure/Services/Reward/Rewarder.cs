@@ -14,12 +14,12 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Reward
             _walletHolder = walletHolder;
         }
 
-        public void Register(IEnemy damageable)
+        public void Register(IEnemy enemy)
         {
-            if (_damageables.Contains(damageable) == false)
+            if (_damageables.Contains(enemy) == false)
             {
-                _damageables.Add(damageable);
-                damageable.Died += OnDied;
+                _damageables.Add(enemy);
+                enemy.Died += OnDied;
             }
         }
 

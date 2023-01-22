@@ -7,7 +7,7 @@ namespace Assets.Source.Scripts.Enemies
     {
         [SerializeField] private EnemyHealth _health;
 
-        public Action Happend;
+        public event Action Happend;
 
         private void OnEnable()
         {

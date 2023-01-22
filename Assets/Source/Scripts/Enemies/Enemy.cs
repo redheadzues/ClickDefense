@@ -16,12 +16,13 @@ namespace Assets.Source.Scripts.Enemies
 
         private void OnEnable()
         {
-            _health.HealthChanged += HealthChanged;
+            _health.HealthChanged += OnHealthChanged;
             _death.Happend += OnDeathHappend;
         }
-        private void OnDestroy()
+
+        private void OnDisable()
         {
-            _health.HealthChanged -= HealthChanged;
+            _health.HealthChanged -= OnHealthChanged;
             _death.Happend -= OnDeathHappend;
         }
 
@@ -33,7 +34,11 @@ namespace Assets.Source.Scripts.Enemies
         private void OnDeathHappend()
         {
             Died?.Invoke(this);
-            gameObject.SetActive(false);
+        }
+
+        private void OnHealthChanged(int value)
+        {
+            HealthChanged?.Invoke(value);
         }
     }
 }

@@ -52,8 +52,8 @@ public class EnemySpawner : ObjectsPool
         if (TryGetObject(out EnemyHealth enemy) == true)
         {
             enemy.transform.position = GetRandomPoint();
-            enemy.ResetCurrentValue();
             enemy.gameObject.SetActive(true);
+            enemy.ResetCurrentValue();
             return true;
         }
         else
