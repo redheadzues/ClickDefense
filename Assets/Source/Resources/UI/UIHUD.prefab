@@ -570,7 +570,6 @@ GameObject:
   - component: {fileID: 5184179141139192101}
   - component: {fileID: 5184179141139192104}
   - component: {fileID: 5184179141139192103}
-  - component: {fileID: 4722648293692015668}
   m_Layer: 5
   m_Name: PanelInformation
   m_TagString: Untagged
@@ -640,22 +639,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4722648293692015668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5184179141139192100}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be227aacadcc39b4484f101210753d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _vawe: {fileID: 0}
-  _textBalance: {fileID: 5184179141344236272}
-  _textDamage: {fileID: 5184179141146619131}
-  _textVawe: {fileID: 5184179141544911098}
 --- !u!1 &5184179141146619129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,7 +1287,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5184179141548165777}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3002940569626389901}
+        m_TargetAssemblyTypeName: UIButtonNextVawe, Assembly-CSharp
+        m_MethodName: Click
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5184179141684950451
 GameObject:
   m_ObjectHideFlags: 0
@@ -1368,7 +1363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -1531,6 +1526,8 @@ GameObject:
   - component: {fileID: 5184179141945231267}
   - component: {fileID: 5184179141945231266}
   - component: {fileID: 5184179141945231265}
+  - component: {fileID: 7638969177993385599}
+  - component: {fileID: 3002940569626389901}
   m_Layer: 5
   m_Name: UIHUD
   m_TagString: Untagged
@@ -1622,3 +1619,31 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7638969177993385599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184179141945231264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be227aacadcc39b4484f101210753d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textBalance: {fileID: 5184179141344236272}
+  _textDamage: {fileID: 5184179141146619131}
+  _textVawe: {fileID: 5184179141544911098}
+--- !u!114 &3002940569626389901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184179141945231264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a67de78d56daf79438ff5793cc6d0c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _buttonNextVawe: {fileID: 5184179141548165776}

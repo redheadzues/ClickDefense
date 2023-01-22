@@ -24,8 +24,6 @@ public class EnemySpawner : ObjectsPool
         InitializePool(enemyFactory, sceneData.EnemyTypeId);
         WriteSpawnPoint(sceneData);
         _secondsBetweenSpawn = sceneData.SecondsBetweenSpawn;
-
-        StartNewVawe(5);
     }
 
     public void StartNewVawe(int number)

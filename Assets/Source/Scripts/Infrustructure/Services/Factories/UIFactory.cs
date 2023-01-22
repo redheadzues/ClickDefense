@@ -13,11 +13,12 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public void CreateHud(PlayerModel player)
+        public void CreateHud(PlayerModel player, Vawe vawe)
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud);
 
             hud.GetComponentInChildren<UIHud>().Construct(player);
+            hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
 
         }
     }

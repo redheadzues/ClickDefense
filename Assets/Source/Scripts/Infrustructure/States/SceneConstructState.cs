@@ -19,12 +19,15 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly IStaticDataService _staticData;
         private readonly ICoroutineRunner _coroutineRunner;
         private PlayerModel _player;
+        private Vawe _vawe;
+        private EnemySpawner _spawwner;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
             IUIFactory uiFactory,
             Curtain curtain,
-            IEnemyFactory enemyFactory,
+            IEnemyFactory
+            enemyFactory,
             ISaveLoadService saveLoad,
             SilverWallet silverWallet,
             IClickInformer clickInformer,
@@ -46,8 +49,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         {
             CreatePlayer();
 
-            EnemySpawner spawner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner);
-            Vawe vawe = new Vawe(spawner, _saveload);
+            _spawwner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner);
+            _vawe = new Vawe(_spawwner, _saveload);
 
             CreateUI();
 
@@ -56,11 +59,9 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _curtain.Hide();
         }
 
-
-
         private void CreateUI()
         {
-            _uiFactory.CreateHud(_player);
+            _uiFactory.CreateHud(_player, _vawe);
         }
 
         public void Exit()
