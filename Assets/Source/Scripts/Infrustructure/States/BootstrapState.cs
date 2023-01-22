@@ -16,12 +16,14 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly AllServices _services;
+        private readonly ICoroutineRunner _coroutineRunner;
 
-        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, AllServices services)
+        public BootstrapState(GameStateMachine gameStateMachine, SceneLoader sceneLoader, AllServices services, ICoroutineRunner coroutineRunner)
         {
             _gameStateMachine = gameStateMachine;
             _sceneLoader = sceneLoader;
             _services = services;
+            _coroutineRunner = coroutineRunner;
 
             RegisterServices();
         }
@@ -44,6 +46,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         {
             RegisterStaticData();
 
+            _services.RegisterSingle(_coroutineRunner);
             _services.RegisterSingle<IProgressService>(new ProgressService());
             _services.RegisterSingle<IAssetProvider>(new AssetProvider());
             _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IProgressService>()));
@@ -57,10 +60,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void RegisterStaticData()
         {
             IStaticDataService staticData = new StaticDataService();
-
-            GameBootstraper.Debug(staticData.ToString());
             staticData.Load();
-            _services.Container.RegisterSingle(staticData);
+            _services.RegisterSingle(staticData);
         }
     }
 }

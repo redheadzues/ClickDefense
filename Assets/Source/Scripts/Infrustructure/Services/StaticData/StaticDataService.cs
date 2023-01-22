@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
 {
@@ -13,7 +14,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         public void Load()
         {
             _enemies = Resources.LoadAll<EnemyStaticData>("StaticData/Enemies").ToDictionary(x => x.EnemyTypeId, x => x);
-            _scenes = Resources.LoadAll<SceneStaticData>("StaticData/Levels").ToDictionary(x => x.SceneKey, x => x);
+            _scenes = Resources.LoadAll<SceneStaticData>("StaticData/SceneData").ToDictionary(x => x.SceneKey, x => x);
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -21,9 +22,20 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             ?
             enemyStaticData : null;
 
-        public SceneStaticData ForLevel(string sceneKey) =>
-            _scenes.TryGetValue(sceneKey, out SceneStaticData sceneData)
-            ?
-            sceneData : null;
+        public SceneStaticData ForLevel()
+        {
+            string sceneKey = SceneManager.GetActiveScene().name;
+
+            return _scenes.TryGetValue(sceneKey, out SceneStaticData sceneData) ? sceneData : null;
+        }
+
+        //private SceneStaticData ExtractSceneData(IStaticDataService staticData)
+        //{
+
+        //    SceneStaticData sceneData = staticData.ForLevel(sceneKey);
+
+        //    return sceneData;
+        //}
+
     }
 }

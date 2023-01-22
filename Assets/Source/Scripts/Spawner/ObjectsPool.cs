@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ObjectsPool : MonoBehaviour
+public class ObjectsPool
 {
     [SerializeField] private int _capacity;
     [SerializeField] private Transform _container;
@@ -21,18 +21,6 @@ public class ObjectsPool : MonoBehaviour
         }
     }
 
-    protected void InitializePool<T>(T sample) where T : MonoBehaviour
-    {
-        GameObject template = sample.gameObject;
-
-        for(int i = 0; i < _capacity; i++)
-        {
-            GameObject newExemplar = Instantiate(template, _container.transform);
-            newExemplar.SetActive(false);
-            _pool.Add(newExemplar);
-        }
-    }
-
     protected bool TryGetObject<T>(out T output) where T : MonoBehaviour
     {
         if (_pool.Count <= 0)
@@ -40,10 +28,8 @@ public class ObjectsPool : MonoBehaviour
         else
         {
             GameObject exemplar = _pool.FirstOrDefault(deactiveExemplar => deactiveExemplar.activeSelf == false);
-            output = exemplar.GetComponent<T>();
+            output = exemplar?.GetComponent<T>();
         }
-
-
 
         return output != null;
     }

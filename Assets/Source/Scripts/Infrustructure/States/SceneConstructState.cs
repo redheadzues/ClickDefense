@@ -1,9 +1,9 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
+using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
 using Money;
-using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
@@ -16,17 +16,20 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly Curtain _curtain;
         private readonly SilverWallet _silverWallet;
         private readonly IClickInformer _clickInformer;
+        private readonly IStaticDataService _staticData;
         private PlayerModel _player;
-        
+        private readonly ICoroutineRunner _coroutineRunner;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
-            IUIFactory uiFactory, 
-            Curtain curtain, 
-            IEnemyFactory enemyFactory, 
-            ISaveLoadService saveLoad, 
-            SilverWallet silverWallet, 
-            IClickInformer clickInformer)
+            IUIFactory uiFactory,
+            Curtain curtain,
+            IEnemyFactory enemyFactory,
+            ISaveLoadService saveLoad,
+            SilverWallet silverWallet,
+            IClickInformer clickInformer,
+            IStaticDataService staticData,
+            ICoroutineRunner coroutineRunner)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
@@ -35,18 +38,23 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _saveload = saveLoad;
             _silverWallet = silverWallet;
             _clickInformer = clickInformer;
+            _staticData = staticData;
+            _coroutineRunner = coroutineRunner;
         }
 
         public void Enter()
         {
             CreatePlayer();
             CreateUI();
-            GameObject.FindObjectOfType<EnemySpawner>().Construct(_enemyFactory);
+
+            EnemySpawner spawner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner); 
 
             LoadSceneData();
 
             _curtain.Hide();
         }
+
+
 
         private void CreateUI()
         {

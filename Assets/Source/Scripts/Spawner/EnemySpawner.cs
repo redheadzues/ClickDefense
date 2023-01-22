@@ -4,41 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
-using UnityEngine.SceneManagement;
-using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure;
+using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 
 public class EnemySpawner : ObjectsPool
 {
     private float _secondsBetweenSpawn;
-    private EnemyTypeId _enemyTypeId;
-
-    private IEnemyFactory _enemyFactory;
-
-    private List<Vector3> _spawnPoints;
+    private List<Vector3> _spawnPoints = new List<Vector3>();
     private Vawe _vawe;
-    private StaticDataService _staticData;
-
+    private ICoroutineRunner _coroutineRunner;
     public event Action Finished;
 
-    public void Construct(IEnemyFactory enemyFactory)
+    public EnemySpawner(IEnemyFactory enemyFactory, IStaticDataService staticData, ICoroutineRunner coroutineRunner)
     {
-        _enemyFactory = enemyFactory;
-        InitializePool(_enemyFactory, _enemyTypeId);
-    }
+        _coroutineRunner = coroutineRunner;
 
-    private void SetSpawnPoint()
-    {
-        string sceneKey = SceneManager.GetActiveScene().name;
-        SceneStaticData levelData = _staticData.ForLevel(sceneKey);
+        SceneStaticData sceneData = staticData.ForLevel();
 
-        foreach (EnemySpawnPoint spawPoint in levelData.EnemySpawnPoint)
-            _spawnPoints.Add(spawPoint.Position);
-    }
+        InitializePool(enemyFactory, sceneData.EnemyTypeId);
+        WriteSpawnPoint(sceneData);
 
-    private void OnDisable()
-    {
-        _vawe.Started -= OnVaweStarted;
+        OnVaweStarted();
     }
 
     public void Initialize(Vawe vawe)
@@ -47,17 +34,24 @@ public class EnemySpawner : ObjectsPool
         _vawe.Started += OnVaweStarted;
     }
 
+
+    private void WriteSpawnPoint(SceneStaticData staticData)
+    {
+        foreach (EnemySpawnPoint spawPoint in staticData.EnemySpawnPoint)
+            _spawnPoints.Add(spawPoint.Position);
+    }
+
     private void OnVaweStarted()
     {
-        print("started");
-        StartCoroutine(OnSpawn());
+        _coroutineRunner.StartCoroutine(OnSpawn());
     }
 
     private bool Spawn()
     {
-        if (TryGetObject<EnemyHealth>(out EnemyHealth enemy) == true)
+        if (TryGetObject(out EnemyHealth enemy) == true)
         {
             enemy.transform.position = GetRandomPoint();
+            enemy.ResetCurrentValue();
             enemy.gameObject.SetActive(true);
             return true;
         }
@@ -72,7 +66,7 @@ public class EnemySpawner : ObjectsPool
     {
         int index = UnityEngine.Random.Range(0, _spawnPoints.Count);
 
-        return Vector3.zero;/*_spawnPoints[index].position*/
+        return _spawnPoints[index];
     }
 
     private IEnumerator OnSpawn()

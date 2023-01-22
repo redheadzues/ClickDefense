@@ -287,7 +287,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e77e26c03bbfbf4ea11536e2026e2bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _navMeshAgent: {fileID: 4047578243896210117}
   _health: {fileID: 3501097090731435461}
   _death: {fileID: 778529453301484770}
 --- !u!114 &3501097090731435461
@@ -328,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textHealth: {fileID: 7152010882413785735}
-  _health: {fileID: 0}
+  _health: {fileID: 6041001976453627513}
 --- !u!114 &2795884040320495039
 MonoBehaviour:
   m_ObjectHideFlags: 0
