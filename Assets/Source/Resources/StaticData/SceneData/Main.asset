@@ -13,11 +13,19 @@ MonoBehaviour:
   m_Name: Main
   m_EditorClassIdentifier: 
   SceneKey: Main
+  SecondsBetweenSpawn: 2
   EnemySpawnPoint:
   - Position: {x: 16.09, y: 1.4449999, z: -10.65}
   - Position: {x: 31.09, y: 1.4449999, z: 6.35}
   - Position: {x: 24.09, y: 1.4449999, z: -2.15}
   - Position: {x: 27.09, y: 1.4449999, z: 2.1}
   - Position: {x: 20.62, y: 1.4449999, z: -6}
-  SecondsBetweenSpawn: 2
-  EnemyTypeId: 0
+  VawesData:
+  - VaweCell:
+    - Type: 0
+      EnemyLevel: 0
+      Count: 5
+  - VaweCell:
+    - Type: 0
+      EnemyLevel: 0
+      Count: 20

@@ -7,10 +7,13 @@ namespace Assets.Source.Scripts.Infrustructure.StaticData
     public class SceneStaticData : ScriptableObject
     {
         public string SceneKey;
-        public List<EnemySpawnPoint> EnemySpawnPoint;
+
         [Range(0.5f, 2)]
         public float SecondsBetweenSpawn = 2;
-        public EnemyTypeId EnemyTypeId;
+
+        public List<EnemySpawnPoint> EnemySpawnPoint;
+        public List<VawesData> VawesData;
+
 
     }
 }

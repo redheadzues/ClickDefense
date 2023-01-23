@@ -21,7 +21,7 @@ public class EnemySpawner : ObjectsPool
 
         SceneStaticData sceneData = staticData.ForLevel();
 
-        InitializePool(enemyFactory, sceneData.EnemyTypeId);
+        InitializePool(enemyFactory, sceneData.VawesData[0]);
         WriteSpawnPoint(sceneData);
         _secondsBetweenSpawn = sceneData.SecondsBetweenSpawn;
     }

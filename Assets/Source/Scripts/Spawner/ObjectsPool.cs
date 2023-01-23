@@ -1,4 +1,3 @@
-using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
@@ -12,16 +11,16 @@ public class ObjectsPool
 
     protected List<GameObject> _pool = new List<GameObject>();
 
-    protected void InitializePool(IEnemyFactory enemyFactory, EnemyTypeId enemyTypeId)
+    protected void InitializePool(IEnemyFactory enemyFactory, VawesData vaweData)
     {
 
-        for (int i = 0; i < _capacity; i++)
-        {            
-            GameObject enemy =  enemyFactory.CreateEnemy(_container, enemyTypeId);
-            enemy.SetActive(false);
-            _pool.Add(enemy);
-
-        }
+        foreach(VaweCell vaweCell in vaweData.VaweCell)
+            for(int i = 0; i < vaweCell.Count; i++)
+            {
+                GameObject enemy = enemyFactory.CreateEnemy(_container, vaweCell.Type);
+                enemy.SetActive(false);
+                _pool.Add(enemy);
+            }
     }
 
     protected bool TryGetObject<T>(out T output) where T : MonoBehaviour
