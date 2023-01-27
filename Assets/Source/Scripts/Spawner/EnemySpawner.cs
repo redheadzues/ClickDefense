@@ -40,8 +40,11 @@ public class EnemySpawner : ObjectsPool
 
     private void FormVaweSpawnList(int vaweNumber)
     {
-        foreach (VaweCell vaweCell in _sceneData.VawesData[vaweNumber].VaweCells)
-            _vaweSpawnList.Add(vaweCell.Type);
+        foreach (VaweCell vaweCell in _sceneData.VawesData[vaweNumber-1].VaweCells)
+        {
+            for(int i = 0; i < vaweCell.Count; i++)
+                _vaweSpawnList.Add(vaweCell.Type);
+        }
     }
 
     private void ResetSpawnList()
