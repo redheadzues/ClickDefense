@@ -4,16 +4,15 @@ using System.Collections.Generic;
 namespace Assets.Source.Scripts.Infrustructure.StaticData
 {
     [Serializable]
-    public class VawesData
+    public class VaweData
     {
-        public List<VaweCell> VaweCell;
+        public List<VaweCell> VaweCells;
     }
 
     [Serializable]
     public class VaweCell
     {
         public EnemyTypeId Type;
-        public int EnemyLevel;
         public int Count;
     }
 }

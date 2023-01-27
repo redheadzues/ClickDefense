@@ -21,11 +21,12 @@ MonoBehaviour:
   - Position: {x: 27.09, y: 1.4449999, z: 2.1}
   - Position: {x: 20.62, y: 1.4449999, z: -6}
   VawesData:
-  - VaweCell:
+  - VaweCells:
     - Type: 0
-      EnemyLevel: 0
       Count: 5
-  - VaweCell:
+  - VaweCells:
     - Type: 0
-      EnemyLevel: 0
-      Count: 20
+      Count: 10
+  - VaweCells:
+    - Type: 0
+      Count: 7

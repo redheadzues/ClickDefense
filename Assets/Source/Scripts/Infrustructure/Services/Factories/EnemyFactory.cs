@@ -10,13 +10,13 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
-        private readonly IClickInformer _clickListener;
+        private readonly IClickInformer _clickInformer;
         private readonly IRewarder _rewarder;
         private readonly IStaticDataService _staticData;
 
-        public EnemyFactory(IClickInformer clickListener, IRewarder rewarder, IStaticDataService staticData)
+        public EnemyFactory(IClickInformer clickInformer, IRewarder rewarder, IStaticDataService staticData)
         {
-            _clickListener = clickListener;
+            _clickInformer = clickInformer;
             _rewarder = rewarder;
             _staticData = staticData;
         }
@@ -41,7 +41,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         private void RegisterEnemy(GameObject enemy)
         {
-            _clickListener.Register(enemy.GetComponent<ClickReader>());
+            _clickInformer.Register(enemy.GetComponent<ClickReader>());
             _rewarder.Register(enemy.GetComponent<IEnemy>());
         }
     }
