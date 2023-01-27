@@ -12,25 +12,43 @@ public class EnemySpawner : ObjectsPool
 {
     private readonly float _secondsBetweenSpawn;
     private readonly List<Vector3> _spawnPoints = new List<Vector3>();
-    private ICoroutineRunner _coroutineRunner;
+    private readonly SceneStaticData _sceneData;
+    private readonly ICoroutineRunner _coroutineRunner;
+    private List<EnemyTypeId> _vaweSpawnList = new List<EnemyTypeId>();
+    private int _spawnIndex;
+
     public event Action Finished;
 
     public EnemySpawner(IEnemyFactory enemyFactory, IStaticDataService staticData, ICoroutineRunner coroutineRunner)
     {
         _coroutineRunner = coroutineRunner;
 
-        SceneStaticData sceneData = staticData.ForLevel();
+        _sceneData = staticData.ForLevel();
 
-        InitializePool(enemyFactory, sceneData);
-        WriteSpawnPoint(sceneData);
-        _secondsBetweenSpawn = sceneData.SecondsBetweenSpawn;
+        InitializePool(enemyFactory, _sceneData);
+        WriteSpawnPoint(_sceneData);
+        _secondsBetweenSpawn = _sceneData.SecondsBetweenSpawn;
     }
 
-    public void StartNewVawe(int number)
+    public void StartNewVawe(int vaweNumber)
     {
+        ResetSpawnList();
+        FormVaweSpawnList(vaweNumber);
+
         _coroutineRunner.StartCoroutine(OnSpawn());
     }
 
+    private void FormVaweSpawnList(int vaweNumber)
+    {
+        foreach (VaweCell vaweCell in _sceneData.VawesData[vaweNumber].VaweCells)
+            _vaweSpawnList.Add(vaweCell.Type);
+    }
+
+    private void ResetSpawnList()
+    {
+        _vaweSpawnList.Clear();
+        _spawnIndex = 0;
+    }
 
     private void WriteSpawnPoint(SceneStaticData staticData)
     {
@@ -40,18 +58,22 @@ public class EnemySpawner : ObjectsPool
 
     private bool Spawn()
     {
-        if (TryGetObject(out EnemyHealth enemy) == true)
+        if(_spawnIndex == _vaweSpawnList.Count)
+        {
+            Finished?.Invoke();
+            return false;
+        }
+
+        if (TryGetObject(_vaweSpawnList[_spawnIndex] ,out EnemyHealth enemy) == true)
         {
             enemy.transform.position = GetRandomPoint();
             enemy.gameObject.SetActive(true);
             enemy.ResetCurrentValue();
-            return true;
+
+            _spawnIndex++;
         }
-        else
-        {
-            Finished?.Invoke();
-            return true;
-        }
+
+        return true;
     }
 
     private Vector3 GetRandomPoint()

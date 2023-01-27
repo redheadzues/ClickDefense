@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.Enemies;
 using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
@@ -9,7 +10,7 @@ public class ObjectsPool
 {
     private Transform _container;
 
-    private List<GameObject> _pool = new List<GameObject>();
+    private List<Enemy> _pool = new List<Enemy>();
     Dictionary<EnemyTypeId, int> _createData = new Dictionary<EnemyTypeId, int>();
 
     protected void InitializePool(IEnemyFactory enemyFactory, SceneStaticData sceneData)
@@ -20,13 +21,18 @@ public class ObjectsPool
         FillPool(enemyFactory);
     }
 
-    protected bool TryGetObject<T>(out T output) where T : MonoBehaviour
+    protected bool TryGetObject<T>(EnemyTypeId typeId ,out T output) where T : MonoBehaviour
     {
         if (_pool.Count <= 0)
             output = null;
         else
         {
-            GameObject exemplar = _pool.FirstOrDefault(deactiveExemplar => deactiveExemplar.activeSelf == false);
+            Enemy exemplar = _pool.FirstOrDefault(deactiveExemplar => 
+            deactiveExemplar.gameObject.activeSelf == false 
+            && 
+            deactiveExemplar.TypeId == typeId);
+
+
             output = exemplar?.GetComponent<T>();
         }
 
@@ -39,9 +45,9 @@ public class ObjectsPool
         {
             for (int i = 0; i < _createData[type]; i++)
             {
-                GameObject enemy = enemyFactory.CreateEnemy(_container, type);
-                enemy.SetActive(false);
-                _pool.Add(enemy);
+                GameObject enemy = enemyFactory.CreateEnemy(_container, type);                
+                enemy.SetActive(false);                
+                _pool.Add(enemy.GetComponent<Enemy>());
             }
         }
     }
@@ -63,10 +69,5 @@ public class ObjectsPool
                 }
             }
         }
-
-        foreach(EnemyTypeId type in _createData.Keys)
-            GameBootstraper.print(type.ToString());
     }
-
-
 }

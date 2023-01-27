@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Source.Scripts.Infrustructure.StaticData;
+using System;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.Enemies
@@ -7,6 +8,7 @@ namespace Assets.Source.Scripts.Enemies
     {
         int Reward { get; set; }
         Vector3 Position { get; }
+        public EnemyTypeId TypeId { get; set; }
         event Action<IEnemy> Died;
     }
 }

@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using System;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace Assets.Source.Scripts.Enemies
         public Vector3 Position => transform.position;
         public int Health => _health.Health;
         public int Reward { get; set; }
+        public EnemyTypeId TypeId { get; set; }
         public event Action<IEnemy> Died;
         public event Action<int> HealthChanged;
 

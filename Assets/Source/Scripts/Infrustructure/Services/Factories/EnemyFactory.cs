@@ -26,17 +26,21 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
             GameObject enemy = Object.Instantiate(enemyData.Prefab, parent);
 
-            SetupEnemy(enemyData, enemy);
             RegisterEnemy(enemy);
+            SetupEnemy(enemyData, enemy);
 
             return enemy;
         }
 
-        private static void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
+        private void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
         {
             enemy.GetComponent<EnemyHealth>().SetNewValue(enemyData.HP);
-            enemy.GetComponent<IEnemy>().Reward = enemyData.Reward;
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.Speed;
+            
+            IEnemy enemySource = enemy.GetComponent<IEnemy>();
+
+            enemySource.Reward = enemyData.Reward;
+            enemySource.TypeId = enemyData.EnemyTypeId;
         }
 
         private void RegisterEnemy(GameObject enemy)
