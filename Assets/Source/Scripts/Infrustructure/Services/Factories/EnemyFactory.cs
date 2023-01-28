@@ -10,13 +10,13 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
     public class EnemyFactory : IEnemyFactory
     {
-        private readonly IClickInformer _clickListener;
+        private readonly IClickInformer _clickInformer;
         private readonly IRewarder _rewarder;
         private readonly IStaticDataService _staticData;
 
-        public EnemyFactory(IClickInformer clickListener, IRewarder rewarder, IStaticDataService staticData)
+        public EnemyFactory(IClickInformer clickInformer, IRewarder rewarder, IStaticDataService staticData)
         {
-            _clickListener = clickListener;
+            _clickInformer = clickInformer;
             _rewarder = rewarder;
             _staticData = staticData;
         }
@@ -26,22 +26,26 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
             GameObject enemy = Object.Instantiate(enemyData.Prefab, parent);
 
-            SetupEnemy(enemyData, enemy);
             RegisterEnemy(enemy);
+            SetupEnemy(enemyData, enemy);
 
             return enemy;
         }
 
-        private static void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
+        private void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
         {
             enemy.GetComponent<EnemyHealth>().SetNewValue(enemyData.HP);
-            enemy.GetComponent<IEnemy>().Reward = enemyData.Reward;
             enemy.GetComponent<NavMeshAgent>().speed = enemyData.Speed;
+            
+            IEnemy enemySource = enemy.GetComponent<IEnemy>();
+
+            enemySource.Reward = enemyData.Reward;
+            enemySource.TypeId = enemyData.EnemyTypeId;
         }
 
         private void RegisterEnemy(GameObject enemy)
         {
-            _clickListener.Register(enemy.GetComponent<ClickReader>());
+            _clickInformer.Register(enemy.GetComponent<ClickReader>());
             _rewarder.Register(enemy.GetComponent<IEnemy>());
         }
     }

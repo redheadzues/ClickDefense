@@ -1,3 +1,5 @@
+using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
@@ -6,33 +8,66 @@ using UnityEngine;
 
 public class ObjectsPool
 {
-    private int _capacity = 30;
     private Transform _container;
 
-    protected List<GameObject> _pool = new List<GameObject>();
+    private List<Enemy> _pool = new List<Enemy>();
+    Dictionary<EnemyTypeId, int> _createData = new Dictionary<EnemyTypeId, int>();
 
-    protected void InitializePool(IEnemyFactory enemyFactory, VawesData vaweData)
+    protected void InitializePool(IEnemyFactory enemyFactory, SceneStaticData sceneData)
     {
-
-        foreach(VaweCell vaweCell in vaweData.VaweCell)
-            for(int i = 0; i < vaweCell.Count; i++)
-            {
-                GameObject enemy = enemyFactory.CreateEnemy(_container, vaweCell.Type);
-                enemy.SetActive(false);
-                _pool.Add(enemy);
-            }
+        _container = new GameObject("EnemyContainer").transform;
+        GameBootstraper.print(sceneData.ToString());
+        DetermineNumberOfInstancesToCreate(sceneData);
+        FillPool(enemyFactory);
     }
 
-    protected bool TryGetObject<T>(out T output) where T : MonoBehaviour
+    protected bool TryGetObject<T>(EnemyTypeId typeId ,out T output) where T : MonoBehaviour
     {
         if (_pool.Count <= 0)
             output = null;
         else
         {
-            GameObject exemplar = _pool.FirstOrDefault(deactiveExemplar => deactiveExemplar.activeSelf == false);
+            Enemy exemplar = _pool.FirstOrDefault(deactiveExemplar => 
+            deactiveExemplar.gameObject.activeSelf == false 
+            && 
+            deactiveExemplar.TypeId == typeId);
+
+
             output = exemplar?.GetComponent<T>();
         }
 
         return output != null;
+    }
+
+    private void FillPool(IEnemyFactory enemyFactory)
+    {
+        foreach (EnemyTypeId type in _createData.Keys)
+        {
+            for (int i = 0; i < _createData[type]; i++)
+            {
+                GameObject enemy = enemyFactory.CreateEnemy(_container, type);                
+                enemy.SetActive(false);                
+                _pool.Add(enemy.GetComponent<Enemy>());
+            }
+        }
+    }
+
+    private void DetermineNumberOfInstancesToCreate(SceneStaticData sceneData)
+    {
+        foreach (VaweData vaweData in sceneData.VawesData)
+        {
+            foreach (VaweCell vaweCell in vaweData.VaweCells)
+            {
+                if (_createData.ContainsKey(vaweCell.Type))
+                {
+                    if (_createData[vaweCell.Type] < vaweCell.Count)
+                        _createData[vaweCell.Type] = vaweCell.Count;
+                }
+                else
+                {
+                    _createData.Add(vaweCell.Type, vaweCell.Count);
+                }
+            }
+        }
     }
 }

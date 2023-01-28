@@ -12,7 +12,7 @@ namespace Assets.Source.Scripts.Infrustructure.StaticData
         public float SecondsBetweenSpawn = 2;
 
         public List<EnemySpawnPoint> EnemySpawnPoint;
-        public List<VawesData> VawesData;
+        public List<VaweData> VawesData;
 
 
     }
