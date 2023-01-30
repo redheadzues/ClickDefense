@@ -53,8 +53,6 @@ namespace NumbersForIdle
                 Value /= _tenCubed;
                 Degree += 3;
             }
-
-
         }
 
         public static IdleNumber operator +(IdleNumber leftNumber, IdleNumber rightNumber)

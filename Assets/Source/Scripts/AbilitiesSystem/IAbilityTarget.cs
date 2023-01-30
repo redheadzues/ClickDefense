@@ -11,31 +11,22 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         void TakeEffect(GamePlayEffect effect); 
     }
 
-    public class AbilityTargetComponent : MonoBehaviour, IAbilityTarget
+    public class EffectsFactory
     {
-        [SerializeField] private List<AbilityTag> _tags;
-            
-        private List<GamePlayEffect> _activeEffects = new List<GamePlayEffect>();
+        private Vector3 _position;
+        private IUpdater _updater;
 
-        public IReadOnlyList<AbilityTag> Tags => _tags;
-        public Vector3 Position => transform.position;
-
-        public void TakeEffect(GamePlayEffect effect)
+        public EffectsFactory(Vector3 position, IUpdater updater)
         {
-            _activeEffects.Add(effect);
-            effect.Ended += OnEffectEnded;
+            _position = position;
+            _updater = updater;
         }
 
-        private void OnEffectEnded(GamePlayEffect effect)
+        public GamePlayEffect CreateEffect(GamePlayEffectStaticData effectData)
         {
-            effect.Ended -= OnEffectEnded;
-            _activeEffects.Remove(effect);
+
+
+            return new GamePlayEffect(effectData.Duration, effectData.Frequency, effectData.DamagePerPeriod, effectData.InstantDamage);
         }
     }
-
-    public class AttributeSet : MonoBehaviour
-    {
-
-    }
-
 }

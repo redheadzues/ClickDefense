@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,10 +35,5 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         {
             Physics.OverlapSphereNonAlloc(point, distance, _hits, _layerMask);
         }
-    }
-
-    public class GamePlayEffect
-    {
-        public event Action<GamePlayEffect> Ended;
     }
 }
