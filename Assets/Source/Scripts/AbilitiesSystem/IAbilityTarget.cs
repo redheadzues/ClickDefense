@@ -8,6 +8,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem
     {
         IReadOnlyList<AbilityTag> Tags { get; }
         Vector3 Position { get; }
-        void TakeEffect(GamePlayEffect effect); 
+        void TakeEffect(GamePlayEffectStaticData effect); 
     }
 }

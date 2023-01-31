@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.StaticData;
+﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,11 +11,13 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
     {
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<string, SceneStaticData> _scenes;
+        private Dictionary<string, AbilityStaticData> _abilities;
 
         public void Load()
         {
             _enemies = Resources.LoadAll<EnemyStaticData>("StaticData/Enemies").ToDictionary(x => x.EnemyTypeId, x => x);
             _scenes = Resources.LoadAll<SceneStaticData>("StaticData/SceneData").ToDictionary(x => x.SceneKey, x => x);
+            _abilities = Resources.LoadAll<AbilityStaticData>("StaticData/Abilities").ToDictionary(x => x.Name, x => x);
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -29,13 +32,9 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             return _scenes.TryGetValue(sceneKey, out SceneStaticData sceneData) ? sceneData : null;
         }
 
-        //private SceneStaticData ExtractSceneData(IStaticDataService staticData)
-        //{
-
-        //    SceneStaticData sceneData = staticData.ForLevel(sceneKey);
-
-        //    return sceneData;
-        //}
-
+        public AbilityStaticData ForAbility(string name) =>
+            _abilities.TryGetValue(name, out AbilityStaticData abilityData)
+            ?
+            abilityData : null;
     }
 }

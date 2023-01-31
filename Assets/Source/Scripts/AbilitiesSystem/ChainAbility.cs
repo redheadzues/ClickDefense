@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Source.Scripts.AbilitiesSystem
 {
@@ -8,6 +10,8 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         private readonly int _maxCountTargets;
 
         private int _numberOfTargetsRecived;
+
+        public ChainAbility(List<GamePlayEffectStaticData> effects) : base(effects){}
 
         public override void Activate(IAbilityTarget target)
         {

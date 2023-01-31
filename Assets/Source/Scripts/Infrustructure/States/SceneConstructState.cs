@@ -53,7 +53,6 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _vawe = new Vawe(_spawwner, _saveload);
 
             CreateUI();
-
             LoadSceneData();
 
             _curtain.Hide();

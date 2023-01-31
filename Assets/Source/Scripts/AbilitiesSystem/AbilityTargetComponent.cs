@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using System;
 using System.Collections.Generic;

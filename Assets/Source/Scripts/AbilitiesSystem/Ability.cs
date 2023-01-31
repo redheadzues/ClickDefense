@@ -9,15 +9,20 @@ namespace Assets.Source.Scripts.AbilitiesSystem
     public abstract class Ability
     {
         protected readonly int _layerMask = 1 << LayerMask.NameToLayer("AbilityLayer");
-        protected List<GamePlayEffect> Effects;
+        protected List<GamePlayEffectStaticData> Effects;
         protected List<AbilityTag> ApplicableTags;
         protected Collider[] _hits = new Collider[20];
 
         public abstract void Activate(IAbilityTarget target);
 
+        protected Ability(List<GamePlayEffectStaticData> effects)
+        {
+            Effects = effects;
+        }
+
         protected void GiveEffect(IAbilityTarget target)
         {
-            foreach(GamePlayEffect effect in Effects)
+            foreach(GamePlayEffectStaticData effect in Effects)
                 target.TakeEffect(effect);
         }
 
