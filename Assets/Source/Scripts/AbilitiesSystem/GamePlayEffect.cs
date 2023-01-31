@@ -11,6 +11,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         private readonly float _effectFrequency;
         private readonly int _damagePerPeriod;
         private readonly int _instantDamage;
+        private readonly IUpdater _updater;
 
         private float _elapsedDuration;
         private float _elapsedFrequency;
@@ -18,12 +19,14 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         public event Action<GamePlayEffect> Ended;
         public event Action<int> DamageHappend;
 
-        public GamePlayEffect(float duration, float effectFrequency, int damagePerPeriod, int instantDamage)
+        public GamePlayEffect(float duration, float effectFrequency, int damagePerPeriod, int instantDamage, IUpdater updater)
         {
             _duration = duration;
             _effectFrequency = effectFrequency;
             _damagePerPeriod = damagePerPeriod;
             _instantDamage = instantDamage;
+            _updater = updater;
+            _updater.Updated += OnUpdate;
         }
 
 
@@ -40,6 +43,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
             if (_elapsedDuration >= _duration)
             {
+                _updater.Updated -= OnUpdate;
                 Ended?.Invoke(this);
             }
         }

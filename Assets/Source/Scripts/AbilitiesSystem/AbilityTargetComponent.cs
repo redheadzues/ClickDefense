@@ -12,11 +12,23 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         [SerializeField] private AttributeSetter _setter;
 
         public GamePlayAttributesChanger CurrentChanger => GetCurrentAttributesChanger();
+        private EffectsFactory _effectsFactory;
         private List<GamePlayEffect> _activeEffects = new List<GamePlayEffect>();
 
         public IReadOnlyList<AbilityTag> Tags => _tags;
         public Vector3 Position => transform.position;
+        public Transform Transform => transform;
         public event Action<float> Updated;
+
+        private void Awake()
+        {
+            _effectsFactory = new EffectsFactory(this);
+        }
+
+        private void Update()
+        {
+            Updated?.Invoke(Time.deltaTime);
+        }
 
         public void TakeEffect(GamePlayEffect effect)
         {

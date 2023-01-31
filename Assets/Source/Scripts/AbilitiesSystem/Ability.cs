@@ -1,5 +1,4 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
-using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 {
     public abstract class Ability
     {
-        protected readonly int _layerMask = 1 << LayerMask.NameToLayer("");
+        protected readonly int _layerMask = 1 << LayerMask.NameToLayer("AbilityLayer");
         protected List<GamePlayEffect> Effects;
         protected List<AbilityTag> ApplicableTags;
         protected Collider[] _hits = new Collider[20];

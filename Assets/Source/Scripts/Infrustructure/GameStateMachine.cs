@@ -23,7 +23,6 @@ namespace Assets.Source.Scripts.Infrustructure
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader, services, coroutineRunner),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, curtain),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, services.Single<IProgressService>(), services.Single<ISaveLoadService>()),
-
                 [typeof(SceneConstructState)] = new SceneConstructState(
                     this,
                     services.Single<IUIFactory>(),
