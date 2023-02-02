@@ -8,7 +8,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem
     {
         private readonly float _radius;
 
-        public AreaAbility(List<GamePlayEffectStaticData> effects) : base(effects) { }
+        public AreaAbility(AbilityStaticData data) : base(data) 
+        {
+            _radius = data.Area;
+        }
 
 
         public override void Activate(IAbilityTarget target)

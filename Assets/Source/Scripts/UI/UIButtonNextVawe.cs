@@ -9,7 +9,6 @@ public class UIButtonNextVawe : MonoBehaviour
 
     private void OnEnable()
     {
-        print(_buttonNextVawe);
         _buttonNextVawe.onClick.AddListener(OnButtonNextVaweClicked);
     }
 
@@ -17,11 +16,6 @@ public class UIButtonNextVawe : MonoBehaviour
     {
         _buttonNextVawe.onClick.AddListener(OnButtonNextVaweClicked);
         _vawe.Finished -= OnVaweFinished;
-    }
-
-    public void Click()
-    {
-        print("click");
     }
 
     public void Construct(Vawe vawe)
@@ -37,7 +31,6 @@ public class UIButtonNextVawe : MonoBehaviour
 
     private void OnButtonNextVaweClicked()
     {
-        print("Clicked");
         _vawe.StartNewVawe();
         _buttonNextVawe.gameObject.SetActive(false);
     }

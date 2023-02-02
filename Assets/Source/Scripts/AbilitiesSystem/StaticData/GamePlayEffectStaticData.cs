@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.StaticData
 {
-    [CreateAssetMenu(fileName = "AlitilyData", menuName = "StaticData/GamePlayEffect")]
+    [CreateAssetMenu(fileName = "GamePlayEffect", menuName = "StaticData/Abilities/GamePlayEffect")]
     public class GamePlayEffectStaticData : ScriptableObject
     {
         [field: SerializeField] public GamePlayEffecTypesIds DurationTypeId { get; private set; }

@@ -17,6 +17,7 @@ public class UIHud : MonoBehaviour
     {
         _player = player;
         _vawe = vawe;
+        _wallet = wallet;
 
         _player.Level.DataChanged += OnPlayerDataChanged;
         _wallet.BalanceChanged += OnBalanceChaged;

@@ -19,11 +19,11 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
             switch (abilityData.TargetDetermineTypeId)
             {
                 case AbilityTargetDetermineTypeId.Single:
-                    return new SingleAbility(abilityData.Effects);
+                    return new SingleAbility(abilityData);
                 case AbilityTargetDetermineTypeId.Area:
-                    return new AreaAbility(abilityData.Effects);
+                    return new AreaAbility(abilityData);
                 case AbilityTargetDetermineTypeId.Chain:
-                    return new ChainAbility(abilityData.Effects);
+                    return new ChainAbility(abilityData);
             }
 
             return null;

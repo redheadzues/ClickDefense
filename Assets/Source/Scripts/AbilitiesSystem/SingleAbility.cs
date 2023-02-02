@@ -5,7 +5,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 {
     public class SingleAbility : Ability
     {
-        public SingleAbility(List<GamePlayEffectStaticData> effects) : base(effects){}
+        public SingleAbility(AbilityStaticData data) : base(data) {}
 
         public override void Activate(IAbilityTarget target)
         {

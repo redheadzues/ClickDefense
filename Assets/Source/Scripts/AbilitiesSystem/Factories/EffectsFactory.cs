@@ -11,10 +11,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
             _updater = updater;
         }
 
-        public GamePlayEffect CreateEffect(GamePlayEffectStaticData effectData)
+        public GamePlayEffect Create(GamePlayEffectStaticData effectData)
         {
 
-            return new GamePlayEffect(effectData.Duration, effectData.Frequency, effectData.DamagePerPeriod, effectData.InstantDamage, _updater);
+            return new GamePlayEffect(effectData.Duration, effectData.Frequency, effectData.DamagePerPeriod, effectData.InstantDamage, _updater, effectData.AttributesChanger);
         }
     }
 }

@@ -1,10 +1,15 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using Assets.Source.Scripts.Enemies;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Source.Scripts.AbilitiesSystem
 {
     public class AttributeSetter : MonoBehaviour
     {
+        [SerializeField] private Enemy _enemy;
+        [SerializeField] private NavMeshAgent _navMeshAgent;
+
         private GamePlayAttributes _attributes;
         private GamePlayAttributes _currentAttributes;
 
@@ -17,11 +22,13 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         {
             _attributes = new GamePlayAttributes(speed, damage, range, attackSpeed);
             _currentAttributes = _attributes;
+            _navMeshAgent.speed = _currentAttributes.Speed;
         }
 
         public void ChangeCurrentAttributes(GamePlayAttributesChanger changer)
         {
             _currentAttributes = _attributes.ChangeAttributes(changer);
+            _navMeshAgent.speed = _currentAttributes.Speed;
         }
 
         public void RestoreToDefalut()
@@ -31,7 +38,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         public void TakeDamage(int damage)
         {
-            
+            _enemy.TakeDamage(damage);
         }
     }
 }

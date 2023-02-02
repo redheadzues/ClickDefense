@@ -15,9 +15,9 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         public abstract void Activate(IAbilityTarget target);
 
-        protected Ability(List<GamePlayEffectStaticData> effects)
+        protected Ability(AbilityStaticData data)
         {
-            Effects = effects;
+            Effects = data.Effects;
         }
 
         protected void GiveEffect(IAbilityTarget target)

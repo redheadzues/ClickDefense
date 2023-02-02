@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3334198273288621344}
   - component: {fileID: 4983086636913646098}
   - component: {fileID: 857408361642431437}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 2544173552176659458}
   - component: {fileID: 2912046954254681791}
   - component: {fileID: 7152010882413785735}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,9 @@ GameObject:
   - component: {fileID: 778529453301484770}
   - component: {fileID: 4047578243896210117}
   - component: {fileID: 3893929061574430723}
-  m_Layer: 0
+  - component: {fileID: 3801918621037069724}
+  - component: {fileID: 4804562415474944176}
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemy: {fileID: 6041001976453627513}
+  _abilityTarget: {fileID: 3801918621037069724}
 --- !u!114 &5768465479076299309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,3 +393,31 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3801918621037069724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075157165567792036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad97b06e23342343b9438b6f89b0438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tags: 00000000
+  _setter: {fileID: 4804562415474944176}
+--- !u!114 &4804562415474944176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075157165567792036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eda54c5b8d831c4fa8d26a4f9dbdfa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy: {fileID: 6041001976453627513}
+  _navMeshAgent: {fileID: 4047578243896210117}

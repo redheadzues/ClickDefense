@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Source.Scripts.Infrustructure;
+using System;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Attributes
 {
@@ -12,7 +13,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Attributes
 
         private const int c_Percent = 100;
 
-        public GamePlayAttributesChanger(float speed = c_Percent, float damage = c_Percent, float range = c_Percent, float attackSpeed = c_Percent)
+        public GamePlayAttributesChanger(float speed, float damage, float range, float attackSpeed)
         {
             Speed = GetFloatPercentageRepresentation(speed);
             Damage = GetFloatPercentageRepresentation(damage);
@@ -32,6 +33,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Attributes
 
         private static float GetFloatPercentageRepresentation(float value)
         {
+
             return 1 + value / c_Percent;
         }
     }

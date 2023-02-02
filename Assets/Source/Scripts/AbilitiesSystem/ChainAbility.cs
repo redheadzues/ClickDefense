@@ -1,5 +1,4 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.AbilitiesSystem
@@ -11,7 +10,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         private int _numberOfTargetsRecived;
 
-        public ChainAbility(List<GamePlayEffectStaticData> effects) : base(effects){}
+        public ChainAbility(AbilityStaticData data) : base(data) 
+        {
+            _distance = data.Area;
+        }
 
         public override void Activate(IAbilityTarget target)
         {

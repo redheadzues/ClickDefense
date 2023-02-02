@@ -19,13 +19,14 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         public event Action<GamePlayEffect> Ended;
         public event Action<int> DamageHappend;
 
-        public GamePlayEffect(float duration, float effectFrequency, int damagePerPeriod, int instantDamage, IUpdater updater)
+        public GamePlayEffect(float duration, float effectFrequency, int damagePerPeriod, int instantDamage, IUpdater updater, GamePlayAttributesChanger changer)
         {
             _duration = duration;
             _effectFrequency = effectFrequency;
             _damagePerPeriod = damagePerPeriod;
             _instantDamage = instantDamage;
             _updater = updater;
+            CurrentAttributeChanger = changer;
             _updater.Updated += OnUpdate;
         }
 
