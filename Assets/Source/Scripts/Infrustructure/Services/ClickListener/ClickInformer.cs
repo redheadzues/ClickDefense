@@ -1,5 +1,5 @@
+using Assets.Source.Scripts.AbilitiesSystem;
 using Assets.Source.Scripts.Enemies;
-using Player;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +10,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
         private List<ClickReader> _clickReaders = new List<ClickReader>();
 
         public event Action<IDamageable> Clicked;
+        public event Action<IAbilityTarget> AbilityTargetGeted;
 
         public void Register(ClickReader reader)
         {
@@ -17,6 +18,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
             {
                 _clickReaders.Add(reader);
                 reader.Clicked += OnClicked;
+                reader.AbilityTargetGeted += OnTargetGeted;
             }
         }
 
@@ -28,13 +30,24 @@ namespace Assets.Source.Scripts.Infrustructure.Services.ClickListener
         public void UnPause()
         {
             foreach (ClickReader reader in _clickReaders)
+            {
                 reader.Clicked += OnClicked;
+                reader.AbilityTargetGeted += OnTargetGeted;
+            }
         }
 
         public void CleanUp()
         {
             foreach (ClickReader reader in _clickReaders)
+            {
                 reader.Clicked -= OnClicked;
+                reader.AbilityTargetGeted -= OnTargetGeted;
+            }
+        }
+
+        private void OnTargetGeted(IAbilityTarget target)
+        {
+            AbilityTargetGeted?.Invoke(target);
         }
 
         private void OnClicked(IDamageable damageable)

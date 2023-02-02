@@ -31,8 +31,9 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             Updated?.Invoke(Time.deltaTime);
         }
 
-        public void TakeEffect(GamePlayEffect effect)
+        public void TakeEffect(GamePlayEffectStaticData effectData)
         {
+            GamePlayEffect effect = _effectsFactory.CreateEffect(effectData);
             AddEffectInSystem(effect);
         }
 

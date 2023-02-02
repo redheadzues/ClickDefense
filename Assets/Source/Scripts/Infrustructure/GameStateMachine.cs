@@ -2,6 +2,7 @@
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Progress;
+using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Infrustructure.Services.Wallets;
@@ -27,12 +28,11 @@ namespace Assets.Source.Scripts.Infrustructure
                     this,
                     services.Single<IUIFactory>(),
                     curtain,
-                    services.Single<IEnemyFactory>(),
                     services.Single<ISaveLoadService>(),
                     services.Single<IWalletHolder>().SilverWallet,
-                    services.Single<IClickInformer>(),
                     services.Single<IStaticDataService>(),
-                    services.Single<ICoroutineRunner>())
+                    services.Single<ICoroutineRunner>(),
+                    services.Single<IRewarder>())
                     
             };
         }

@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
+using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
@@ -20,37 +21,35 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly ICoroutineRunner _coroutineRunner;
         private PlayerModel _player;
         private Vawe _vawe;
-        private EnemySpawner _spawwner;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
             IUIFactory uiFactory,
             Curtain curtain,
-            IEnemyFactory
-            enemyFactory,
             ISaveLoadService saveLoad,
             SilverWallet silverWallet,
-            IClickInformer clickInformer,
             IStaticDataService staticData,
-            ICoroutineRunner coroutineRunner)
+            ICoroutineRunner coroutineRunner,
+            IRewarder rewarder)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _curtain = curtain;
-            _enemyFactory = enemyFactory;
             _saveload = saveLoad;
             _silverWallet = silverWallet;
-            _clickInformer = clickInformer;
             _staticData = staticData;
             _coroutineRunner = coroutineRunner;
+
+            _clickInformer = new ClickInformer();
+            _enemyFactory = new EnemyFactory(_clickInformer, rewarder, staticData);
         }
 
         public void Enter()
         {
             CreatePlayer();
 
-            _spawwner = new EnemySpawner(_enemyFactory, _staticData, _coroutineRunner);
-            _vawe = new Vawe(_spawwner, _saveload);
+            EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
+            _vawe = new Vawe(spawwner, _saveload);
 
             CreateUI();
             LoadSceneData();
@@ -66,6 +65,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         public void Exit()
         {
         }
+
         private void CreatePlayer()
         {
             _player = new PlayerModel(_saveload, _silverWallet, _clickInformer);
