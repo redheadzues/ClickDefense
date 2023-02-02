@@ -1,4 +1,6 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
+﻿using Assets.Source.Scripts.AbilitiesSystem;
+using Assets.Source.Scripts.AbilitiesSystem.Factories;
+using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
@@ -19,6 +21,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly IClickInformer _clickInformer;
         private readonly IStaticDataService _staticData;
         private readonly ICoroutineRunner _coroutineRunner;
+        private readonly IAbilityFactory _abilityFactory;
         private PlayerModel _player;
         private Vawe _vawe;
 
@@ -30,7 +33,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
             SilverWallet silverWallet,
             IStaticDataService staticData,
             ICoroutineRunner coroutineRunner,
-            IRewarder rewarder)
+            IRewarder rewarder,
+            IAbilityFactory abilityFactory)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
@@ -39,27 +43,32 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _silverWallet = silverWallet;
             _staticData = staticData;
             _coroutineRunner = coroutineRunner;
+            _abilityFactory = abilityFactory;
 
             _clickInformer = new ClickInformer();
             _enemyFactory = new EnemyFactory(_clickInformer, rewarder, staticData);
+            _abilityFactory = abilityFactory;
         }
 
         public void Enter()
         {
             CreatePlayer();
-
-            EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
-            _vawe = new Vawe(spawwner, _saveload);
-
+            CreateEnemySpawner();
             CreateUI();
             LoadSceneData();
 
             _curtain.Hide();
         }
 
+        private void CreateEnemySpawner()
+        {
+            EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
+            _vawe = new Vawe(spawwner, _saveload);
+        }
+
         private void CreateUI()
         {
-            _uiFactory.CreateHud(_player, _vawe);
+            _uiFactory.CreateHud(_player, _silverWallet, _vawe);
         }
 
         public void Exit()
@@ -68,7 +77,9 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreatePlayer()
         {
-            _player = new PlayerModel(_saveload, _silverWallet, _clickInformer);
+            Ability ability = _abilityFactory.CreateAbility("TestingAbility");
+            _player = new PlayerModel(_saveload, _clickInformer);
+            _player.AbilityContainer.AddAbility(ability);
         }
 
         private void LoadSceneData()

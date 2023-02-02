@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Player;
+using Money;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
@@ -13,11 +14,11 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             _assetProvider = assetProvider;
         }
 
-        public void CreateHud(PlayerModel player, Vawe vawe)
+        public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe)
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud);
 
-            hud.GetComponentInChildren<UIHud>().Construct(player);
+            hud.GetComponentInChildren<UIHud>().Construct(player, wallet, vawe);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
 
         }

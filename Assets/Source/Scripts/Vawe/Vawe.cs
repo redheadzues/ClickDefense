@@ -8,7 +8,9 @@ public class Vawe : ISaveProgress
     private readonly ISaveLoadService _saveLoad;
     private int _number;
 
+    public int Number => _number;
     public event Action Finished;
+    public event Action<int> Started;
 
     public Vawe(EnemySpawner spawner, ISaveLoadService saveLoad)
     {
@@ -26,6 +28,7 @@ public class Vawe : ISaveProgress
     {
         _number++;
         _spawner.StartNewVawe(_number);
+        Started?.Invoke(_number);
     }
 
     public void Register(ISaveLoadService saveLoad)

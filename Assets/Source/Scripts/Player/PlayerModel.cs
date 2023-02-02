@@ -11,21 +11,22 @@ namespace Assets.Source.Scripts.Player
         private readonly DamageCalculator _damageCalculator;
         private readonly CostCalculator _costCalculator;
         private readonly DamageDealer _playerDamageDealer;
-        private readonly SilverWallet _silverWallet;
+        private readonly AbilityContainer _abilityContainer;
+        private readonly AbilityApplyer _playerAbilityApplyer;
 
         public Level Level => _level;
         public DamageCalculator DamageCalculator => _damageCalculator;
         public CostCalculator Cost => _costCalculator;
-        public SilverWallet SilverWallet => _silverWallet;
+        public AbilityContainer AbilityContainer => _abilityContainer;
 
-        public PlayerModel(ISaveLoadService saveLoad, SilverWallet silverWallet, IClickInformer clickInformer)
+        public PlayerModel(ISaveLoadService saveLoad, IClickInformer clickInformer)
         {
             _level = new Level(saveLoad);
             _damageCalculator = new DamageCalculator(_level);
             _costCalculator = new CostCalculator(_level);
             _playerDamageDealer = new DamageDealer(clickInformer, _damageCalculator);
-            _silverWallet = silverWallet;
-
+            _abilityContainer = new AbilityContainer();
+            _playerAbilityApplyer = new AbilityApplyer(_abilityContainer, clickInformer);
         }
     }
 }

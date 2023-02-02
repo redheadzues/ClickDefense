@@ -1,50 +1,46 @@
 using Assets.Source.Scripts.Player;
+using Money;
 using TMPro;
 using UnityEngine;
 
 public class UIHud : MonoBehaviour
 {
-    [SerializeField] private Vawe _vawe;
-
     [SerializeField] private TMP_Text _textBalance;
     [SerializeField] private TMP_Text _textDamage;
     [SerializeField] private TMP_Text _textVawe;
 
     private PlayerModel _player;
+    private Vawe _vawe;
+    private SilverWallet _wallet;
 
-    public void Construct(PlayerModel player)
+    public void Construct(PlayerModel player, SilverWallet wallet, Vawe vawe)
     {
         _player = player;
+        _vawe = vawe;
 
         _player.Level.DataChanged += OnPlayerDataChanged;
-        _player.SilverWallet.BalanceChanged += OnBalanceChaged;
+        _wallet.BalanceChanged += OnBalanceChaged;
+        _vawe.Started += OnStartedVawe;
         UpdateData();
     }
 
-    private void OnEnable()
-    {
-        //_vawe.Started += OnStartedVawe;
-    }
-
-
     private void OnDisable()
     {
-        
-        _player.SilverWallet.BalanceChanged -= OnBalanceChaged;
+        _wallet.BalanceChanged -= OnBalanceChaged;
         _player.Level.DataChanged -= OnPlayerDataChanged;
-        //_vawe.Started -= OnStartedVawe;
+        _vawe.Started -= OnStartedVawe;
     }
 
     private void UpdateData()
     {
-        //_textVawe.text = _vawe.Number.ToString();
+        _textVawe.text = _vawe.Number.ToString();
         _textDamage.text = _player.DamageCalculator.GetValue().ToString();
-        _textBalance.text = _player.SilverWallet.Balance.ToString();
+        _textBalance.text = _wallet.Balance.ToString();
     }
 
-    private void OnStartedVawe()
+    private void OnStartedVawe(int number)
     {
-        //_textVawe.text = _vawe.Number.ToString();
+        _textVawe.text = number.ToString();
     }
 
     private void OnPlayerDataChanged()
