@@ -1,6 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Factories
@@ -8,12 +7,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
     public class AbilityFactory : IAbilityFactory
     {
         private readonly IStaticDataService _staticData;
-        private readonly ICoroutineRunner _coroutineRunner;
 
-        public AbilityFactory(IStaticDataService staticData, ICoroutineRunner coroutineRunner)
+        public AbilityFactory(IStaticDataService staticData)
         {
             _staticData = staticData;
-            _coroutineRunner = coroutineRunner;
         }
 
         public Ability CreateAbility(string name)
@@ -27,7 +24,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
                 case AbilityTargetDetermineTypeId.Area:
                     return new AreaAbility(abilityData);
                 case AbilityTargetDetermineTypeId.Chain:
-                    return new ChainAbility(abilityData, _coroutineRunner);
+                    return new ChainAbility(abilityData);
             }
 
             return null;
