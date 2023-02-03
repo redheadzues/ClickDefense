@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using System;
 
 namespace Assets.Source.Scripts.AbilitiesSystem
@@ -19,14 +20,14 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         public event Action<GamePlayEffect> Ended;
         public event Action<int> DamageHappend;
 
-        public GamePlayEffect(float duration, float effectFrequency, int damagePerPeriod, int instantDamage, IUpdater updater, GamePlayAttributesChanger changer)
+        public GamePlayEffect(GamePlayEffectStaticData effectData, IUpdater updater)
         {
-            _duration = duration;
-            _effectFrequency = effectFrequency;
-            _damagePerPeriod = damagePerPeriod;
-            _instantDamage = instantDamage;
+            _duration = effectData.Duration;
+            _effectFrequency = effectData.Frequency;
+            _damagePerPeriod = effectData.DamagePerPeriod;
+            _instantDamage = effectData.InstantDamage;
+            CurrentAttributeChanger = effectData.AttributesChanger;
             _updater = updater;
-            CurrentAttributeChanger = changer;
             _updater.Updated += OnUpdate;
         }
 

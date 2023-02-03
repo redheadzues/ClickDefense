@@ -16,15 +16,14 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
         private List<GamePlayEffect> _activeEffects = new List<GamePlayEffect>();
         private GamePlayAttributesChanger _currentEffectChanger;
 
-        public GamePlayAttributesChanger CurrentChanger => _currentEffectChanger;
         public IReadOnlyList<AbilityTag> Tags => _tags;
         public Vector3 Position => transform.position;
-        public Transform Transform => transform;
         public event Action<float> Updated;
 
         private void Awake()
         {
-            _effectsFactory = new EffectsFactory(this);
+            EffectViewSwitcher effectViewSwitcher = new EffectViewSwitcher(transform);
+            _effectsFactory = new EffectsFactory(this, effectViewSwitcher);
         }
 
         private void Update()
@@ -50,7 +49,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
             effect.Ended += OnEffectEnded;
             effect.DamageHappend += OnDamageHappend;
             SetCurrentAttributesChanger();
-            _setter.ChangeCurrentAttributes(CurrentChanger);
+            _setter.ChangeCurrentAttributes(_currentEffectChanger);
         }
 
         private void RemoveEffectFromSystem(GamePlayEffect effect)
@@ -59,7 +58,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
             effect.DamageHappend -= OnDamageHappend;
             _activeEffects.Remove(effect);
             SetCurrentAttributesChanger();
-            _setter.ChangeCurrentAttributes(CurrentChanger);
+            _setter.ChangeCurrentAttributes(_currentEffectChanger);
         }
 
         private void SetCurrentAttributesChanger()
@@ -67,9 +66,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
             GamePlayAttributesChanger changer = new GamePlayAttributesChanger(0, 0, 0, 0);
 
             foreach (GamePlayEffect effect in _activeEffects)
-            {
                 changer *= effect.CurrentAttributeChanger;
-            }
 
             _currentEffectChanger = changer;
         }

@@ -1,6 +1,5 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using Assets.Source.Scripts.Infrustructure;
-using System;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Components;
+using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
@@ -51,8 +50,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
             else
                 Deactivate();
         }
-
-
 
         private IAbilityTarget GetNextTarget(IAbilityTarget lastTarget)
         {
