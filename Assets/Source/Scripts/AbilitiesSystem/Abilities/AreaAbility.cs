@@ -1,14 +1,13 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
 {
     public class AreaAbility : Ability
     {
         private readonly float _radius;
 
-        public AreaAbility(AbilityStaticData data) : base(data) 
+        public AreaAbility(AbilityStaticData data) : base(data)
         {
             _radius = data.Area;
         }

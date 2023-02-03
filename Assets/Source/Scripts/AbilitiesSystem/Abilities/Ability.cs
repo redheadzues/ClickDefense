@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
 {
     public abstract class Ability
     {
@@ -23,7 +23,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         protected void GiveEffect(IAbilityTarget target)
         {
-            foreach(GamePlayEffectStaticData effect in Effects)
+            foreach (GamePlayEffectStaticData effect in Effects)
                 target.TakeEffect(effect);
         }
 

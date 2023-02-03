@@ -1,4 +1,4 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using System.Collections.Generic;
 
 namespace Assets.Source.Scripts.Player

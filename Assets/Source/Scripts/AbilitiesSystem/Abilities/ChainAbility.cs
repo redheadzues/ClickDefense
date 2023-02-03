@@ -1,26 +1,23 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.Infrustructure;
 using System;
-using System.Collections;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
 {
     public class ChainAbility : Ability
     {
         private readonly float _distance;
         private readonly int _maxCountTargets = 2;
         private readonly GameObject _projectilePrefab;
-        private readonly ICoroutineRunner _coroutineRunner;
 
         private int _numberOfTargetsRecived;
         private ProjectileComponent _projectile;
 
-        public ChainAbility(AbilityStaticData data, ICoroutineRunner coroutineRunner) : base(data) 
+        public ChainAbility(AbilityStaticData data) : base(data)
         {
             _distance = data.Area;
             _projectilePrefab = data.projectilePrefab;
-            _coroutineRunner = coroutineRunner;
         }
 
         public override void Activate(IAbilityTarget target)
@@ -34,19 +31,19 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         private void CreateProjectile(IAbilityTarget target)
         {
-            if(_projectile == null)
+            if (_projectile == null)
             {
-                GameObject projectile = GameObject.Instantiate(_projectilePrefab, target.Position, Quaternion.identity);
-                 _projectile =  projectile.AddComponent<ProjectileComponent>();
+                GameObject projectile = UnityEngine.Object.Instantiate(_projectilePrefab, target.Position, Quaternion.identity);
+                _projectile = projectile.AddComponent<ProjectileComponent>();
                 _projectile.Initialize(this);
-            }            
+            }
         }
 
         private void MoveToNextTarget(IAbilityTarget lastTarget)
         {
             IAbilityTarget nextTarget = GetNextTarget(lastTarget);
 
-            if ((_numberOfTargetsRecived < _maxCountTargets) && (nextTarget != null))
+            if (_numberOfTargetsRecived < _maxCountTargets && nextTarget != null)
             {
                 _numberOfTargetsRecived++;
                 _projectile.SetTarget(nextTarget);
@@ -55,7 +52,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
                 Deactivate();
         }
 
-  
+
 
         private IAbilityTarget GetNextTarget(IAbilityTarget lastTarget)
         {
@@ -63,7 +60,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             {
                 if (collider != null && collider.TryGetComponent(out IAbilityTarget target))
                 {
-                    if(target != lastTarget)
+                    if (target != lastTarget)
                     {
                         if (CheckTargetForApply(target) == true)
                             return target;
@@ -78,51 +75,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         {
             _numberOfTargetsRecived = 0;
             GameObject.Destroy(_projectile.gameObject);
-        }
-    }
-
-    public class ProjectileComponent : MonoBehaviour
-    {
-        private Ability _ability;
-        private IAbilityTarget _currentTarget;
-        private Coroutine _coroutine;
-
-        public void Initialize(Ability ability)
-        {
-            _ability = ability;
-        }
-
-        public void SetTarget(IAbilityTarget nextTarget)
-        {
-            _currentTarget = nextTarget;
-            StartMove();
-        }
-
-        private void StartMove()
-        {
-            if (_coroutine != null)
-                StopCoroutine(_coroutine);
-
-            _coroutine = StartCoroutine(OnMove(_currentTarget));
-        }
-
-        private void Move(Vector3 target)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target, 20 * Time.deltaTime);
-        }
-
-        private IEnumerator OnMove(IAbilityTarget target)
-        {
-            float distance = float.PositiveInfinity;
-
-            while (distance > 0.1f)
-            {
-                distance = Vector3.Distance(transform.position, target.Position);
-                Move(target.Position);
-                yield return null;
-            }
-
-            _ability.Activate(_currentTarget);
         }
     }
 }

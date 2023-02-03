@@ -1,11 +1,10 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using System.Collections.Generic;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Abilities
 {
     public class SingleAbility : Ability
     {
-        public SingleAbility(AbilityStaticData data) : base(data) {}
+        public SingleAbility(AbilityStaticData data) : base(data) { }
 
         public override void Activate(IAbilityTarget target)
         {

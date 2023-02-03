@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
+using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 

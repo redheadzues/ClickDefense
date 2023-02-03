@@ -5,12 +5,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Components
 {
     public class AbilityTargetComponent : MonoBehaviour, IAbilityTarget, IUpdater
     {
         [SerializeField] private List<AbilityTag> _tags;
-        [SerializeField] private AttributeSetter _setter;
+        [SerializeField] private AttributeSetterComponent _setter;
 
         private EffectsFactory _effectsFactory;
         private List<GamePlayEffect> _activeEffects = new List<GamePlayEffect>();
@@ -64,7 +64,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         private void SetCurrentAttributesChanger()
         {
-            GamePlayAttributesChanger changer = new GamePlayAttributesChanger(0,0,0,0);
+            GamePlayAttributesChanger changer = new GamePlayAttributesChanger(0, 0, 0, 0);
 
             foreach (GamePlayEffect effect in _activeEffects)
             {

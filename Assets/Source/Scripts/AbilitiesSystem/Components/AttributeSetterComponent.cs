@@ -3,9 +3,9 @@ using Assets.Source.Scripts.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Source.Scripts.AbilitiesSystem
+namespace Assets.Source.Scripts.AbilitiesSystem.Components
 {
-    public class AttributeSetter : MonoBehaviour
+    public class AttributeSetterComponent : MonoBehaviour
     {
         [SerializeField] private Enemy _enemy;
         [SerializeField] private NavMeshAgent _navMeshAgent;

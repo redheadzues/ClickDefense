@@ -1,4 +1,4 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;

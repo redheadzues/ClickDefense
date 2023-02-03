@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem;
+using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 
 namespace Assets.Source.Scripts.Player
