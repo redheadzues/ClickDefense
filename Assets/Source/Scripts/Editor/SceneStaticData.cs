@@ -15,7 +15,7 @@ namespace Assets.Source.Scripts.Editor
 
             SceneStaticData sceneData = (SceneStaticData)target;
 
-            if(GUILayout.Button("Collect"))
+            if (GUILayout.Button("Collect"))
             {
                 sceneData.EnemySpawnPoint = 
                     FindObjectsOfType<SpawnPoint>()

@@ -55,7 +55,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _services.RegisterSingle<IRewarder>(new Rewarder(_services.Single<IWalletHolder>()));
             _services.RegisterSingle<IUIFactory>(new UIFactory(_services.Single<IAssetProvider>()));
             _services.RegisterSingle<IClickInformer>(new ClickInformer());
-            _services.RegisterSingle<IAbilityFactory>(new AbilityFactory(_services.Single<IStaticDataService>()));            
+            _services.RegisterSingle<IAbilityFactory>(new AbilityFactory(_services.Single<IStaticDataService>(), _services.Single<ICoroutineRunner>()));            
         }
 
         private void RegisterStaticData()

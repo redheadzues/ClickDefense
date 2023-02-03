@@ -25,7 +25,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         {
             foreach (Collider collider in _hits)
             {
-                if (collider.TryGetComponent(out IAbilityTarget target))
+                if (collider != null && collider.TryGetComponent(out IAbilityTarget target))
                     GiveEffect(target);
             }
         }

@@ -18,6 +18,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         protected Ability(AbilityStaticData data)
         {
             Effects = data.Effects;
+            ApplicableTags = data.ApplicableTags;
         }
 
         protected void GiveEffect(IAbilityTarget target)
@@ -37,7 +38,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         protected void FindTargets(Vector3 point, float distance)
         {
-            Physics.OverlapSphereNonAlloc(point, distance, _hits, _layerMask);
+            Physics.OverlapSphereNonAlloc(point, distance, _hits);
         }
     }
 }

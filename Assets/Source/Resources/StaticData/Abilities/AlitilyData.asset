@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: TestingAbility
   <TargetDetermineTypeId>k__BackingField: 2
-  <Area>k__BackingField: 500
+  <ApplicableTags>k__BackingField: 00000000
   <Effects>k__BackingField:
   - {fileID: 11400000, guid: f6edcd920a8a20d47b1555e2f737ec1e, type: 2}
+  projectilePrefab: {fileID: 7700958427868258135, guid: f4ac89d1d911f7749a344fef74a73677, type: 3}
