@@ -8,12 +8,14 @@ namespace Assets.Source.Scripts.AbilitiesSystem.StaticData
     {
         public Sprite Icon;
         public string Description;
-        [field: SerializeField] public string Name { get; private set; }
-        [field: SerializeField] public AbilityTargetDetermineTypeId TargetDetermineTypeId { get;  set; }
-        [field: SerializeField] public List<AbilityTag> ApplicableTags { get; private set; }
-        [field: SerializeField] public List<GamePlayEffectStaticData> Effects { get; private set; }
+        public string Name;
+        public AbilityTargetDetermineTypeId TargetDetermineTypeId;
+        public List<AbilityTag> ApplicableTags;
+        public List<GamePlayEffectStaticData> Effects;
         public float Area { get; set; }
         public GameObject projectilePrefab;
+
+        public string Id;
 
     }
 }

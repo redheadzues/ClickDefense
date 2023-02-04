@@ -4,10 +4,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 {
     public class EffectViewCell
     {
-        public GamePlayEffect Effect;
+        public ILastingEffect Effect;
         public GameObject ViewParticle;
 
-        public EffectViewCell(GamePlayEffect effect, GameObject viewParticle)
+        public EffectViewCell(ILastingEffect effect, GameObject viewParticle)
         {
             Effect = effect;
             ViewParticle = viewParticle;

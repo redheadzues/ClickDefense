@@ -14,15 +14,24 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             _parrent = transform;
         }
 
-        public void AddEffectView(GamePlayEffect effect, GameObject viewParticle)
+        public void AddEffectView<TEffect>(TEffect effect, GameObject viewParticle) where TEffect : IEffect
         {
             GameObject view = Object.Instantiate(viewParticle, _parrent);
-            effect.Ended += OnEffectEnded;
 
-            _viewCells.Add(new EffectViewCell(effect, view));
+            if(effect is ILastingEffect lastingEffect)
+            {
+                lastingEffect.Ended += OnEffectEnded;
+
+                _viewCells.Add(new EffectViewCell(lastingEffect, view));
+            }
         }
 
-        private void OnEffectEnded(GamePlayEffect effect)
+        public void AddEffectView(InstantEffect effect, GameObject viewParticle)
+        {
+            GameObject view = Object.Instantiate(viewParticle, _parrent);
+        }
+
+        private void OnEffectEnded(LastingEffect effect)
         {
             EffectViewCell cell = _viewCells.FirstOrDefault(x => x.Effect == effect);
             Object.Destroy(cell.ViewParticle);

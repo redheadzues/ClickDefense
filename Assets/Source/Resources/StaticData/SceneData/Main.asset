@@ -15,7 +15,7 @@ MonoBehaviour:
   SceneKey: Main
   SecondsBetweenSpawn: 2
   EnemySpawnPoint:
-  - Position: {x: 16.09, y: 1.4449999, z: -10.65}
+  - Position: {x: 17.73, y: 1.4449999, z: -9.21}
   - Position: {x: 31.09, y: 1.4449999, z: 6.35}
   - Position: {x: 24.09, y: 1.4449999, z: -2.15}
   - Position: {x: 27.09, y: 1.4449999, z: 2.1}

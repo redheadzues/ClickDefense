@@ -6,21 +6,36 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
     {
         private readonly IUpdater _updater;
         private readonly EffectViewSwitcher _effectViewSwitcher;
+        private readonly EffectHandlerSystem _effectHandler;
 
-        public EffectsFactory(IUpdater updater, EffectViewSwitcher effectViewSwitcher)
+        public EffectsFactory(IUpdater updater, EffectViewSwitcher effectViewSwitcher, EffectHandlerSystem effectHandler)
         {
             _updater = updater;
             _effectViewSwitcher = effectViewSwitcher;
+            _effectHandler = effectHandler;
         }
 
-        public GamePlayEffect Create(GamePlayEffectStaticData effectData)
+        public void Create(GamePlayEffectStaticData effectData)
         {
-            GamePlayEffect effect = new GamePlayEffect(effectData, _updater);
-            
-            if(effectData.VFXPrefab != null)
-                _effectViewSwitcher.AddEffectView(effect, effectData.VFXPrefab);
+            IEffect effect = GetEffectByType(effectData);
 
-            return effect;
+            _effectHandler.Add(effect);
+
+            if (effectData.VFXPrefab != null)
+                _effectViewSwitcher.AddEffectView(effect, effectData.VFXPrefab);
+        }
+
+        private IEffect GetEffectByType(GamePlayEffectStaticData effectData)
+        {
+            switch (effectData.DurationTypeId)
+            {
+                case GamePlayEffecTypesIds.OneTime:
+                    return new InstantEffect(effectData.InstantDamage);
+                case GamePlayEffecTypesIds.LongEffect:
+                    return new LastingEffect(effectData, _updater);
+            }
+
+            return null;
         }
     }
 }

@@ -4,28 +4,26 @@ using System;
 
 namespace Assets.Source.Scripts.AbilitiesSystem
 {
-    public class GamePlayEffect : ILastingEffect
+    public class LastingEffect : ILastingEffect
     {
-        public GamePlayAttributesChanger CurrentAttributeChanger;
-
         private readonly float _duration;
         private readonly float _effectFrequency;
         private readonly int _damagePerPeriod;
-        private readonly int _instantDamage;
         private readonly IUpdater _updater;
 
         private float _elapsedDuration;
         private float _elapsedFrequency;
-        public int InstantDamage => _instantDamage;
-        public event Action<GamePlayEffect> Ended;
-        public event Action<int> DamageHappend;
 
-        public GamePlayEffect(GamePlayEffectStaticData effectData, IUpdater updater)
+        public GamePlayAttributesChanger CurrentAttributeChanger { get; private set; }
+        public event Action<LastingEffect> Ended;
+        public event Action<int> DamageHappend;
+        public event Action AttributesChanged;
+
+        public LastingEffect(GamePlayEffectStaticData effectData, IUpdater updater)
         {
             _duration = effectData.Duration;
             _effectFrequency = effectData.Frequency;
             _damagePerPeriod = effectData.DamagePerPeriod;
-            _instantDamage = effectData.InstantDamage;
             CurrentAttributeChanger = effectData.AttributesChanger;
             _updater = updater;
             _updater.Updated += OnUpdate;

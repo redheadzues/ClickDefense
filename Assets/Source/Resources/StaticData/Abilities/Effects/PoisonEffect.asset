@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a27fb5ffd74fe3b42b3ebb8284bcb805, type: 3}
-  m_Name: Effect
+  m_Name: PoisonEffect
   m_EditorClassIdentifier: 
   <DurationTypeId>k__BackingField: 1
   <DamageTypeId>k__BackingField: 0
-  <VFXPrefab>k__BackingField: {fileID: 0}
+  <VFXPrefab>k__BackingField: {fileID: 182438, guid: 2d2dc4db83f8e7d47a43c1d641d30a95, type: 3}
   <Frequency>k__BackingField: 1
   <Duration>k__BackingField: 5
   <InstantDamage>k__BackingField: 0

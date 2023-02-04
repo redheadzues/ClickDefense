@@ -1,5 +1,4 @@
-﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
-using Assets.Source.Scripts.AbilitiesSystem.Factories;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using System;
 using System.Collections.Generic;
@@ -13,8 +12,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
         [SerializeField] private AttributeSetterComponent _setter;
 
         private EffectsFactory _effectsFactory;
-        private List<GamePlayEffect> _activeEffects = new List<GamePlayEffect>();
-        private GamePlayAttributesChanger _currentEffectChanger;
 
         public IReadOnlyList<AbilityTag> Tags => _tags;
         public Vector3 Position => transform.position;
@@ -23,7 +20,8 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
         private void Awake()
         {
             EffectViewSwitcher effectViewSwitcher = new EffectViewSwitcher(transform);
-            _effectsFactory = new EffectsFactory(this, effectViewSwitcher);
+            EffectHandlerSystem effectHandler= new EffectHandlerSystem(_setter);
+            _effectsFactory = new EffectsFactory(this, effectViewSwitcher, effectHandler);
         }
 
         private void Update()
@@ -33,47 +31,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
 
         public void TakeEffect(GamePlayEffectStaticData effectData)
         {
-            GamePlayEffect effect = _effectsFactory.Create(effectData);
-            AddEffectInSystem(effect);
-        }
-
-        private void OnEffectEnded(GamePlayEffect effect)
-        {
-            RemoveEffectFromSystem(effect);
-        }
-
-        private void AddEffectInSystem(GamePlayEffect effect)
-        {
-            _activeEffects.Add(effect);
-            OnDamageHappend(effect.InstantDamage);
-            effect.Ended += OnEffectEnded;
-            effect.DamageHappend += OnDamageHappend;
-            SetCurrentAttributesChanger();
-            _setter.ChangeCurrentAttributes(_currentEffectChanger);
-        }
-
-        private void RemoveEffectFromSystem(GamePlayEffect effect)
-        {
-            effect.Ended -= OnEffectEnded;
-            effect.DamageHappend -= OnDamageHappend;
-            _activeEffects.Remove(effect);
-            SetCurrentAttributesChanger();
-            _setter.ChangeCurrentAttributes(_currentEffectChanger);
-        }
-
-        private void SetCurrentAttributesChanger()
-        {
-            GamePlayAttributesChanger changer = new GamePlayAttributesChanger(0, 0, 0, 0);
-
-            foreach (GamePlayEffect effect in _activeEffects)
-                changer *= effect.CurrentAttributeChanger;
-
-            _currentEffectChanger = changer;
-        }
-
-        private void OnDamageHappend(int damage)
-        {
-            _setter.TakeDamage(damage);
+            _effectsFactory.Create(effectData);
         }
     }
 }
