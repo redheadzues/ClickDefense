@@ -5,6 +5,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
 {
     public interface IAbilityFactory : IService
     {
-        Ability CreateAbility(string name);
+        Ability Create(string name);
     }
 }

@@ -8,6 +8,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
     public class UIFactory : IUIFactory
     {
         private readonly IAssetProvider _assetProvider;
+        private Transform _rootCanvas;
 
         public UIFactory(IAssetProvider assetProvider)
         {
@@ -16,11 +17,19 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe)
         {
-            GameObject hud = _assetProvider.Instantiate(AssetPath.Hud);
+            CreateRootCanvas();
+
+            GameObject hud = _assetProvider.Instantiate(AssetPath.Hud, _rootCanvas);
 
             hud.GetComponentInChildren<UIHud>().Construct(player, wallet, vawe);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
 
+        }
+
+        private void CreateRootCanvas()
+        {
+            if(_rootCanvas == null)
+                _rootCanvas = _assetProvider.Instantiate(AssetPath.RootCanvas).transform;
         }
     }
 }

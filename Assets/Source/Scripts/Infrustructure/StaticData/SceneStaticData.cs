@@ -13,7 +13,5 @@ namespace Assets.Source.Scripts.Infrustructure.StaticData
 
         public List<EnemySpawnPoint> EnemySpawnPoint;
         public List<VaweData> VawesData;
-
-
     }
 }

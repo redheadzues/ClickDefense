@@ -5,7 +5,9 @@ using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using Assets.Source.Scripts.Player;
+using Assets.Source.Scripts.Shops;
 using Money;
 
 namespace Assets.Source.Scripts.Infrustructure.States
@@ -14,16 +16,18 @@ namespace Assets.Source.Scripts.Infrustructure.States
     {
         private readonly GameStateMachine _gameStateMachine;
         private readonly IUIFactory _uiFactory;
-        private readonly IEnemyFactory _enemyFactory;
         private readonly ISaveLoadService _saveload;
         private readonly Curtain _curtain;
         private readonly SilverWallet _silverWallet;
-        private readonly IClickInformer _clickInformer;
         private readonly IStaticDataService _staticData;
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly IAbilityFactory _abilityFactory;
+        private readonly IRewarder _rewarder;
+        private IEnemyFactory _enemyFactory;
+        private IClickInformer _clickInformer;
         private PlayerModel _player;
         private Vawe _vawe;
+        private PlayerAbilityRewarder _playerAbilityRewarder;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
@@ -44,24 +48,36 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _staticData = staticData;
             _coroutineRunner = coroutineRunner;
             _abilityFactory = abilityFactory;
-
-            _clickInformer = new ClickInformer();
-            _enemyFactory = new EnemyFactory(_clickInformer, rewarder, staticData);
+            _rewarder = rewarder;
             _abilityFactory = abilityFactory;
         }
 
         public void Enter()
         {
             CreatePlayer();
+            CreateClickInformer();
             CreateEnemySpawner();
             CreateUI();
+            CreateAbilityRewarder();
             LoadSceneData();
 
             _curtain.Hide();
         }
 
+        private void CreateClickInformer()
+        {
+            _clickInformer = new ClickInformer();
+        }
+
+        private void CreateAbilityRewarder()
+        {
+            PlayerAbilitiesStaticData playerAbilityData = _staticData.ForPlayerAbility();
+            _playerAbilityRewarder = new PlayerAbilityRewarder(playerAbilityData, _abilityFactory, _player.AbilityContainer, _vawe);
+        }
+
         private void CreateEnemySpawner()
         {
+            _enemyFactory = new EnemyFactory(_clickInformer, _rewarder, _staticData);
             EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
             _vawe = new Vawe(spawwner, _saveload);
         }
@@ -77,7 +93,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreatePlayer()
         {
-            Ability ability = _abilityFactory.CreateAbility("TestingAbility");
+            Ability ability = _abilityFactory.Create("TestingAbility");
             _player = new PlayerModel(_saveload, _clickInformer);
             _player.AbilityContainer.AddAbility(ability);
         }

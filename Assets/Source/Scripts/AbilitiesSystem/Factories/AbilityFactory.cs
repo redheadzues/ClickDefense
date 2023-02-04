@@ -13,9 +13,9 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
             _staticData = staticData;
         }
 
-        public Ability CreateAbility(string name)
+        public Ability Create(string Id)
         {
-            AbilityStaticData abilityData = _staticData.ForAbility(name);
+            AbilityStaticData abilityData = _staticData.ForAbility(Id);
 
             switch (abilityData.TargetDetermineTypeId)
             {

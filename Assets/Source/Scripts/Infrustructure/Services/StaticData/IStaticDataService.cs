@@ -9,5 +9,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
         SceneStaticData ForLevel();
         AbilityStaticData ForAbility(string name);
+        PlayerAbilitiesStaticData ForPlayerAbility();
     }
 }
