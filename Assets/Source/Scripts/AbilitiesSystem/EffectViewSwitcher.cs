@@ -26,11 +26,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             }
         }
 
-        public void AddEffectView(InstantEffect effect, GameObject viewParticle)
-        {
-            GameObject view = Object.Instantiate(viewParticle, _parrent);
-        }
-
         private void OnEffectEnded(LastingEffect effect)
         {
             EffectViewCell cell = _viewCells.FirstOrDefault(x => x.Effect == effect);
