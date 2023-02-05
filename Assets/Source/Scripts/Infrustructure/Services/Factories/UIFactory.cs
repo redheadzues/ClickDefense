@@ -19,7 +19,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud, _rootCanvas);
 
-            hud.GetComponentInChildren<UIHud>().Construct(player, wallet, vawe);
+            hud.GetComponent<UIHud>().Construct(player, wallet, vawe);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
 
         }
