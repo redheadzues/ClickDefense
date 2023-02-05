@@ -1,5 +1,4 @@
 using Assets.Source.Scripts.Enemies;
-using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Collections.Generic;
@@ -16,7 +15,6 @@ public class ObjectsPool
     protected void InitializePool(IEnemyFactory enemyFactory, SceneStaticData sceneData)
     {
         _container = new GameObject("EnemyContainer").transform;
-        GameBootstraper.print(sceneData.ToString());
         DetermineNumberOfInstancesToCreate(sceneData);
         FillPool(enemyFactory);
     }

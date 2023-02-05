@@ -54,8 +54,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Enter()
         {
-            CreatePlayer();
             CreateClickInformer();
+            CreatePlayer();
             CreateEnemySpawner();
             CreateUI();
             CreateAbilityRewarder();
@@ -84,6 +84,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreateUI()
         {
+            _uiFactory.CreateRootCanvas();
             _uiFactory.CreateHud(_player, _silverWallet, _vawe);
         }
 
@@ -93,7 +94,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreatePlayer()
         {
-            Ability ability = _abilityFactory.Create("TestingAbility");
+            Ability ability = _abilityFactory.Create("a4cfbe1c-4be6-4dc0-8e90-f1085e7feb5411-42-32-04-42-2023-42");
             _player = new PlayerModel(_saveload, _clickInformer);
             _player.AbilityContainer.AddAbility(ability);
         }

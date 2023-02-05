@@ -17,8 +17,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe)
         {
-            CreateRootCanvas();
-
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud, _rootCanvas);
 
             hud.GetComponentInChildren<UIHud>().Construct(player, wallet, vawe);
@@ -26,10 +24,9 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         }
 
-        private void CreateRootCanvas()
+        public void CreateRootCanvas()
         {
-            if(_rootCanvas == null)
-                _rootCanvas = _assetProvider.Instantiate(AssetPath.RootCanvas).transform;
+            _rootCanvas = _assetProvider.Instantiate(AssetPath.RootCanvas).transform;
         }
     }
 }
