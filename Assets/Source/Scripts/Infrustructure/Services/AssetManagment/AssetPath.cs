@@ -5,5 +5,6 @@
         public const string Hud = "UI/UIHUD";
         public const string Enemy = "Enemy/Smile";
         public const string RootCanvas = "UI/RootCanvas";
+        public const string AbilityCard = "UI/Elements/AbilityCard";
     }
 }

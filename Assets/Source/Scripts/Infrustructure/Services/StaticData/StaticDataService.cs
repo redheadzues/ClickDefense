@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.Infrustructure.StaticData;
+using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,13 +14,15 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         private Dictionary<string, SceneStaticData> _scenes;
         private Dictionary<string, AbilityStaticData> _abilities;
         private PlayerAbilitiesStaticData _playerAbilities;
+        private Dictionary<WindowId, WindowBase> _windows;
 
         public void Load()
         {
             _enemies = Resources.LoadAll<EnemyStaticData>("StaticData/Enemies").ToDictionary(x => x.EnemyTypeId, x => x);
             _scenes = Resources.LoadAll<SceneStaticData>("StaticData/SceneData").ToDictionary(x => x.SceneKey, x => x);
             _abilities = Resources.LoadAll<AbilityStaticData>("StaticData/Abilities").ToDictionary(x => x.Id, x => x);
-            _playerAbilities = Resources.Load<PlayerAbilitiesStaticData>("");
+            _windows = Resources.LoadAll<WindowBase>("UI/Windows").ToDictionary(x => x.WindowId, x => x);
+            _playerAbilities = Resources.Load<PlayerAbilitiesStaticData>("StaticData/Abilities/PlayerInGameAbility/PlayerInGameAbilities");
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -34,12 +37,17 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             return _scenes.TryGetValue(sceneKey, out SceneStaticData sceneData) ? sceneData : null;
         }
 
-        public AbilityStaticData ForAbility(string Id) =>
-            _abilities.TryGetValue(Id, out AbilityStaticData abilityData)
+        public AbilityStaticData ForAbility(string id) =>
+            _abilities.TryGetValue(id, out AbilityStaticData abilityData)
             ?
             abilityData : null;
 
         public PlayerAbilitiesStaticData ForPlayerAbility() =>
             _playerAbilities;
+
+        public WindowBase ForWindow(WindowId id) =>
+            _windows.TryGetValue(id, out WindowBase window)
+            ?
+            window : null;
     }
 }

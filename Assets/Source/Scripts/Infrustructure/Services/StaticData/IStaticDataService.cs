@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.Infrustructure.StaticData;
+using Assets.Source.Scripts.UI;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
 {
@@ -10,5 +11,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         SceneStaticData ForLevel();
         AbilityStaticData ForAbility(string name);
         PlayerAbilitiesStaticData ForPlayerAbility();
+        WindowBase ForWindow(WindowId id);
     }
 }

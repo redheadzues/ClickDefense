@@ -1,5 +1,7 @@
 ﻿using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
+using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
+using Assets.Source.Scripts.UI;
 using Money;
 using UnityEngine;
 
@@ -8,11 +10,32 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
     public class UIFactory : IUIFactory
     {
         private readonly IAssetProvider _assetProvider;
+        private readonly IStaticDataService _staticData;
         private Transform _rootCanvas;
 
-        public UIFactory(IAssetProvider assetProvider)
+        public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
         {
             _assetProvider = assetProvider;
+            _staticData = staticData;
+        }
+
+        public void CreateWindow(WindowId id) =>
+            Object.Instantiate(_staticData.ForWindow(id), _rootCanvas);
+
+        public GameObject CreateUIElement(string path) =>
+            _assetProvider.Instantiate(path);
+
+        public void CreateRootCanvas() =>
+            _rootCanvas = _assetProvider.Instantiate(AssetPath.RootCanvas).transform;
+        
+        public TWindow CreateWindow<TWindow>(WindowId id) where TWindow : WindowBase
+        {
+            WindowBase windowPrefab = _staticData.ForWindow(id);
+            var window =  Object.Instantiate(windowPrefab, _rootCanvas);
+            
+            TWindow? tWindow = window as TWindow;            
+            
+            return tWindow;
         }
 
         public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe)
@@ -22,11 +45,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             hud.GetComponent<UIHud>().Construct(player, wallet, vawe);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
 
-        }
-
-        public void CreateRootCanvas()
-        {
-            _rootCanvas = _assetProvider.Instantiate(AssetPath.RootCanvas).transform;
         }
     }
 }

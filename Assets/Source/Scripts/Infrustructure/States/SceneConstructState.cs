@@ -72,7 +72,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void CreateAbilityRewarder()
         {
             PlayerAbilitiesStaticData playerAbilityData = _staticData.ForPlayerAbility();
-            _playerAbilityRewarder = new PlayerAbilityRewarder(playerAbilityData, _abilityFactory, _player.AbilityContainer, _vawe);
+            _playerAbilityRewarder = new PlayerAbilityRewarder(playerAbilityData, _abilityFactory, _player.AbilityContainer, _vawe, _uiFactory);
         }
 
         private void CreateEnemySpawner()

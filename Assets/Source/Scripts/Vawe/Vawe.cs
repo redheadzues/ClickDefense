@@ -21,6 +21,7 @@ public class Vawe : ISaveProgress
 
     private void OnVaweFinished()
     {
+        Finished?.Invoke();
         _saveLoad.SaveProgress();
     }
 
