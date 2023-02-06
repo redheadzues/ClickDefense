@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f78c7842bd630428efe07d5e8f4962, type: 3}
   m_Name: PoisonAbility
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  Description: 
-  Name: TestingAbility
+  Icon: {fileID: 21300000, guid: 826675613f54cc74d8a67c4ec55c335a, type: 3}
+  Description: "\u042F\u0434 \u0444\u0438\u0433\u0430\u0447\u0438\u0442 \u044F\u0434\u043E\u043C"
+  Name: "\u042F\u0434"
   TargetDetermineTypeId: 0
   ApplicableTags: 00000000
   Effects:

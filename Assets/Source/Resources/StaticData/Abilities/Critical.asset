@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f78c7842bd630428efe07d5e8f4962, type: 3}
   m_Name: Critical
   m_EditorClassIdentifier: 
-  Icon: {fileID: 0}
-  Description: 
-  Name: 
+  Icon: {fileID: 21300000, guid: e67160012da5a0c4a9c2147c8241831b, type: 3}
+  Description: "+2 \u0443\u0440\u043E\u043D\u0430 \u043A\u0440\u0438\u0442"
+  Name: "\u041A\u0440\u0438\u0442"
   TargetDetermineTypeId: 0
   ApplicableTags: 
   Effects: []
