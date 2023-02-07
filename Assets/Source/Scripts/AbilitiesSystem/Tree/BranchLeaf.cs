@@ -1,12 +1,24 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Tree
 {
-    [CreateAssetMenu(fileName = "BranchLeaf", menuName = "StaticData/Abilities/AbilityTree/BranchLeaf")]
-    public class BranchLeaf : ScriptableObject
+    [Serializable]
+    public class Leaf
     {
-        public AbilityStaticData abilityData;
-        public int Level;
+        public AbilityStaticData AbilityData;
+        public List<AbilityStaticData> Requirements;
+        [HideInInspector] public Vector2 UIPosition;
+        [HideInInspector] public bool IsOwned;
+
+        public Leaf(AbilityStaticData abilityData, List<AbilityStaticData> requirements, Vector2 uIPosition)
+        {
+            AbilityData = abilityData;
+            Requirements = requirements;
+            UIPosition = uIPosition;
+            IsOwned = false;            
+        }
     }
 }
