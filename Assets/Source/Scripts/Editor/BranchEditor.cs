@@ -29,7 +29,7 @@ namespace Assets.Source.Scripts.Editor
         Event _currentEvent;
         EventType _uiEvent;
 
-        [System.Obsolete]
+
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -49,8 +49,36 @@ namespace Assets.Source.Scripts.Editor
 
                 Rect leafRect = new Rect(currentLeaf.UIPosition - scrollPosition, leafSize);
 
+
+
                 DrawLeaf(currentLeaf, leafRect, branch);
-                DrawConnectionLines(branch, currentLeaf, leafRect);
+                //DrawConnectionLines(branch, currentLeaf, leafRect);
+
+                foreach (Leaf requiredData in currentLeaf.Requirements)
+                {
+                    int requiredIndex = branch.FindLeafIndex(requiredData);
+
+                    if (requiredIndex != -1)
+                    {
+                        Leaf requiredLeaf = branch.Leafs[requiredIndex];
+
+                        Handles.DrawBezier(currentLeaf.UIPosition + outgoingEdgePoint - scrollPosition,
+                            requiredLeaf.UIPosition - scrollPosition + new Vector2(leafSize.x, 0),
+                            currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint + Vector2.left * 100f,
+                            requiredLeaf.UIPosition - scrollPosition + incomingEdgePoint + Vector2.right * 100f,
+                            Color.green,
+                            null,
+                            3f);
+
+                        Vector2 arrowPoint = currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint;
+
+                        Handles.DrawLine(arrowPoint, arrowPoint + upArrowVec);
+                        Handles.DrawLine(arrowPoint, arrowPoint + downArrowVec);
+                    }
+                    else
+                        Debug.LogWarning("missing leaf" + currentLeaf.AbilityData.name);
+                }
+
                 HandleConnectionAttempt(branch, leafIndex, currentLeaf, leafRect);
             }
 
@@ -195,10 +223,10 @@ namespace Assets.Source.Scripts.Editor
             EditorGUI.BeginFoldoutHeaderGroup(leafRect, true, currentLeaf.AbilityData.Name, (selectedLeaf == currentLeaf ? selectedStyle : standartStyle));
             EditorGUI.DrawPreviewTexture(iconRect, currentLeaf.AbilityData.Icon.texture, null, ScaleMode.StretchToFill, 1);
             EditorGUI.LabelField(descriptionRect, currentLeaf.AbilityData.Description, labelStyle);
-            EditorGUI.EndFoldoutHeaderGroup();
+
 
             Rect buttonRect = new Rect(new Vector2(leafRect.x, leafRect.yMax), new Vector2(leafSize.x, 20));
-            if(EditorGUI.LinkButton(buttonRect, "Удалить"))
+            if (EditorGUI.LinkButton(buttonRect, "Удалить"))
             {
                 branch.RemoveLeaf(selectedLeaf);
 
@@ -207,6 +235,8 @@ namespace Assets.Source.Scripts.Editor
 
                 selectedLeaf = null;
             }
+
+            EditorGUI.EndFoldoutHeaderGroup();
         }
     }
 }
