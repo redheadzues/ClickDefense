@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Branch
   m_EditorClassIdentifier: 
   Leafs:
-  - AbilityData: {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
-    Requirements:
-    - {fileID: 11400000, guid: d6618c9fe5cf6824bb5af1561652adf2, type: 2}
-    UIPosition: {x: 382, y: 94}
-    IsOwned: 0
   - AbilityData: {fileID: 11400000, guid: d6618c9fe5cf6824bb5af1561652adf2, type: 2}
+    Requirements:
+    - AbilityData: {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
+      Requirements: []
+      UIPosition: {x: 83, y: 91}
+      IsOwned: 0
+    UIPosition: {x: 357, y: 100}
+    IsOwned: 0
+  - AbilityData: {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
     Requirements: []
-    UIPosition: {x: 56, y: 103}
+    UIPosition: {x: 83, y: 91}
     IsOwned: 0

@@ -21,13 +21,13 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Tree
         {
             int removeIndex = FindLeafIndex(removeLeaf);
 
-            Leafs.RemoveAt(removeIndex);
-
-            foreach(Leaf leaf in Leafs)
+            foreach (Leaf leaf in Leafs)
             {
-                if (leaf.Requirements.Contains(leaf))
-                    leaf.Requirements.Remove(leaf);
+                if (leaf.Requirements.Contains(removeLeaf))
+                    leaf.Requirements.Remove(removeLeaf);
             }
+
+            Leafs.RemoveAt(removeIndex);
         }
 
         public int FindLeafIndex(Leaf leaf)
