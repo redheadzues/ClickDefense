@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2997dd6b5f4c86b418c7672c7685cdcc, type: 3}
   m_Name: Branch
   m_EditorClassIdentifier: 
-  _branchLevels:
-  - {fileID: 11400000, guid: 68c6ef347ec312c4e94e408f06967186, type: 2}
+  Leafs:
+  - AbilityData: {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
+    Requirements:
+    - {fileID: 11400000, guid: d6618c9fe5cf6824bb5af1561652adf2, type: 2}
+    UIPosition: {x: 382, y: 94}
+    IsOwned: 0
+  - AbilityData: {fileID: 11400000, guid: d6618c9fe5cf6824bb5af1561652adf2, type: 2}
+    Requirements: []
+    UIPosition: {x: 56, y: 103}
+    IsOwned: 0

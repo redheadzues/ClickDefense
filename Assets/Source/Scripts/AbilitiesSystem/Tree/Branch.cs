@@ -9,55 +9,36 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Tree
     {
         public List<Leaf> Leafs;
 
-        public bool AddLeaf(AbilityStaticData abilityData, Vector2 UIPosition)
+        public void AddLeaf(AbilityStaticData abilityData, Vector2 UIPosition)
         {
-            int leafIndex = FindLeafIndex(abilityData);
+            bool isContain = CheckContainInBranch(abilityData);
 
-            if (leafIndex == -1)
-            {
-                Leafs.Add(new Leaf(abilityData, new List<AbilityStaticData>(), UIPosition));
-                return true;
-            }
-            else
-                return false;
+            if (isContain == false)
+                Leafs.Add(new Leaf(abilityData, new List<Leaf>(), UIPosition));
         }
 
-        public void RemoveLeaf(AbilityStaticData abilityData)
+        public void RemoveLeaf(Leaf removeLeaf)
         {
-            int removeIndex = FindLeafIndex(abilityData);
+            int removeIndex = FindLeafIndex(removeLeaf);
 
             Leafs.RemoveAt(removeIndex);
 
             foreach(Leaf leaf in Leafs)
             {
-                if (leaf.Requirements.Contains(abilityData))
-                    leaf.Requirements.Remove(abilityData);
+                if (leaf.Requirements.Contains(leaf))
+                    leaf.Requirements.Remove(leaf);
             }
         }
 
-        public int FindLeafIndex(AbilityStaticData abilityData)
+        public int FindLeafIndex(Leaf leaf)
         {
             for (int i = 0; i < Leafs.Count; i++)
             {
-                if (Leafs[i].AbilityData == abilityData)
+                if (Leafs[i] == leaf)
                     return i;
             }            
 
             return -1;
-        }
-
-        public bool DoesLeadsToInCascade(int queryIndex, int subjectIndex)
-        {
-            foreach(AbilityStaticData abilityData in Leafs[queryIndex].Requirements)
-            {
-                if (abilityData == Leafs[subjectIndex].AbilityData)
-                    return true;
-
-                if(DoesLeadsToInCascade(FindLeafIndex(abilityData), subjectIndex)) 
-                    return true;
-            }
-
-            return false;
         }
 
         public bool IsConnectible(int incomingLeafIndex, int outgoingLeafIndex)
@@ -68,27 +49,79 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Tree
             return (DoesLeadsToInCascade(incomingLeafIndex, outgoingLeafIndex) || DoesLeadsToInCascade(outgoingLeafIndex, incomingLeafIndex)) == false;
         }
 
-        public HashSet<AbilityStaticData> GetAllPastRequirements(int leafIndex, bool includeSelfRequirement = true)
+        public HashSet<Leaf> GetAllPastRequirements(int leafIndex, bool includeSelfRequirement = true)
         {
-            HashSet<AbilityStaticData> allRequirements = includeSelfRequirement 
-                ? new HashSet<AbilityStaticData>(Leafs[leafIndex].Requirements) 
-                : new HashSet<AbilityStaticData>();
+            HashSet<Leaf> allRequirements = includeSelfRequirement 
+                ? new HashSet<Leaf>(Leafs[leafIndex].Requirements) 
+                : new HashSet<Leaf>();
 
-            foreach(AbilityStaticData abilityData in Leafs[leafIndex].Requirements)
-                allRequirements.UnionWith(GetAllPastRequirements(FindLeafIndex(abilityData)));
+            foreach(Leaf leaf in Leafs[leafIndex].Requirements)
+                allRequirements.UnionWith(GetAllPastRequirements(FindLeafIndex(leaf)));
 
             return allRequirements;
         }
 
         public void CorrectRequirementCascade(int leafIndex)
         {
-            HashSet<AbilityStaticData> allConnectedThroughtChildren = GetAllPastRequirements(leafIndex, false);
+            HashSet<Leaf> allConnectedThroughtChildren = GetAllPastRequirements(leafIndex, false);
 
-            foreach(AbilityStaticData abilityData in allConnectedThroughtChildren)
+            foreach(Leaf leaf in allConnectedThroughtChildren)
             {
-                if (Leafs[leafIndex].Requirements.Contains(abilityData))
-                    Leafs[leafIndex].Requirements.Remove(abilityData);
+                if (Leafs[leafIndex].Requirements.Contains(leaf))
+                    Leafs[leafIndex].Requirements.Remove(leaf);
             }
+        }
+
+        public HashSet<AbilityStaticData> GetAvailableAbility()
+        {
+            HashSet<AbilityStaticData> availableAbility = new HashSet<AbilityStaticData>();
+
+            foreach(Leaf leaf in Leafs)
+            {
+                if(CheckAvailable(leaf))
+                    availableAbility.Add(leaf.AbilityData);
+            }
+
+            return availableAbility;
+        }
+
+        private bool DoesLeadsToInCascade(int queryIndex, int subjectIndex)
+        {
+            foreach (Leaf leaf in Leafs[queryIndex].Requirements)
+            {
+                if (leaf == Leafs[subjectIndex])
+                    return true;
+
+                if (DoesLeadsToInCascade(FindLeafIndex(leaf), subjectIndex))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckContainInBranch(AbilityStaticData abilityData)
+        {
+            foreach (Leaf leaf in Leafs)
+            {
+                if (leaf.AbilityData == abilityData)
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckAvailable(Leaf leaf)
+        {
+            if(leaf.IsOwned)
+                return false;
+
+            foreach (Leaf requiredLeaf in leaf.Requirements)
+            {
+                if (requiredLeaf.IsOwned == false)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

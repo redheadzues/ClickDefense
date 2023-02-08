@@ -8,13 +8,13 @@ namespace Assets.Source.Scripts.Editor
     [CustomEditor(typeof(Branch))]
     public class BranchEditor : UnityEditor.Editor
     {
-        Vector2 leafSize = new Vector2(100f, 70f);
+        Vector2 leafSize = new Vector2(150, 150);
         float minWindowHeight = 720f;
         float minwindowWidth = 1000f;
         Vector2 incomingEdgePoint = new Vector2 (100f, 10f);
         Vector2 outgoingEdgePoint = new Vector2(-12f, 10f);
-        Vector2 upArrowVec = new Vector2(-10f, -10f);
-        Vector2 downArrowVec = new Vector2(-10f, 10f);
+        Vector2 upArrowVec = new Vector2(-5f, -5f);
+        Vector2 downArrowVec = new Vector2(-5f, 5f);
         Vector2 nextLineVec = new Vector2(0, 20f);
         Vector2 indentVec = new Vector2(102f, 0);
         Vector2 leafContentSize = new Vector2(40f, 20f);
@@ -26,21 +26,21 @@ namespace Assets.Source.Scripts.Editor
 
         Leaf activeLeaf;
         Leaf selectedLeaf;
+        Event _currentEvent;
+        EventType _uiEvent;
 
+        [System.Obsolete]
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
 
             Branch branch = (Branch)target;
 
-            Event currentEvent = Event.current;
+            _currentEvent = Event.current;
             int controlId = GUIUtility.GetControlID(FocusType.Passive);
-            EventType UIEvent = currentEvent.GetTypeForControl(controlId);
+            _uiEvent = _currentEvent.GetTypeForControl(controlId);
 
-            GUIStyle standartStyle = new GUIStyle(EditorStyles.helpBox);
-            GUIStyle selectedStyle = new GUIStyle(EditorStyles.helpBox);
-            selectedStyle.fontStyle = FontStyle.BoldAndItalic;
-            
+           
             EditorGUILayout.BeginScrollView(Vector2.zero, GUILayout.MinHeight(720));
 
             for(int leafIndex = 0; leafIndex < branch.Leafs.Count; leafIndex++)
@@ -48,119 +48,56 @@ namespace Assets.Source.Scripts.Editor
                 Leaf currentLeaf = branch.Leafs[leafIndex];
 
                 Rect leafRect = new Rect(currentLeaf.UIPosition - scrollPosition, leafSize);
-                EditorGUI.BeginFoldoutHeaderGroup(leafRect, true, currentLeaf.AbilityData.Name,(selectedLeaf == currentLeaf ? selectedStyle : standartStyle));
-                EditorGUI.EndFoldoutHeaderGroup();
 
-
-                foreach (AbilityStaticData requiredData in currentLeaf.Requirements)
-                {
-                    int requiredIndex = branch.FindLeafIndex(requiredData);
-
-                    if (requiredIndex == -1)
-                    {
-                        Leaf requiredLeaf = branch.Leafs[requiredIndex];
-
-                        Handles.DrawBezier(currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint,
-                            requiredLeaf.UIPosition - scrollPosition + incomingEdgePoint,
-                            currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint + Vector2.left * 100f,
-                            requiredLeaf.UIPosition - scrollPosition + incomingEdgePoint + Vector2.right * 100f,
-                            Color.green,
-                            null,
-                            3f);
-
-                        Vector2 arrowPoint = currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint;
-
-                        Handles.DrawLine(arrowPoint, arrowPoint + upArrowVec);
-                        Handles.DrawLine(arrowPoint, arrowPoint + downArrowVec);
-                    }
-                    else
-                        Debug.LogWarning("missing leaf" + currentLeaf.AbilityData.name);
-                }
-
-                if(leafRect.Contains(currentEvent.mousePosition))
-                {
-                    if(UIEvent == EventType.MouseDown)
-                    {
-                        if(currentEvent.button == 0)
-                        {
-                            activeLeaf = currentLeaf;
-                            mouseSelectionOffset = activeLeaf.UIPosition - currentEvent.mousePosition;
-                        }
-
-                        if(currentEvent.button == 1)
-                        {
-                            selectedLeaf = currentLeaf;
-                            Repaint();
-                        }
-                    }
-
-                    if(UIEvent == EventType.MouseUp)
-                    {
-                        if(currentEvent.button == 1 && selectedLeaf != null && selectedLeaf != currentLeaf)
-                        {
-                            if(currentLeaf.Requirements.Contains(selectedLeaf.AbilityData))
-                                currentLeaf.Requirements.Remove(selectedLeaf.AbilityData);
-                            else if(selectedLeaf.Requirements.Contains(currentLeaf.AbilityData))
-                                selectedLeaf.Requirements.Remove(currentLeaf.AbilityData);
-
-                            if(branch.IsConnectible(branch.Leafs.IndexOf(selectedLeaf), leafIndex))
-                            {
-                                currentLeaf.Requirements.Add(selectedLeaf.AbilityData);
-
-                                for (int i = 0; i < branch.Leafs.Count; i++)
-                                    branch.CorrectRequirementCascade(i);
-                            }
-
-                        }
-                    }
-                }
+                DrawLeaf(currentLeaf, leafRect, branch);
+                DrawConnectionLines(branch, currentLeaf, leafRect);
+                HandleConnectionAttempt(branch, leafIndex, currentLeaf, leafRect);
             }
 
-            if(currentEvent.button == 2)
+            if (_currentEvent.button == 2)
             {
-                if(currentEvent.type == EventType.MouseDown)
-                    scrollStartPosition = (currentEvent.mousePosition + scrollPosition);
-                else if(currentEvent.type == EventType.MouseDrag)
+                if(_currentEvent.type == EventType.MouseDown)
+                    scrollStartPosition = (_currentEvent.mousePosition + scrollPosition);
+                else if(_currentEvent.type == EventType.MouseDrag)
                 {
-                    scrollPosition = -(currentEvent.mousePosition - scrollStartPosition);
+                    scrollPosition = -(_currentEvent.mousePosition - scrollStartPosition);
                     Repaint();
                 }
             }
 
-            if (selectedLeaf != null && currentEvent.button == 1)
+            if (selectedLeaf != null && _currentEvent.button == 1)
             {
-                Handles.DrawBezier(currentEvent.mousePosition,
+                Handles.DrawBezier(_currentEvent.mousePosition,
                     selectedLeaf.UIPosition - scrollPosition + incomingEdgePoint,
-                    currentEvent.mousePosition + Vector2.left * 100f,
+                    _currentEvent.mousePosition + Vector2.left * 100f,
                     selectedLeaf.UIPosition - scrollPosition + incomingEdgePoint + Vector2.right * 100f,
                     Color.white,
                     null,
                     1.5f);
 
-
                 Repaint();
             }
 
-            if(UIEvent == EventType.MouseUp)
+            if(_uiEvent == EventType.MouseUp)
             {
                 activeLeaf = null;
             }
-            else if(UIEvent == EventType.MouseDrag)
+            else if(_uiEvent == EventType.MouseDrag)
             {
                 if (activeLeaf != null)
-                    activeLeaf.UIPosition = currentEvent.mousePosition + mouseSelectionOffset;
+                    activeLeaf.UIPosition = _currentEvent.mousePosition + mouseSelectionOffset;
             }
 
-            if(currentEvent.type == EventType.DragUpdated)
+            if(_currentEvent.type == EventType.DragUpdated)
             {
                 DragAndDrop.visualMode = DragAndDropVisualMode.Copy;
             }
-            else if(currentEvent.type == EventType.DragPerform)
+            else if(_currentEvent.type == EventType.DragPerform)
             {
                 for(int i = 0; i < DragAndDrop.objectReferences.Length; i++)
                 {
                     if (DragAndDrop.objectReferences[i] is AbilityStaticData data)
-                        branch.AddLeaf(data, currentEvent.mousePosition + scrollPosition);
+                        branch.AddLeaf(data, _currentEvent.mousePosition + scrollPosition);
                 }
             }
 
@@ -168,6 +105,108 @@ namespace Assets.Source.Scripts.Editor
 
             EditorUtility.SetDirty(branch);
 
+        }
+
+        private void HandleConnectionAttempt(Branch branch,  int leafIndex, Leaf currentLeaf, Rect leafRect)
+        {
+            if (leafRect.Contains(_currentEvent.mousePosition))
+            {
+                if (_uiEvent == EventType.MouseDown)
+                {
+                    if (_currentEvent.button == 0)
+                    {
+                        activeLeaf = currentLeaf;
+                        mouseSelectionOffset = activeLeaf.UIPosition - _currentEvent.mousePosition;
+                    }
+
+                    if (_currentEvent.button == 1)
+                    {
+                        selectedLeaf = currentLeaf;
+                        Repaint();
+                    }
+                }
+
+                if (_uiEvent == EventType.MouseUp)
+                {
+                    if (_currentEvent.button == 1 && selectedLeaf != null && selectedLeaf != currentLeaf)
+                    {
+                        if (currentLeaf.Requirements.Contains(selectedLeaf))
+                            currentLeaf.Requirements.Remove(selectedLeaf);
+                        else if (selectedLeaf.Requirements.Contains(currentLeaf))
+                            selectedLeaf.Requirements.Remove(currentLeaf);
+
+                        if (branch.IsConnectible(branch.Leafs.IndexOf(selectedLeaf), leafIndex))
+                        {
+                            currentLeaf.Requirements.Add(selectedLeaf);
+
+                            for (int i = 0; i < branch.Leafs.Count; i++)
+                                branch.CorrectRequirementCascade(i);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        private void DrawConnectionLines(Branch branch, Leaf currentLeaf, Rect leafRect)
+        {
+            foreach (Leaf requiredData in currentLeaf.Requirements)
+            {
+                int requiredIndex = branch.FindLeafIndex(requiredData);
+
+                if (requiredIndex != -1)
+                {
+                    Leaf requiredLeaf = branch.Leafs[requiredIndex];
+
+                    Handles.DrawBezier(currentLeaf.UIPosition + outgoingEdgePoint - scrollPosition,
+                        requiredLeaf.UIPosition - scrollPosition + new Vector2(leafSize.x, 0),
+                        currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint + Vector2.left * 100f,
+                        requiredLeaf.UIPosition - scrollPosition + incomingEdgePoint + Vector2.right * 100f,
+                        Color.green,
+                        null,
+                        3f);
+
+                    Vector2 arrowPoint = currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint;
+
+                    Handles.DrawLine(arrowPoint, arrowPoint + upArrowVec);
+                    Handles.DrawLine(arrowPoint, arrowPoint + downArrowVec);
+                }
+                else
+                    Debug.LogWarning("missing leaf" + currentLeaf.AbilityData.name);
+            }
+        }
+
+        private void DrawLeaf(Leaf currentLeaf, Rect leafRect, Branch branch)
+        {
+
+            GUIStyle standartStyle = new GUIStyle(EditorStyles.helpBox);
+            GUIStyle selectedStyle = new GUIStyle(EditorStyles.helpBox);
+            selectedStyle.fontStyle = FontStyle.BoldAndItalic;
+            selectedStyle.alignment = TextAnchor.UpperCenter;
+            standartStyle.alignment = TextAnchor.UpperCenter;
+
+            GUIStyle labelStyle = new GUIStyle();
+            labelStyle.alignment = TextAnchor.UpperCenter;
+
+            Rect iconRect = new Rect(currentLeaf.UIPosition - Vector2.down * 20 + Vector2.right * leafSize.x / 4 - scrollPosition, leafSize / 2);
+            Rect descriptionRect = new Rect(new Vector2(leafRect.xMin, iconRect.yMax), new Vector2(leafSize.x, leafSize.y - iconRect.height));
+
+
+            EditorGUI.BeginFoldoutHeaderGroup(leafRect, true, currentLeaf.AbilityData.Name, (selectedLeaf == currentLeaf ? selectedStyle : standartStyle));
+            EditorGUI.DrawPreviewTexture(iconRect, currentLeaf.AbilityData.Icon.texture, null, ScaleMode.StretchToFill, 1);
+            EditorGUI.LabelField(descriptionRect, currentLeaf.AbilityData.Description, labelStyle);
+            EditorGUI.EndFoldoutHeaderGroup();
+
+            Rect buttonRect = new Rect(new Vector2(leafRect.x, leafRect.yMax), new Vector2(leafSize.x, 20));
+            if(EditorGUI.LinkButton(buttonRect, "Удалить"))
+            {
+                branch.RemoveLeaf(selectedLeaf);
+
+                if (activeLeaf == selectedLeaf)
+                    activeLeaf = null;
+
+                selectedLeaf = null;
+            }
         }
     }
 }

@@ -9,11 +9,11 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Tree
     public class Leaf
     {
         public AbilityStaticData AbilityData;
-        public List<AbilityStaticData> Requirements;
+        public List<Leaf> Requirements;
         [HideInInspector] public Vector2 UIPosition;
-        [HideInInspector] public bool IsOwned;
+        public bool IsOwned;
 
-        public Leaf(AbilityStaticData abilityData, List<AbilityStaticData> requirements, Vector2 uIPosition)
+        public Leaf(AbilityStaticData abilityData, List<Leaf> requirements, Vector2 uIPosition)
         {
             AbilityData = abilityData;
             Requirements = requirements;
