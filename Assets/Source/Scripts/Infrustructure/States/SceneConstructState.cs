@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.Factories;
+using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
@@ -71,7 +72,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreateAbilityRewarder()
         {
-            PlayerAbilitiesStaticData playerAbilityData = _staticData.ForPlayerAbility();
+            Branch playerAbilityData = _staticData.ForPlayerAbility();
             _playerAbilityRewarder = new PlayerAbilityRewarder(playerAbilityData, _abilityFactory, _player.AbilityContainer, _vawe, _uiFactory);
         }
 

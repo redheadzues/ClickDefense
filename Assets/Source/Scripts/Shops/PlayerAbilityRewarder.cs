@@ -1,26 +1,26 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
-using Assets.Source.Scripts.Infrustructure.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Linq;
 
 namespace Assets.Source.Scripts.Shops
 {
     public class PlayerAbilityRewarder
     {
-        private readonly PlayerAbilitiesStaticData _passiveAbilitiesData;
+        private readonly Branch _passiveAbilitiesData;
         private readonly IAbilityFactory _abilityFactory;
         private readonly AbilityContainer _container;
         private IUIFactory _uiFactory;
         private CardSelectorWindow _cardSelector;
 
         public PlayerAbilityRewarder(
-            PlayerAbilitiesStaticData passiveAbilitiesData,
+            Branch passiveAbilitiesData,
             IAbilityFactory abilityFactory,
             AbilityContainer container,
             Vawe vawe,
@@ -71,7 +71,7 @@ namespace Assets.Source.Scripts.Shops
 
         private List<AbilityStaticData> GetAvaliableAbility()
         {
-            return _passiveAbilitiesData.AbilitiesData;
+            return _passiveAbilitiesData.GetAvailableAbility().ToList();
         }
 
         private void OnCardSelected(string id)
