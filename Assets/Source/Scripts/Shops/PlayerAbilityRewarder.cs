@@ -8,12 +8,13 @@ using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Assets.Source.Scripts.Shops
 {
     public class PlayerAbilityRewarder
     {
-        private readonly Branch _passiveAbilitiesData;
+        private readonly Branch _abilityTree;
         private readonly IAbilityFactory _abilityFactory;
         private readonly AbilityContainer _container;
         private IUIFactory _uiFactory;
@@ -26,11 +27,12 @@ namespace Assets.Source.Scripts.Shops
             Vawe vawe,
             IUIFactory uiFactory)
         {
-            _passiveAbilitiesData = passiveAbilitiesData;
+            _abilityTree = passiveAbilitiesData;
             _abilityFactory = abilityFactory;
             _container = container;
             _uiFactory = uiFactory;
             vawe.Finished += OnVaweFinished;
+            _abilityTree.ResetOwnInLeafs();
         }
 
         private void OnVaweFinished()
@@ -71,12 +73,13 @@ namespace Assets.Source.Scripts.Shops
 
         private List<AbilityStaticData> GetAvaliableAbility()
         {
-            return _passiveAbilitiesData.GetAvailableAbility().ToList();
+            return _abilityTree.GetAvailableAbility().ToList();
         }
 
         private void OnCardSelected(string id)
         {
             AddAbilityToPlayer(id);
+            _abilityTree.SetAbilityToOwn(id);
             DestroySelector();
         }
 

@@ -29,7 +29,7 @@ namespace Assets.Source.Scripts.Editor
         Event _currentEvent;
         EventType _uiEvent;
 
-
+        
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -49,36 +49,8 @@ namespace Assets.Source.Scripts.Editor
 
                 Rect leafRect = new Rect(currentLeaf.UIPosition - scrollPosition, leafSize);
 
-
-
                 DrawLeaf(currentLeaf, leafRect, branch);
-                //DrawConnectionLines(branch, currentLeaf, leafRect);
-
-                foreach (Leaf requiredData in currentLeaf.Requirements)
-                {
-                    int requiredIndex = branch.FindLeafIndex(requiredData);
-
-                    if (requiredIndex != -1)
-                    {
-                        Leaf requiredLeaf = branch.Leafs[requiredIndex];
-
-                        Handles.DrawBezier(currentLeaf.UIPosition + outgoingEdgePoint - scrollPosition,
-                            requiredLeaf.UIPosition - scrollPosition + new Vector2(leafSize.x, 0),
-                            currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint + Vector2.left * 100f,
-                            requiredLeaf.UIPosition - scrollPosition + incomingEdgePoint + Vector2.right * 100f,
-                            Color.green,
-                            null,
-                            3f);
-
-                        Vector2 arrowPoint = currentLeaf.UIPosition - scrollPosition + outgoingEdgePoint;
-
-                        Handles.DrawLine(arrowPoint, arrowPoint + upArrowVec);
-                        Handles.DrawLine(arrowPoint, arrowPoint + downArrowVec);
-                    }
-                    else
-                        Debug.LogWarning("missing leaf" + currentLeaf.AbilityData.name);
-                }
-
+                DrawConnectionLines(branch, currentLeaf, leafRect);
                 HandleConnectionAttempt(branch, leafIndex, currentLeaf, leafRect);
             }
 
@@ -158,14 +130,14 @@ namespace Assets.Source.Scripts.Editor
                 {
                     if (_currentEvent.button == 1 && selectedLeaf != null && selectedLeaf != currentLeaf)
                     {
-                        if (currentLeaf.Requirements.Contains(selectedLeaf))
-                            currentLeaf.Requirements.Remove(selectedLeaf);
-                        else if (selectedLeaf.Requirements.Contains(currentLeaf))
-                            selectedLeaf.Requirements.Remove(currentLeaf);
+                        if (currentLeaf.Requirements.Contains(selectedLeaf.AbilityData))
+                            currentLeaf.Requirements.Remove(selectedLeaf.AbilityData);
+                        else if (selectedLeaf.Requirements.Contains(currentLeaf.AbilityData))
+                            selectedLeaf.Requirements.Remove(currentLeaf.AbilityData);
 
                         if (branch.IsConnectible(branch.Leafs.IndexOf(selectedLeaf), leafIndex))
                         {
-                            currentLeaf.Requirements.Add(selectedLeaf);
+                            currentLeaf.Requirements.Add(selectedLeaf.AbilityData);
 
                             for (int i = 0; i < branch.Leafs.Count; i++)
                                 branch.CorrectRequirementCascade(i);
@@ -178,7 +150,7 @@ namespace Assets.Source.Scripts.Editor
 
         private void DrawConnectionLines(Branch branch, Leaf currentLeaf, Rect leafRect)
         {
-            foreach (Leaf requiredData in currentLeaf.Requirements)
+            foreach (AbilityStaticData requiredData in currentLeaf.Requirements)
             {
                 int requiredIndex = branch.FindLeafIndex(requiredData);
 
@@ -212,6 +184,9 @@ namespace Assets.Source.Scripts.Editor
             selectedStyle.fontStyle = FontStyle.BoldAndItalic;
             selectedStyle.alignment = TextAnchor.UpperCenter;
             standartStyle.alignment = TextAnchor.UpperCenter;
+            selectedStyle.normal.background = (Texture2D)Resources.Load("GridCell");
+            
+
 
             GUIStyle labelStyle = new GUIStyle();
             labelStyle.alignment = TextAnchor.UpperCenter;
@@ -223,20 +198,22 @@ namespace Assets.Source.Scripts.Editor
             EditorGUI.BeginFoldoutHeaderGroup(leafRect, true, currentLeaf.AbilityData.Name, (selectedLeaf == currentLeaf ? selectedStyle : standartStyle));
             EditorGUI.DrawPreviewTexture(iconRect, currentLeaf.AbilityData.Icon.texture, null, ScaleMode.StretchToFill, 1);
             EditorGUI.LabelField(descriptionRect, currentLeaf.AbilityData.Description, labelStyle);
+            EditorGUI.EndFoldoutHeaderGroup();
 
+            GUIContent asd = new GUIContent("Delete", (Texture2D)Resources.Load("GridCell"));
 
             Rect buttonRect = new Rect(new Vector2(leafRect.x, leafRect.yMax), new Vector2(leafSize.x, 20));
-            if (EditorGUI.LinkButton(buttonRect, "Удалить"))
+            if(EditorGUI.LinkButton(buttonRect, asd))
             {
-                branch.RemoveLeaf(selectedLeaf);
+
+
+                branch.RemoveLeaf(selectedLeaf.AbilityData);
 
                 if (activeLeaf == selectedLeaf)
                     activeLeaf = null;
 
                 selectedLeaf = null;
             }
-
-            EditorGUI.EndFoldoutHeaderGroup();
         }
     }
 }
