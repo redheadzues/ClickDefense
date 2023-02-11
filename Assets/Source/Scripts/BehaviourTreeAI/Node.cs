@@ -4,7 +4,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public abstract partial class Node : ScriptableObject
     {
-        public State state  = State.RUNNING;
+        public State State  = State.RUNNING;
         public bool Started = false;
 
         public State Update()
@@ -15,15 +15,15 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
                 Started = true;
             }
 
-            state = OnUpdate();
+            State = OnUpdate();
 
-            if (state == State.FAILURE || state == State.SUCCESS)
+            if (State == State.FAILURE || State == State.SUCCESS)
             {
                 OnStop();
                 Started = false;
             }
 
-            return state;
+            return State;
         }
 
         public abstract void OnStart();

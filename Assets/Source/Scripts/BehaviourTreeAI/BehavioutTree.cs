@@ -8,7 +8,12 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         public Node RootNode;
         public State TreeState = State.RUNNING;
                 
-        public State Update() =>
-            RootNode.Update();
+        public State Update()
+        {
+            if(RootNode.State == State.RUNNING)
+                TreeState = RootNode.Update();
+
+            return TreeState;
+        }
     }
 }
