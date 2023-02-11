@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
@@ -13,8 +14,8 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         private Dictionary<EnemyTypeId, EnemyStaticData> _enemies;
         private Dictionary<string, SceneStaticData> _scenes;
         private Dictionary<string, AbilityStaticData> _abilities;
-        private PlayerAbilitiesStaticData _playerAbilities;
         private Dictionary<WindowId, WindowBase> _windows;
+        private Branch _playerAbilities;
 
         public void Load()
         {
@@ -22,7 +23,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             _scenes = Resources.LoadAll<SceneStaticData>("StaticData/SceneData").ToDictionary(x => x.SceneKey, x => x);
             _abilities = Resources.LoadAll<AbilityStaticData>("StaticData/Abilities").ToDictionary(x => x.Id, x => x);
             _windows = Resources.LoadAll<WindowBase>("UI/Windows").ToDictionary(x => x.WindowId, x => x);
-            _playerAbilities = Resources.Load<PlayerAbilitiesStaticData>("StaticData/Abilities/PlayerInGameAbility/PlayerInGameAbilities");
+            _playerAbilities = Resources.Load<Branch>("StaticData/Abilities/PlayerInGameAbility/Branch");
         }
 
         public EnemyStaticData ForEnemy(EnemyTypeId typeId) =>
@@ -42,7 +43,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             ?
             abilityData : null;
 
-        public PlayerAbilitiesStaticData ForPlayerAbility() =>
+        public Branch ForPlayerAbility() =>
             _playerAbilities;
 
         public WindowBase ForWindow(WindowId id) =>

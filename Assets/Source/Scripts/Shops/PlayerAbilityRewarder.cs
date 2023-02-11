@@ -1,36 +1,38 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
-using Assets.Source.Scripts.Infrustructure.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.Shops
 {
     public class PlayerAbilityRewarder
     {
-        private readonly PlayerAbilitiesStaticData _passiveAbilitiesData;
+        private readonly Branch _abilityTree;
         private readonly IAbilityFactory _abilityFactory;
         private readonly AbilityContainer _container;
         private IUIFactory _uiFactory;
         private CardSelectorWindow _cardSelector;
 
         public PlayerAbilityRewarder(
-            PlayerAbilitiesStaticData passiveAbilitiesData,
+            Branch passiveAbilitiesData,
             IAbilityFactory abilityFactory,
             AbilityContainer container,
             Vawe vawe,
             IUIFactory uiFactory)
         {
-            _passiveAbilitiesData = passiveAbilitiesData;
+            _abilityTree = passiveAbilitiesData;
             _abilityFactory = abilityFactory;
             _container = container;
             _uiFactory = uiFactory;
             vawe.Finished += OnVaweFinished;
+            _abilityTree.ResetOwnInLeafs();
         }
 
         private void OnVaweFinished()
@@ -71,12 +73,13 @@ namespace Assets.Source.Scripts.Shops
 
         private List<AbilityStaticData> GetAvaliableAbility()
         {
-            return _passiveAbilitiesData.AbilitiesData;
+            return _abilityTree.GetAvailableAbility().ToList();
         }
 
         private void OnCardSelected(string id)
         {
             AddAbilityToPlayer(id);
+            _abilityTree.SetAbilityToOwn(id);
             DestroySelector();
         }
 

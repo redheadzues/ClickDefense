@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2997dd6b5f4c86b418c7672c7685cdcc, type: 3}
+  m_Name: Branch
+  m_EditorClassIdentifier: 
+  Leafs:
+  - AbilityData: {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
+    Requirements: []
+    UIPosition: {x: 50, y: 6}
+    IsOwned: 0
+  - AbilityData: {fileID: 11400000, guid: d6618c9fe5cf6824bb5af1561652adf2, type: 2}
+    Requirements:
+    - {fileID: 11400000, guid: 5c4bfd613c6d9b34eb18e31717964c41, type: 2}
+    UIPosition: {x: 419, y: 8}
+    IsOwned: 0
