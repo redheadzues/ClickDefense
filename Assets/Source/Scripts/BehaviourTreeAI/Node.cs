@@ -2,10 +2,12 @@
 
 namespace Assets.Source.Scripts.BehaviourTreeAI
 {
-    public abstract partial class Node : ScriptableObject
+    public abstract class Node : ScriptableObject
     {
         public State State  = State.RUNNING;
         public bool Started = false;
+        public string Id;
+        public Vector2 UIPosition; 
 
         public State Update()
         {

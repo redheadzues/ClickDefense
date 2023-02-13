@@ -9,16 +9,16 @@ namespace Assets.Source.Scripts.Editor
     public class BranchEditor : UnityEditor.Editor
     {
         Vector2 leafSize = new Vector2(150, 150);
-        float minWindowHeight = 720f;
-        float minwindowWidth = 1000f;
+        //float minWindowHeight = 720f;
+        //float minwindowWidth = 1000f;
         Vector2 incomingEdgePoint = new Vector2 (100f, 10f);
         Vector2 outgoingEdgePoint = new Vector2(-12f, 10f);
         Vector2 upArrowVec = new Vector2(-5f, -5f);
         Vector2 downArrowVec = new Vector2(-5f, 5f);
-        Vector2 nextLineVec = new Vector2(0, 20f);
-        Vector2 indentVec = new Vector2(102f, 0);
-        Vector2 leafContentSize = new Vector2(40f, 20f);
-        Vector2 leafLabelSize = new Vector2(100f, 20f);
+        //Vector2 nextLineVec = new Vector2(0, 20f);
+        //Vector2 indentVec = new Vector2(102f, 0);
+        //Vector2 leafContentSize = new Vector2(40f, 20f);
+        //Vector2 leafLabelSize = new Vector2(100f, 20f);
 
         Vector2 mouseSelectionOffset;
         Vector2 scrollPosition = Vector2.zero;
