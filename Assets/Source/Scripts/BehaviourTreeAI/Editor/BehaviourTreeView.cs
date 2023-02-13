@@ -9,9 +9,11 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
 {
     public class BehaviourTreeView : GraphView
     {
+        public new class UxmlFactory : UxmlFactory<BehaviourTreeView, GraphView.UxmlTraits> { }
+         
+        public Action<NodeView> OnNodeSelected;
         BehaviourTree tree;
 
-        public new class UxmlFactory : UxmlFactory<BehaviourTreeView, GraphView.UxmlTraits> { }
         public BehaviourTreeView()
         {
             Insert(0, new GridBackground());
@@ -69,8 +71,34 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
             DeleteElements(graphElements);
             graphViewChanged += OnGraphViewChanged;
 
-            tree.Nodes.ForEach(n => CreateNodeView(n));
-        }
+            if(tree.RootNode == null)
+            {
+                tree.RootNode = tree.CreateNode(typeof(RootNode)) as RootNode;
+                EditorUtility.SetDirty(tree);
+                AssetDatabase.SaveAssets();
+            }
+
+            tree.Nodes.ForEach(node => CreateNodeView(node));
+
+            tree.Nodes.ForEach(node =>
+            {
+                List<Node> children = tree.GetChildren(node);
+
+                children.ForEach(child =>
+                {
+                    NodeView parrentView = FindNodeView(node);
+                    NodeView childView = FindNodeView(child);
+
+                    Edge edge = parrentView.Output.ConnectTo(childView.Input);
+                    AddElement(edge);
+                });
+            });
+        }   
+
+            
+        public NodeView FindNodeView(Node node) =>
+            GetNodeByGuid(node.Guid) as NodeView;
+        
 
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
@@ -78,11 +106,27 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
             {
                 graphViewChange.elementsToRemove.ForEach(elem =>
                 {
-                    NodeView nodeView = elem as NodeView;
-                    if(nodeView != null)
-                    {
+
+                    if(elem is NodeView nodeView)
                         tree.DeleteNode(nodeView.node);
+
+                    if(elem is Edge edge)
+                    {
+                        NodeView parrentView = edge.output.node as NodeView;
+                        NodeView childView = edge.input.node as NodeView;
+                        tree.RemoveChild(parrentView.node, childView.node);
                     }
+                });
+            }
+
+            if (graphViewChange.edgesToCreate != null)
+            {
+                graphViewChange.edgesToCreate.ForEach(edge =>
+                {
+                    NodeView parrentView = edge.output.node as NodeView;
+                    NodeView childView = edge.input.node as NodeView;
+                    tree.AddChild(parrentView.node, childView.node);
+
                 });
             }
 
@@ -99,7 +143,10 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
         public void CreateNodeView(Node node)
         {
             NodeView nodeView = new NodeView(node);
+            nodeView.OnNodeSelected = OnNodeSelected;
             AddElement(nodeView);
+            
+
         }
     }
 }

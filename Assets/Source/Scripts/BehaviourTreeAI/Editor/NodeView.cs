@@ -6,6 +6,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
 {
     public class NodeView : UnityEditor.Experimental.GraphView.Node
     {
+        public Action<NodeView> OnNodeSelected;
         public Node node;
         public Port Input;
         public Port Output;
@@ -14,7 +15,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
         {
             this.node = node;
             this.title = node.name;
-            this.viewDataKey = node.Id;
+            this.viewDataKey = node.Guid;
 
 
             style.left = node.UIPosition.x;
@@ -57,6 +58,10 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
             {
                 Output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
             }
+            else if(node is RootNode)
+            {
+                Output = InstantiatePort(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, typeof(bool));
+            }
 
             if (Output != null)
             {
@@ -72,6 +77,12 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
 
             node.UIPosition.x = newPos.xMin;
             node.UIPosition.y = newPos.yMin;
+        }
+
+        public override void OnSelected()
+        {
+            base.OnSelected();
+            OnNodeSelected?.Invoke(this);
         }
     }
 }

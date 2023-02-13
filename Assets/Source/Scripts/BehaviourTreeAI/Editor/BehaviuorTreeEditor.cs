@@ -4,7 +4,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
 public class BehaviuorTreeEditor : EditorWindow
 {
     BehaviourTreeView treeView;
@@ -35,6 +34,7 @@ public class BehaviuorTreeEditor : EditorWindow
 
         treeView = root.Q<BehaviourTreeView>();
         inspectorVew = root.Q<InspectorView>();
+        treeView.OnNodeSelected += OnNodeSelectionChanged;
 
         OnSelectionChange();
     }
@@ -43,9 +43,14 @@ public class BehaviuorTreeEditor : EditorWindow
     {
         BehaviourTree tree = Selection.activeObject as BehaviourTree;
 
-        if(tree)
+        if(tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
         {
             treeView.FillView(tree);
         }
+    }
+
+    private void OnNodeSelectionChanged(NodeView nodeView)
+    {
+        inspectorVew.UpdateSelection(nodeView);
     }
 }

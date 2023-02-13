@@ -4,10 +4,10 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public abstract class Node : ScriptableObject
     {
-        public State State  = State.RUNNING;
-        public bool Started = false;
-        public string Id;
-        public Vector2 UIPosition; 
+        [HideInInspector] public State State  = State.RUNNING;
+        [HideInInspector] public bool Started = false;
+        [HideInInspector] public string Guid;
+        [HideInInspector] public Vector2 UIPosition; 
 
         public State Update()
         {
@@ -28,6 +28,9 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
             return State;
         }
 
+        public virtual Node Clone() =>
+            Instantiate(this);
+  
         public abstract void OnStart();
         public abstract void OnStop();
         public abstract State OnUpdate();
