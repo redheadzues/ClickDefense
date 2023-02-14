@@ -1,0 +1,94 @@
+#node-border {
+    background-color: rgba(56, 56, 56, 255);
+    border-left-color: rgba(32, 32, 32, 255);
+    border-right-color: rgba(32, 32, 32, 255);
+    border-top-color: rgba(32, 32, 32, 255);
+    border-bottom-color: rgba(32, 32, 32, 255);
+    border-left-width: 2px;
+    border-right-width: 2px;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#input {
+    align-items: center;
+}
+
+#output {
+    align-items: center;
+}
+
+#selection-border {
+    border-left-color: rgba(0, 201, 255, 255);
+    border-right-color: rgba(0, 201, 255, 255);
+    border-top-color: rgba(0, 201, 255, 255);
+    border-bottom-color: rgba(0, 201, 255, 255);
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+:hover > #selection-border {
+    border-left-width: 1px;
+    border-right-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+:selected > #selection-border {
+    border-left-width: 3px;
+    border-right-width: 3px;
+    border-top-width: 3px;
+    border-bottom-width: 3px;
+}
+
+.node {
+    min-width: 150px;
+}
+
+#title {
+    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-text-align: upper-center;
+}
+
+#description {
+    font-size: 10px;
+    -unity-text-align: upper-center;
+}
+
+#divider {
+    min-height: 1px;
+    background-color: rgb(32, 32, 32);
+}
+
+.action #input {
+    background-color: rgba(60, 209, 70, 255);
+}
+
+.composite #input {
+    background-color: rgb(71, 209, 158);
+}
+
+.decorator #input {
+    background-color: rgb(183, 82, 209);
+}
+
+.root #input {
+    background-color: rgb(209, 70, 40);
+    min-height: 20px;
+}

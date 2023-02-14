@@ -26,6 +26,14 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
 
             StyleSheet styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Source/Scripts/BehaviourTreeAI/Editor/BehaviuorTreeEditor.uss");
             styleSheets.Add(styleSheet);
+
+            Undo.undoRedoPerformed += OnUndoRedo;
+        }
+
+        private void OnUndoRedo()
+        {
+            FillView(tree);
+            AssetDatabase.SaveAssets();
         }
 
         public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
@@ -144,9 +152,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
         {
             NodeView nodeView = new NodeView(node);
             nodeView.OnNodeSelected = OnNodeSelected;
-            AddElement(nodeView);
-            
-
+            AddElement(nodeView);         
         }
     }
 }

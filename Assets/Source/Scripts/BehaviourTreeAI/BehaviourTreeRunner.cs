@@ -4,7 +4,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public class BehaviourTreeRunner : MonoBehaviour
     {
-        [SerializeField] private BehaviourTree tree;
+        public BehaviourTree tree;
 
         private void Start()
         {

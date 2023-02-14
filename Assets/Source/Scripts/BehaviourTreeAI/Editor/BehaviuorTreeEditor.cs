@@ -3,6 +3,7 @@ using Assets.Source.Scripts.BehaviourTreeAI.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.Callbacks;
 
 public class BehaviuorTreeEditor : EditorWindow
 {
@@ -15,6 +16,18 @@ public class BehaviuorTreeEditor : EditorWindow
     {
         BehaviuorTreeEditor wnd = GetWindow<BehaviuorTreeEditor>();
         wnd.titleContent = new GUIContent("BehaviuorTreeEditor");
+    }
+
+    [OnOpenAsset]
+    public static bool OnOpenAssets(int instanceId, int line)
+    {
+        if(Selection.activeObject is BehaviourTree)
+        {
+            OpenWindow();
+            return true;
+        }
+
+        return false;
     }
 
     public void CreateGUI()
@@ -44,13 +57,10 @@ public class BehaviuorTreeEditor : EditorWindow
         BehaviourTree tree = Selection.activeObject as BehaviourTree;
 
         if(tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
-        {
             treeView.FillView(tree);
-        }
     }
 
-    private void OnNodeSelectionChanged(NodeView nodeView)
-    {
+    private void OnNodeSelectionChanged(NodeView nodeView) =>
         inspectorVew.UpdateSelection(nodeView);
-    }
+    
 }

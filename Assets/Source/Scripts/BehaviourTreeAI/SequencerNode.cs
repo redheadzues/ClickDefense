@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Assets.Source.Scripts.BehaviourTreeAI
+﻿namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public class SequencerNode : CompositeNode
     {
@@ -18,7 +16,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 
         public override State OnUpdate()
         {
-            var child = Children[number];
+            Node child = Children[number];
 
             switch (child.Update())
             {
@@ -30,7 +28,6 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
                     number++;
                     break;
             }
-
 
             return number == Children.Count ? State.SUCCESS : State.RUNNING;
         }
