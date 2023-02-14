@@ -10,7 +10,7 @@ namespace Assets.Source.Scripts.GameAI
 
         private Collider[] _enemies;
 
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
             _enemies = new Collider[3];
 

@@ -9,11 +9,11 @@
             number = 0;
         }
 
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
             Node child = Children[number];
 
-            switch (child.Evaluate())
+            switch (child.Evaluate(time))
             {
                 case State.RUNNING:
                     return State.RUNNING;

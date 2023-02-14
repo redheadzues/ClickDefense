@@ -13,7 +13,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 
         private void Update()
         {
-            tree.Update();
+            tree.Evaluate(Time.deltaTime);
         }
 
     }

@@ -2,9 +2,9 @@
 {
     public class RepeatNode : DecoratorNode
     {
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
-            child.Evaluate();
+            child.Evaluate(time);
             return State.RUNNING;
         }           
     }

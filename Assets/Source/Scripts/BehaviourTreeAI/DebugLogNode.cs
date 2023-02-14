@@ -14,7 +14,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         public override void OnStop() => 
             Debug.Log($"OnStop {Message}");
 
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
             Debug.Log($"OnUpdate {Message}");
             return State.SUCCESS;

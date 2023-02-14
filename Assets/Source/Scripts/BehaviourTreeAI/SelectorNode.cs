@@ -2,11 +2,11 @@
 {
     public class SelectorNode : CompositeNode
     {
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
             foreach(Node child in Children)
             {
-                switch (child.Evaluate())
+                switch (child.Evaluate(time))
                 {
                     case State.RUNNING:
                         return State.RUNNING;

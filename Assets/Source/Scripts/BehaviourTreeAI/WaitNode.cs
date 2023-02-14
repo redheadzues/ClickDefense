@@ -1,22 +1,20 @@
-﻿using UnityEngine;
-
-namespace Assets.Source.Scripts.BehaviourTreeAI
+﻿namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public class WaitNode : ActionNode
     {
         public float duration = 1;
-        private float time;
+        private float _passedTime;
 
         public override void OnStart()
         {
-            time = 0;
+            _passedTime = 0;
         }
 
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
-            time += Time.deltaTime;
+            _passedTime += time;
 
-            if (time > duration)
+            if (_passedTime > duration)
                 return State.SUCCESS;
             else
                 return State.RUNNING;

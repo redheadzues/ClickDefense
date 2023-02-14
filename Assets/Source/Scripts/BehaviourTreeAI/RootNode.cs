@@ -4,9 +4,9 @@
     {
         public Node child;
 
-        public override State OnEvaluate()
+        public override State OnEvaluate(float time)
         {
-            return child.Evaluate();
+            return child.Evaluate(time);
         }
 
         public override Node Clone()

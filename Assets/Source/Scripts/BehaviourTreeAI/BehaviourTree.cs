@@ -12,10 +12,10 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 
         public List<Node> Nodes = new List<Node>();
                 
-        public State Update()
+        public State Evaluate(float time)
         {
             if(RootNode.State == State.RUNNING)
-                TreeState = RootNode.Evaluate();
+                TreeState = RootNode.Evaluate(time);
 
             return TreeState;
         }
