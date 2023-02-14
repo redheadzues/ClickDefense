@@ -2,15 +2,11 @@
 {
     public class SelectorNode : CompositeNode
     {
-        public override void OnStart(){}
-
-        public override void OnStop(){}
-
-        public override State OnUpdate()
+        public override State OnEvaluate()
         {
             foreach(Node child in Children)
             {
-                switch (child.Update())
+                switch (child.Evaluate())
                 {
                     case State.RUNNING:
                         return State.RUNNING;

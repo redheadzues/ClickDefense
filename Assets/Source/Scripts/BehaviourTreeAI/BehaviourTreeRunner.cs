@@ -15,5 +15,6 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         {
             tree.Update();
         }
+
     }
 }

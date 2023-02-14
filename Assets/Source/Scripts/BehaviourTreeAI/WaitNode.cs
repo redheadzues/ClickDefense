@@ -5,21 +5,18 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
     public class WaitNode : ActionNode
     {
         public float duration = 1;
-        float startTime;
+        private float time;
 
         public override void OnStart()
         {
-            startTime = Time.time;
+            time = 0;
         }
 
-        public override void OnStop()
+        public override State OnEvaluate()
         {
-            
-        }
+            time += Time.deltaTime;
 
-        public override State OnUpdate()
-        {
-            if (Time.time - startTime > duration)
+            if (time > duration)
                 return State.SUCCESS;
             else
                 return State.RUNNING;

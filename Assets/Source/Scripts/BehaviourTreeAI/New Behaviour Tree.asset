@@ -32,7 +32,7 @@ MonoBehaviour:
   State: 0
   Started: 0
   Guid: b500cca530def7747918615f8eadf39c
-  UIPosition: {x: -195.85, y: 544}
+  UIPosition: {x: -311.00015, y: 388.99997}
   Message: 2
 --- !u!114 &-8070919810803109440
 MonoBehaviour:
@@ -51,23 +51,6 @@ MonoBehaviour:
   Guid: 0be150c5bff85d14db8b665a7778de86
   UIPosition: {x: -242, y: -52.5}
   child: {fileID: -589664867470839862}
---- !u!114 &-7785583369886460026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bc8a2e5cb6ee2f4fa2f037d69abbf9f, type: 3}
-  m_Name: WaitNode
-  m_EditorClassIdentifier: 
-  State: 0
-  Started: 0
-  Guid: 6385700aeb52c5a44b362e481855f37c
-  UIPosition: {x: 212.16122, y: 377.16257}
-  duration: 5
 --- !u!114 &-6660013274873092948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,8 +66,8 @@ MonoBehaviour:
   State: 0
   Started: 0
   Guid: 6ccd159e4589307488f62f8e6560330a
-  UIPosition: {x: -11.030037, y: 535.67}
-  duration: 5
+  UIPosition: {x: -127.71197, y: 384.99997}
+  duration: 1
 --- !u!114 &-5500462036328556393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +83,25 @@ MonoBehaviour:
   State: 0
   Started: 0
   Guid: 5f9853f3428c419438402bc5b4158ad9
-  UIPosition: {x: -482.73764, y: 380.5}
+  UIPosition: {x: -668.15125, y: 388.99997}
   Message: 1
+--- !u!114 &-4899084391869090141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc8a2e5cb6ee2f4fa2f037d69abbf9f, type: 3}
+  m_Name: WaitNode
+  m_EditorClassIdentifier: 
+  State: 0
+  Started: 0
+  Guid: 28ad3841d709be84b9d1b778cbf6132e
+  UIPosition: {x: 213.31818, y: 388.99997}
+  duration: 10
 --- !u!114 &-589664867470839862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +134,8 @@ MonoBehaviour:
   State: 0
   Started: 0
   Guid: 1e40517bc00a6a149afdcbdc43ee3327
-  UIPosition: {x: -325.0001, y: 380.49997}
-  duration: 5
+  UIPosition: {x: -491.9009, y: 384.99997}
+  duration: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,12 +154,12 @@ MonoBehaviour:
   - {fileID: 1217408877048203127}
   - {fileID: -8070919810803109440}
   - {fileID: -8774810862733482214}
-  - {fileID: -7785583369886460026}
   - {fileID: -8658809578268166174}
   - {fileID: -6660013274873092948}
   - {fileID: -5500462036328556393}
   - {fileID: -551718093460035658}
   - {fileID: -589664867470839862}
+  - {fileID: -4899084391869090141}
 --- !u!114 &1217408877048203127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,5 +181,5 @@ MonoBehaviour:
   - {fileID: -551718093460035658}
   - {fileID: -8658809578268166174}
   - {fileID: -6660013274873092948}
-  - {fileID: -7785583369886460026}
   - {fileID: -8774810862733482214}
+  - {fileID: -4899084391869090141}

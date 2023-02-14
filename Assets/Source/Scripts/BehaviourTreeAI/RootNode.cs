@@ -4,19 +4,9 @@
     {
         public Node child;
 
-        public override void OnStart()
+        public override State OnEvaluate()
         {
-            
-        }
-
-        public override void OnStop()
-        {
-            
-        }
-
-        public override State OnUpdate()
-        {
-            return child.Update();
+            return child.Evaluate();
         }
 
         public override Node Clone()
@@ -24,8 +14,6 @@
             RootNode rootNode = Instantiate(this);
             rootNode.child = child.Clone();
             return rootNode;
-
-        }
-        
+        }        
     }
 }

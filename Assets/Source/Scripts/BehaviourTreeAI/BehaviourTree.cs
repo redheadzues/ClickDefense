@@ -15,14 +15,14 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         public State Update()
         {
             if(RootNode.State == State.RUNNING)
-                TreeState = RootNode.Update();
+                TreeState = RootNode.Evaluate();
 
             return TreeState;
         }
 
         public Node CreateNode(System.Type type)
         {
-            Node node = ScriptableObject.CreateInstance(type) as Node;
+            Node node = CreateInstance(type) as Node;
             node.name = type.Name;
             node.Guid = GUID.Generate().ToString();
             Nodes.Add(node);

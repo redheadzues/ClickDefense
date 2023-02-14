@@ -9,16 +9,11 @@
             number = 0;
         }
 
-        public override void OnStop()
-        {
-
-        }
-
-        public override State OnUpdate()
+        public override State OnEvaluate()
         {
             Node child = Children[number];
 
-            switch (child.Update())
+            switch (child.Evaluate())
             {
                 case State.RUNNING:
                     return State.RUNNING;

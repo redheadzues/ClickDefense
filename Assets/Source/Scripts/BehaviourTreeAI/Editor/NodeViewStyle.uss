@@ -1,9 +1,9 @@
 #node-border {
-    background-color: rgba(56, 56, 56, 255);
-    border-left-color: rgba(32, 32, 32, 255);
-    border-right-color: rgba(32, 32, 32, 255);
-    border-top-color: rgba(32, 32, 32, 255);
-    border-bottom-color: rgba(32, 32, 32, 255);
+    background-color: rgb(56, 56, 56);
+    border-left-color: rgb(32, 32, 32);
+    border-right-color: rgb(32, 32, 32);
+    border-top-color: rgb(32, 32, 32);
+    border-bottom-color: rgb(32, 32, 32);
     border-left-width: 2px;
     border-right-width: 2px;
     border-top-width: 2px;
@@ -16,6 +16,8 @@
 
 #input {
     align-items: center;
+    min-width: 20px;
+    min-height: 20px;
 }
 
 #output {
@@ -23,10 +25,10 @@
 }
 
 #selection-border {
-    border-left-color: rgba(0, 201, 255, 255);
-    border-right-color: rgba(0, 201, 255, 255);
-    border-top-color: rgba(0, 201, 255, 255);
-    border-bottom-color: rgba(0, 201, 255, 255);
+    border-left-color: rgb(0, 201, 255);
+    border-right-color: rgb(0, 201, 255);
+    border-top-color: rgb(0, 201, 255);
+    border-bottom-color: rgb(0, 201, 255);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -77,7 +79,7 @@
 }
 
 .action #input {
-    background-color: rgba(60, 209, 70, 255);
+    background-color: rgb(60, 209, 70);
 }
 
 .composite #input {

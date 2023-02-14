@@ -2,19 +2,10 @@
 {
     public class RepeatNode : DecoratorNode
     {
-        public override void OnStart()
-        {            
-        }
-
-        public override void OnStop()
-        {            
-        }
-
-        public override State OnUpdate()
+        public override State OnEvaluate()
         {
-            child.Update();
+            child.Evaluate();
             return State.RUNNING;
-        }
-            
+        }           
     }
 }

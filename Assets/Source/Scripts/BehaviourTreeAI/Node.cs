@@ -9,7 +9,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         [HideInInspector] public string Guid;
         [HideInInspector] public Vector2 UIPosition; 
 
-        public State Update()
+        public State Evaluate(float time)
         {
             if (Started == false)
             {
@@ -17,7 +17,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
                 Started = true;
             }
 
-            State = OnUpdate();
+            State = OnEvaluate(time);
 
             if (State == State.FAILURE || State == State.SUCCESS)
             {
@@ -31,9 +31,9 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         public virtual Node Clone() =>
             Instantiate(this);
   
-        public abstract void OnStart();
-        public abstract void OnStop();
-        public abstract State OnUpdate();
+        public virtual void OnStart() { }
+        public virtual void OnStop() { }
+        public abstract State OnEvaluate(float time);
 
 
 
