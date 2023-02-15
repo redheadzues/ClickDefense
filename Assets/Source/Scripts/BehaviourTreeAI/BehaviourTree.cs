@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,7 +13,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         public State TreeState = State.RUNNING;
 
         public List<Node> Nodes = new List<Node>();
-                
+
         public State Evaluate(float time)
         {
             if(RootNode.State == State.RUNNING)
@@ -118,4 +120,5 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
             return tree;
         }
     }
+
 }

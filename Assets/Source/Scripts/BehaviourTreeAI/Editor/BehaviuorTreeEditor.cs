@@ -52,6 +52,7 @@ public class BehaviuorTreeEditor : EditorWindow
         OnSelectionChange();
     }
 
+
     private void OnSelectionChange()
     {
         BehaviourTree tree = Selection.activeObject as BehaviourTree;
