@@ -5,15 +5,15 @@ namespace Assets.Source.Scripts.GameAI
 {
     public class EnemyAttacker : ActionNode
     {
-        [SerializeField] private Transform _selfTransform;
-        [SerializeField] private Animator _animator;
+        [Shared] public Transform SelfTransform;
+        [Shared] public Animator Animator;
 
         private Transform _target;
         private float _attackDistance;
 
         public override State OnEvaluate(float time)
         {
-            if (Vector3.Distance(_selfTransform.position, _target.position) <= _attackDistance)
+            if (Vector3.Distance(SelfTransform.position, _target.position) <= _attackDistance)
             {
                 //_animator
                 return State.RUNNING;

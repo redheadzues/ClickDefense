@@ -5,8 +5,8 @@ namespace Assets.Source.Scripts.GameAI
 {
     public class EnemySeeker : ActionNode
     {
-        [SerializeField] private Transform _selfTransform;
-        [SerializeField] private float _searchRadius;
+        [Shared] public Transform SelfTransform;
+        [Shared] public float SearchRadius;
 
         private Collider[] _enemies;
 
@@ -14,7 +14,7 @@ namespace Assets.Source.Scripts.GameAI
         {
             _enemies = new Collider[3];
 
-            Physics.OverlapSphereNonAlloc(_selfTransform.position, _searchRadius, _enemies);
+            Physics.OverlapSphereNonAlloc(SelfTransform.position, SearchRadius, _enemies);
 
             return _enemies.Length > 0 ? State.SUCCESS : State.FAILURE;
         }

@@ -85,6 +85,24 @@ MonoBehaviour:
   Guid: 5f9853f3428c419438402bc5b4158ad9
   UIPosition: {x: -668.15125, y: 388.99997}
   Message: 1
+--- !u!114 &-5024770544357251352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9b1be6a253138e4baef87b3a85b9640, type: 3}
+  m_Name: EnemySeeker
+  m_EditorClassIdentifier: 
+  State: 0
+  Started: 0
+  Guid: 2115c72ba9cf03540bd3c8dfbb4f86bb
+  UIPosition: {x: 0, y: 0}
+  SelfTransform: {fileID: 0}
+  SearchRadius: 0
 --- !u!114 &-4899084391869090141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +178,7 @@ MonoBehaviour:
   - {fileID: -551718093460035658}
   - {fileID: -589664867470839862}
   - {fileID: -4899084391869090141}
+  - {fileID: -5024770544357251352}
 --- !u!114 &1217408877048203127
 MonoBehaviour:
   m_ObjectHideFlags: 0

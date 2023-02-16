@@ -7,7 +7,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
         [HideInInspector] public State State  = State.RUNNING;
         [HideInInspector] public bool Started = false;
         [HideInInspector] public string Guid;
-        [HideInInspector] public Vector2 UIPosition; 
+        [HideInInspector] public Vector2 UIPosition;
 
         public State Evaluate(float time)
         {
@@ -30,6 +30,14 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
 
         public virtual Node Clone() =>
             Instantiate(this);
+
+        public System.Type GetNodeType()
+        {
+            System.Type result = GetType();
+
+            return result;
+        }
+
   
         public virtual void OnStart() { }
         public virtual void OnStop() { }

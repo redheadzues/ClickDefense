@@ -5,7 +5,7 @@ namespace Assets.Source.Scripts.GameAI
 {
     public class MoverToTarget : ActionNode
     {
-        [SerializeField] private Transform _selfTransform;
+        [Shared] public Transform SelfTransform;
 
         private Vector3 _targetPosition;
         private float _speed;
@@ -15,13 +15,13 @@ namespace Assets.Source.Scripts.GameAI
         {
             MoveToTarget(time);
 
-            return Vector3.Distance(_selfTransform.position, _targetPosition) > _requiredDistance 
+            return Vector3.Distance(SelfTransform.position, _targetPosition) > _requiredDistance 
                 ? State.RUNNING : State.SUCCESS;
         }
 
         private void MoveToTarget(float deltaTime)
         {
-            _selfTransform.position = Vector3.MoveTowards(_selfTransform.position, _targetPosition, _speed * deltaTime);
+            SelfTransform.position = Vector3.MoveTowards(SelfTransform.position, _targetPosition, _speed * deltaTime);
         }
     }
 }
