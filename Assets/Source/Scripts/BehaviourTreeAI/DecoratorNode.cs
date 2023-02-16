@@ -11,7 +11,6 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
             DecoratorNode node = Instantiate(this);
             node.child = child.Clone();
             return node;
-
         }
     }
 }
