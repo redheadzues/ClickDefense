@@ -1,22 +1,18 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Source.Scripts.BehaviourTreeAI
 {
     public class DebugLogNode : ActionNode
     {
         public string Message;
-
-        public override void OnStart() =>
-            Debug.Log($"OnStart {Message}");
-
-
-        public override void OnStop() => 
-            Debug.Log($"OnStop {Message}");
+        public Transform TransformForPrint;
+        [Shared] 
+        [SerializeField]public TowerSetter TowerSetter;
 
         public override State OnEvaluate(float time)
         {
-            Debug.Log($"OnUpdate {Message}");
+                Debug.Log($"OnUpdate ");
+
             return State.SUCCESS;
         }
     }

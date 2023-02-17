@@ -8,7 +8,6 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
     [CustomEditor(typeof(BehaviourTreeRunner)), CanEditMultipleObjects]
     public class BehaviourTreeRunnerEditor : UnityEditor.Editor
     {
-        private List<PackedSharedData> _packedData;
         private HashSet<FieldInfo> _sharedFields;
         private BehaviourTree _tree;
 
@@ -22,21 +21,17 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
             {
                 UpdateVariables(runner);
                 CollectSharedFields(runner);
-                CreateStoragePackeges();
-                CreateFieldsInInspector();
-                WritePackedData(runner);
+                CreateStoragePackeges(runner);
+                CreateFieldsInInspector(runner);
             }
 
             EditorUtility.SetDirty(target);
         }
 
-        private void WritePackedData(BehaviourTreeRunner runner) => 
-            runner.PackedData = _packedData;
 
         private void UpdateVariables(BehaviourTreeRunner runner)
         {
             _tree = runner.tree;
-            _packedData = new List<PackedSharedData>();
             _sharedFields = new HashSet<FieldInfo>();
         }
 
@@ -44,9 +39,9 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
             _tree.Nodes.ForEach(node => _sharedFields.UnionWith(runner.GetSharedFields(node)));
 
 
-        private void CreateFieldsInInspector()
+        private void CreateFieldsInInspector(BehaviourTreeRunner runner)
         {
-            foreach(var data in _packedData)
+            foreach(var data in runner.PackedData)
             {
                 GUILayout.BeginHorizontal();
 
@@ -58,21 +53,21 @@ namespace Assets.Source.Scripts.BehaviourTreeAI.Editor
         }
         
 
-        private void CreateStoragePackeges()
+        private void CreateStoragePackeges(BehaviourTreeRunner runner)
         {
             foreach (FieldInfo info in _sharedFields)
             {
-                if (CheckContainsData(info) == false)
+                if (CheckContainsData(info, runner) == false)
                 {
                     PackedSharedData newData = new PackedSharedData(info.FieldType, info.Name);
-                    _packedData.Add(newData);
+                    runner.PackedData.Add(newData);
                 }
             }
         }
 
-        private bool CheckContainsData(FieldInfo info)
+        private bool CheckContainsData(FieldInfo info, BehaviourTreeRunner runner)
         {
-            foreach(PackedSharedData data in _packedData)
+            foreach(PackedSharedData data in runner.PackedData)
             {
                 if(data.Type == info.FieldType && data.Name == info.Name)
                     return true;

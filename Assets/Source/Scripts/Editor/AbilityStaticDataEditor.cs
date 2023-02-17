@@ -26,7 +26,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Editor
         {
             base.OnInspectorGUI();
 
-            //AbilityStaticData abilityData = (AbilityStaticData)target;
+            AbilityStaticData abilityData = (AbilityStaticData)target;
 
             //GUILayout.BeginHorizontal();
             //GUILayout.Label("Icon");
@@ -43,7 +43,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Editor
             //abilityData.Name = EditorGUILayout.TextArea(abilityData.Name);
             //GUILayout.EndHorizontal();
 
-            //if (abilityData.TargetDetermineTypeId == AbilityTargetDetermineTypeId.Area 
+            //if (abilityData.TargetDetermineTypeId == AbilityTargetDetermineTypeId.Area
             //    || abilityData.TargetDetermineTypeId == AbilityTargetDetermineTypeId.Chain)
             //{
             //    abilityData.Area = EditorGUILayout.FloatField("Area", abilityData.Area);
@@ -51,7 +51,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Editor
 
             //GUILayout.Label($"Unique Id - {abilityData.Id}");
 
-            //EditorUtility.SetDirty(target);
+            EditorUtility.SetDirty(target);
 
         }
 

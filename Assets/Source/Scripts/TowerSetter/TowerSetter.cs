@@ -9,6 +9,8 @@ public class TowerSetter : MonoBehaviour
     [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BulletSpawner _spawner;
 
+    public string Name = "someName";
+
     private Camera _mainCamera;
 
     private void Awake()

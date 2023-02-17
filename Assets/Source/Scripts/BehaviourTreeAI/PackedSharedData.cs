@@ -2,16 +2,19 @@
 
 namespace Assets.Source.Scripts.BehaviourTreeAI
 {
+    [Serializable]
     public class PackedSharedData
     {
-        public Type Type;
         public string Name;
         public object Value;
+        private Type _type;        
+
+        public Type Type  { get { return _type ?? Value.GetType(); }  }
 
         public PackedSharedData(Type type, string name)
         {
-            Type = type;
             Name = name;
+            _type = type;
         }
     }
 }

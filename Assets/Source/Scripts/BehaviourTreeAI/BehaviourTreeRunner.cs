@@ -6,21 +6,28 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.BehaviourTreeAI
 {
+    [ExecuteInEditMode]
     public class BehaviourTreeRunner : MonoBehaviour
     {
         public BehaviourTree tree;
 
-        [HideInInspector] public List<PackedSharedData> PackedData;
+        public List<PackedSharedData> PackedData = new List<PackedSharedData>();
+
+        private void Awake()
+        {
+            tree = tree.Clone();
+        }
 
         private void Start()
         {
-            tree = tree.Clone();
-            EnjectData();
+
         }
 
         private void Update()
         {
-            tree.Evaluate(Time.deltaTime);
+            EnjectData();
+            if (Application.isPlaying)
+                tree.Evaluate(Time.deltaTime);
         }
 
         public List<FieldInfo> GetSharedFields(Node node) =>
@@ -31,9 +38,7 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
             foreach(PackedSharedData data in PackedData)
             {
                 if(data.Value != null)
-                    EnjectInNode(data);
-                else
-                    Debug.LogWarning($"Empty value in {data.Type} {data.Name}");
+                    EnjectInNode(data);               
             }
         }
 
@@ -47,7 +52,9 @@ namespace Assets.Source.Scripts.BehaviourTreeAI
             foreach (FieldInfo shared in sharedFields)
             {
                 if (data.Type == shared.FieldType && data.Name == shared.Name)
+                {                    
                     shared.SetValue(node, data.Value);
+                }
             }
         }
     }
