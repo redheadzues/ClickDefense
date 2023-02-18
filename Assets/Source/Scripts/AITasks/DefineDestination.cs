@@ -2,14 +2,18 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 
-public class DefineDestination : Action
+namespace Assets.Source.Scripts.AITasks
 {
-    public SharedVector3 Destination;
-
-    public override TaskStatus OnUpdate()
+    public class DefineDestination : Action
     {
-        Destination.Value = transform.position + Vector3.left * 30;
+        public SharedVector3 Destination;
 
-        return TaskStatus.Success;
+        public override TaskStatus OnUpdate()
+        {
+            Destination.Value = transform.position + Vector3.left * 30;
+
+            return TaskStatus.Success;
+        }
     }
 }
+
