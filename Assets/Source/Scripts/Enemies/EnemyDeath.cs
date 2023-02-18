@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.CharactersComponent;
 using System;
 using UnityEngine;
 
@@ -5,7 +6,7 @@ namespace Assets.Source.Scripts.Enemies
 {
     public class EnemyDeath : MonoBehaviour
     {
-        [SerializeField] private EnemyHealth _health;
+        [SerializeField] private Health _health;
 
         public event Action Happend;
 

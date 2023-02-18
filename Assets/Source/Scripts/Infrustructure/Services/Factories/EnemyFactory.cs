@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Components;
+using Assets.Source.Scripts.CharactersComponent;
 using Assets.Source.Scripts.Enemies;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
@@ -35,7 +36,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 
         private void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
         {
-            enemy.GetComponent<EnemyHealth>().SetNewValue(enemyData.HP);
+            enemy.GetComponent<Health>().SetNewValue(enemyData.HP);
             enemy.GetComponent<AttributeSetterComponent>().SetAttributes(speed: enemyData.Speed);
             
             IEnemy enemySource = enemy.GetComponent<IEnemy>();

@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.CharactersComponent;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System;
 using UnityEngine;
@@ -6,11 +7,11 @@ namespace Assets.Source.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IEnemy
     {
-        [SerializeField] private EnemyHealth _health;
+        [SerializeField] private Health _health;
         [SerializeField] private EnemyDeath _death;
 
         public Vector3 Position => transform.position;
-        public int Health => _health.Health;
+        public int Value => _health.Value;
         public int Reward { get; set; }
         public EnemyTypeId TypeId { get; set; }
         public event Action<IEnemy> Died;

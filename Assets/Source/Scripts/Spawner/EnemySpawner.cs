@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
-using Assets.Source.Scripts.Enemies;
 using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
+using Assets.Source.Scripts.CharactersComponent;
 
 public class EnemySpawner : ObjectsPool
 {
@@ -67,7 +67,7 @@ public class EnemySpawner : ObjectsPool
             return false;
         }
 
-        if (TryGetObject(_vaweSpawnList[_spawnIndex] ,out EnemyHealth enemy) == true)
+        if (TryGetObject(_vaweSpawnList[_spawnIndex] ,out Health enemy) == true)
         {
             enemy.transform.position = GetRandomPoint();
             enemy.gameObject.SetActive(true);

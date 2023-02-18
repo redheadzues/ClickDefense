@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.StaticData;
+﻿using Assets.Source.Scripts.CharactersComponent;
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using System;
 using UnityEngine;
 
