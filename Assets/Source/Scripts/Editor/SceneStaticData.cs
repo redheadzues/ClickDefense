@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.StaticData;
+﻿using Assets.Source.Scripts.Enemies;
+using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Assets.Source.Scripts.Editor
                     FindObjectsOfType<SpawnPoint>()
                     .Select(x => new EnemySpawnPoint(x.transform.position))
                     .ToList();
+
+                sceneData.EnemyTargetPositionX = FindObjectOfType<TargetPoint>().transform;
 
                 sceneData.SceneKey = SceneManager.GetActiveScene().name;
             }

@@ -10,6 +10,7 @@ namespace Assets.Source.Scripts.Enemies
         [SerializeField] private Health _health;
         [SerializeField] private EnemyDeath _death;
 
+        public Transform TargetPoint;
         public Vector3 Position => transform.position;
         public int Value => _health.Value;
         public int Reward { get; set; }
