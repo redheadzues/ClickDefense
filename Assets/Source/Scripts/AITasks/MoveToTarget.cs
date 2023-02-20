@@ -8,7 +8,7 @@ namespace Assets.Source.Scripts.AITasks
     public class MoveToTarget : Action
     {
         public SharedTransform Target;
-        private float threshold = 1.5f;
+        private float threshold = 3f;
 
         public SharedGameObject targetGameObject;
         private NavMeshAgent navMeshAgent;

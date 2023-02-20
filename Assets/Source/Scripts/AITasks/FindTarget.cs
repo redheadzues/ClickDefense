@@ -22,14 +22,28 @@ namespace Assets.Source.Scripts.AITasks
         {
             Physics.OverlapSphereNonAlloc(transform.position, 20, targets);
 
+            float minDistance = float.MaxValue;
+            Transform currentTarget = null;
+
             foreach (Collider target in targets)
             {
                 if (target != null && target.TryGetComponent(out AbilityTargetComponent tagsContainer))
                     if (tagsContainer.Tags.Contains(AbilityTag.Enemy))
                     {
-                        Target.Value = tagsContainer.transform;
-                        return true;
+                        float distanceToTarget = Vector3.Distance(tagsContainer.transform.position, transform.position);
+
+                        if (distanceToTarget < minDistance)
+                        {
+                            minDistance = distanceToTarget;
+                            currentTarget = tagsContainer.transform;
+                        }
                     }
+            }
+
+            if (currentTarget != null)
+            {
+                Target.Value = currentTarget;
+                return true;
             }
 
             return false;
