@@ -9,7 +9,10 @@ namespace Assets.Source.Scripts.Enemies
     {
         int Reward { get; set; }
         Vector3 Position { get; }
+
         public EnemyTypeId TypeId { get; set; }
+        float TargetPointX { get; set; }
+
         event Action<IEnemy> Died;
     }
 }

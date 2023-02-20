@@ -8,8 +8,8 @@ public static class StringToVector3Converter
 
         for (int i = 0; i < coordintes.Length; i++)
         {
-            coordintes[i] = coordintes[i].Replace("(", "");
-            coordintes[i] = coordintes[i].Replace(")", "");
+            coordintes[i].Replace("(", "");
+            coordintes[i].Replace(")", "");
         }
 
         float coordinateX = float.Parse(coordintes[0]);

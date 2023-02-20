@@ -1,5 +1,4 @@
-﻿using Assets.Source.Scripts.Infrustructure;
-using System;
+﻿using System;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Attributes
 {
@@ -33,7 +32,6 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Attributes
 
         private static float GetFloatPercentageRepresentation(float value)
         {
-
             return 1 + value / c_Percent;
         }
     }

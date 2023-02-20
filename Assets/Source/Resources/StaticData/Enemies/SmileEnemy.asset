@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <EnemyTypeId>k__BackingField: 0
   <HP>k__BackingField: 10
-  <Speed>k__BackingField: 5
   <Reward>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 3475198849781210094, guid: de638c1c7deaf894e863c640bb4d1d09, type: 3}
+  <Attributes>k__BackingField:
+    Speed: 5
+    Damage: 0
+    Range: 0
+    AttackSpeed: 0

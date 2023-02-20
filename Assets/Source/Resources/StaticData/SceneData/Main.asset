@@ -20,6 +20,7 @@ MonoBehaviour:
   - Position: {x: 24.09, y: 1.4449999, z: -2.15}
   - Position: {x: 27.09, y: 1.4449999, z: 2.1}
   - Position: {x: 20.62, y: 1.4449999, z: -6}
+  EnemyTargetPositionX: -17.1
   VawesData:
   - VaweCells:
     - Type: 0

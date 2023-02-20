@@ -9,9 +9,18 @@ namespace Assets.Source.Scripts.AITasks
     {
         public SharedVector3 Destination;
 
+        private IEnemy _enemy;
+
+        public override void OnStart()
+        {
+            if(_enemy == null)
+                _enemy = GetComponent<Enemy>();
+        }
+
         public override TaskStatus OnUpdate()
         {
-            Destination.Value = transform.position + Vector3.left * 30;
+            if(_enemy != null)
+                Destination.Value = new Vector3(_enemy.TargetPointX, transform.position.y, transform.position.z);
 
             return TaskStatus.Success;
         }

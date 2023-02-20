@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.StaticData
@@ -8,9 +9,9 @@ namespace Assets.Source.Scripts.Infrustructure.StaticData
     {        
         [field: SerializeField] public EnemyTypeId EnemyTypeId { get; private set; }
         [field: SerializeField, Range(1, 100)] public int HP { get; private set; }
-        [field: SerializeField, Range(1, 20)] public float Speed { get; private set; }
         [field: SerializeField, Range(1, 20)] public int Reward { get; private set; }
         [field: SerializeField] public GameObject Prefab { get; private set; }
+        [field: SerializeField] public GamePlayAttributes Attributes { get; private set; }
         
         
     }

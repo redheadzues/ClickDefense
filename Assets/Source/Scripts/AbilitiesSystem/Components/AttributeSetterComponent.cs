@@ -18,9 +18,9 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
         public float Range => _currentAttributes.Range;
         public float AttackSpeed => _currentAttributes.AttackSpeed;
 
-        public void SetAttributes(float speed = 0, float damage = 0, float range = 0, float attackSpeed = 0)
+        public void SetAttributes(GamePlayAttributes attributes)
         {
-            _attributes = new GamePlayAttributes(speed, damage, range, attackSpeed);
+            _attributes = attributes;
             _currentAttributes = _attributes;
             _navMeshAgent.speed = _currentAttributes.Speed;
         }

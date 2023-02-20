@@ -6,7 +6,6 @@ using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
@@ -26,23 +25,25 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
         public GameObject CreateEnemy(Transform parent, EnemyTypeId enemyTypeId)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
+            SceneStaticData sceneStaticData = _staticData.ForLevel();
             GameObject enemy = Object.Instantiate(enemyData.Prefab, parent);
 
             RegisterEnemy(enemy);
-            SetupEnemy(enemyData, enemy);
+            SetupEnemy(enemyData, enemy, sceneStaticData.EnemyTargetPositionX);
 
             return enemy;
         }
 
-        private void SetupEnemy(EnemyStaticData enemyData, GameObject enemy)
+        private void SetupEnemy(EnemyStaticData enemyData, GameObject enemy, float destinationtPositionX)
         {
             enemy.GetComponent<Health>().SetNewValue(enemyData.HP);
-            enemy.GetComponent<AttributeSetterComponent>().SetAttributes(speed: enemyData.Speed);
+            enemy.GetComponent<AttributeSetterComponent>().SetAttributes(enemyData.Attributes);
             
             IEnemy enemySource = enemy.GetComponent<IEnemy>();
 
             enemySource.Reward = enemyData.Reward;
             enemySource.TypeId = enemyData.EnemyTypeId;
+            enemySource.TargetPointX = destinationtPositionX;
         }
 
         private void RegisterEnemy(GameObject enemy)

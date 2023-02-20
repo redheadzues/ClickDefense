@@ -23,7 +23,7 @@ namespace Assets.Source.Scripts.Editor
                     .Select(x => new EnemySpawnPoint(x.transform.position))
                     .ToList();
 
-                sceneData.EnemyTargetPositionX = FindObjectOfType<TargetPoint>().transform;
+                sceneData.EnemyTargetPositionX = FindObjectOfType<TargetPoint>().transform.position.x;
 
                 sceneData.SceneKey = SceneManager.GetActiveScene().name;
             }
