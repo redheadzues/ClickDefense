@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 3501097090731435461}
   - component: {fileID: 3325859092882725504}
   - component: {fileID: 5768465479076299309}
-  - component: {fileID: 778529453301484770}
+  - component: {fileID: 9119694704727450536}
   - component: {fileID: 4047578243896210117}
   - component: {fileID: 3893929061574430723}
   - component: {fileID: 3801918621037069724}
@@ -289,8 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e77e26c03bbfbf4ea11536e2026e2bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 3501097090731435461}
-  _death: {fileID: 778529453301484770}
+  _death: {fileID: 9119694704727450536}
 --- !u!114 &3501097090731435461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f328c95963d678449205f5c112b63c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 6041001976453627513}
+  _attributeSetter: {fileID: 4804562415474944176}
   _abilityTarget: {fileID: 3801918621037069724}
 --- !u!114 &5768465479076299309
 MonoBehaviour:
@@ -330,8 +329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _textHealth: {fileID: 7152010882413785735}
-  _health: {fileID: 6041001976453627513}
---- !u!114 &778529453301484770
+  _health: {fileID: 3501097090731435461}
+--- !u!114 &9119694704727450536
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -340,7 +339,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7075157165567792036}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa69ab6a49ee3d847a0198f8e40eca9c, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fdc326b923ee74429e7e14596d9bc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 3501097090731435461}
@@ -405,5 +404,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eda54c5b8d831c4fa8d26a4f9dbdfa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 6041001976453627513}
+  _health: {fileID: 3501097090731435461}
   _navMeshAgent: {fileID: 4047578243896210117}

@@ -1,10 +1,7 @@
-using System;
-
-namespace Assets.Source.Scripts.Enemies
+namespace Assets.Source.Scripts.CharactersComponent
 {
     public interface IDamageable
     {
         void TakeDamage(int damage);
-
     }
 }

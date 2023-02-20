@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem;
+using Assets.Source.Scripts.CharactersComponent;
 using Assets.Source.Scripts.Enemies;
 using System;
 

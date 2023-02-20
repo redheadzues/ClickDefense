@@ -7,42 +7,36 @@ namespace Assets.Source.Scripts.Enemies
 {
     public class Enemy : MonoBehaviour, IEnemy
     {
-        [SerializeField] private Health _health;
-        [SerializeField] private EnemyDeath _death;
+        [SerializeField] private Death _death;
 
-        public Vector3 Position => transform.position;
-        public int Value => _health.Value;
-        public int Reward { get; set; }
-        public float TargetPointX { get; set; }
-        public EnemyTypeId TypeId { get; set; }
-        public event Action<IEnemy> Died;
-        public event Action<int> HealthChanged;
+        private int _reward;
+        private float _targetPositionX;
+        private EnemyTypeId _typeId;
+
+        public float TargetPointX => _targetPositionX;
+        public EnemyTypeId TypeId => _typeId;
+
+        public event Action<int> Died;
 
         private void OnEnable()
         {
-            _health.HealthChanged += OnHealthChanged;
             _death.Happend += OnDeathHappend;
         }
 
         private void OnDisable()
         {
-            _health.HealthChanged -= OnHealthChanged;
             _death.Happend -= OnDeathHappend;
         }
 
-        public void TakeDamage(int damage)
+        public void Construct(int reward, float targetPosition, EnemyTypeId typeId)
         {
-            _health.TakeDamage(damage);
+            _reward = reward;
+            _targetPositionX = targetPosition;
+            _typeId = typeId;
         }
-
         private void OnDeathHappend()
         {
-            Died?.Invoke(this);
-        }
-
-        private void OnHealthChanged(int value)
-        {
-            HealthChanged?.Invoke(value);
+            Died?.Invoke(_reward);
         }
     }
 }

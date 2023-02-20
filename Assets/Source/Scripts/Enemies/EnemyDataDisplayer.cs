@@ -1,3 +1,4 @@
+using Assets.Source.Scripts.CharactersComponent;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace Assets.Source.Scripts.Enemies
     public class EnemyDataDisplayer : MonoBehaviour
     {
         [SerializeField] private TMP_Text _textHealth;
-        [SerializeField] private Enemy _health;
+        [SerializeField] private Health _health;
 
         private void OnEnable()
         {

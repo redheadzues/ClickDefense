@@ -1,10 +1,9 @@
-using Assets.Source.Scripts.CharactersComponent;
 using System;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.Enemies
+namespace Assets.Source.Scripts.CharactersComponent
 {
-    public class EnemyDeath : MonoBehaviour
+    public class Death : MonoBehaviour
     {
         [SerializeField] private Health _health;
 

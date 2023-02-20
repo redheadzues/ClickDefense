@@ -1,13 +1,14 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Attributes;
+using Assets.Source.Scripts.CharactersComponent;
 using Assets.Source.Scripts.Enemies;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Assets.Source.Scripts.AbilitiesSystem.Components
 {
-    public class AttributeSetterComponent : MonoBehaviour
+    public class AttributeSetterComponent : MonoBehaviour, IDamageable
     {
-        [SerializeField] private Enemy _enemy;
+        [SerializeField] private Health _health;
         [SerializeField] private NavMeshAgent _navMeshAgent;
 
         private GamePlayAttributes _attributes;
@@ -38,7 +39,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
 
         public void TakeDamage(int damage)
         {
-            _enemy.TakeDamage(damage);
+            _health.TakeDamage(damage);
         }
     }
 }

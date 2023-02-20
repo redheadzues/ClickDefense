@@ -1,18 +1,12 @@
-﻿using Assets.Source.Scripts.CharactersComponent;
-using Assets.Source.Scripts.Infrustructure.StaticData;
+﻿using Assets.Source.Scripts.Infrustructure.StaticData;
 using System;
-using UnityEngine;
 
 namespace Assets.Source.Scripts.Enemies
 {
-    public interface IEnemy : IDamageable, IHealth
+    public interface IEnemy
     {
-        int Reward { get; set; }
-        Vector3 Position { get; }
-
-        public EnemyTypeId TypeId { get; set; }
-        float TargetPointX { get; set; }
-
-        event Action<IEnemy> Died;
+        public EnemyTypeId TypeId { get;  }
+        float TargetPointX { get; }
+        event Action<int> Died;
     }
 }

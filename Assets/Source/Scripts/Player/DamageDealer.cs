@@ -1,4 +1,4 @@
-﻿using Assets.Source.Scripts.Enemies;
+﻿using Assets.Source.Scripts.CharactersComponent;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Player;
 

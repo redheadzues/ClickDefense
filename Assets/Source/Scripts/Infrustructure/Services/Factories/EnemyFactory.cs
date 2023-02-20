@@ -39,11 +39,9 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             enemy.GetComponent<Health>().SetNewValue(enemyData.HP);
             enemy.GetComponent<AttributeSetterComponent>().SetAttributes(enemyData.Attributes);
             
-            IEnemy enemySource = enemy.GetComponent<IEnemy>();
+            Enemy enemySource = enemy.GetComponent<Enemy>();
 
-            enemySource.Reward = enemyData.Reward;
-            enemySource.TypeId = enemyData.EnemyTypeId;
-            enemySource.TargetPointX = destinationtPositionX;
+            enemySource.Construct(enemyData.Reward, destinationtPositionX, enemyData.EnemyTypeId);
         }
 
         private void RegisterEnemy(GameObject enemy)
