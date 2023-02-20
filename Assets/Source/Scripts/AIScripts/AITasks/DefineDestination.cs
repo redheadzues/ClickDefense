@@ -3,7 +3,7 @@ using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AITasks
+namespace Assets.Source.Scripts.AIScripts.AITasks
 {
     public class DefineDestination : Action
     {
@@ -13,13 +13,13 @@ namespace Assets.Source.Scripts.AITasks
 
         public override void OnStart()
         {
-            if(_enemy == null)
+            if (_enemy == null)
                 _enemy = GetComponent<Enemy>();
         }
 
         public override TaskStatus OnUpdate()
         {
-            if(_enemy != null)
+            if (_enemy != null)
                 Destination.Value = new Vector3(_enemy.TargetPointX, transform.position.y, transform.position.z);
 
             return TaskStatus.Success;

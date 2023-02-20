@@ -1,15 +1,15 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Components;
 using Assets.Source.Scripts.AbilitiesSystem.StaticData;
-using BehaviorDesigner.Runtime;
+using Assets.Source.Scripts.CharactersComponent;
 using BehaviorDesigner.Runtime.Tasks;
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.AITasks
+namespace Assets.Source.Scripts.AIScripts.AITasks
 {
     public class FindTarget : Action
     {
-        public SharedTransform Target;
+        public SharedContext Context;
 
         private Collider[] targets = new Collider[10];
 
@@ -24,10 +24,12 @@ namespace Assets.Source.Scripts.AITasks
 
             float minDistance = float.MaxValue;
             Transform currentTarget = null;
+            
 
             foreach (Collider target in targets)
             {
                 if (target != null && target.TryGetComponent(out AbilityTargetComponent tagsContainer))
+                {
                     if (tagsContainer.Tags.Contains(AbilityTag.Enemy))
                     {
                         float distanceToTarget = Vector3.Distance(tagsContainer.transform.position, transform.position);
@@ -38,11 +40,13 @@ namespace Assets.Source.Scripts.AITasks
                             currentTarget = tagsContainer.transform;
                         }
                     }
+                }
             }
 
             if (currentTarget != null)
             {
-                Target.Value = currentTarget;
+                Context.Value.Target = currentTarget;
+                Context.Value.TargetHealth = currentTarget.GetComponent<IDamageable>();
                 return true;
             }
 
