@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.AIScripts.AITasks
 {
-    public class CheckDistance : Conditional
+    public class CheckDistance : Action
     {
         public SharedContext Context;
 
@@ -12,7 +12,7 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
             if (Context.Value.Target == null)
                 return TaskStatus.Failure;
 
-            return Vector3.Distance(transform.position, Context.Value.Target.position) < 5
+            return Vector3.Distance(transform.position, Context.Value.Target.position) < 3
                 ? TaskStatus.Success 
                 : TaskStatus.Failure;
         }

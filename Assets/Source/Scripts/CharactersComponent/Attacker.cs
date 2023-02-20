@@ -9,12 +9,16 @@ namespace Assets.Source.Scripts.CharactersComponent
 
         private bool _isAttacking;
 
+        public bool IsAttacking => _isAttacking;
+
         public void Attack()
         {
-            if(_isAttacking == false )
+            if (_isAttacking == false )
+            {
                 _animator.PlayAttack();
-
-            _isAttacking = true;
+                transform.LookAt(_context.Target);
+                _isAttacking = true;
+            }
         }
 
         public void AttackEnded() =>

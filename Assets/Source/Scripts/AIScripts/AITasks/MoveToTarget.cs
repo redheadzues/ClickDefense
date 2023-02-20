@@ -1,7 +1,5 @@
-using BehaviorDesigner.Runtime;
 using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace Assets.Source.Scripts.AIScripts.AITasks
 {
@@ -9,8 +7,6 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
     {
         public SharedContext Context;
         private float threshold = 3f;
-
-
 
         public override TaskStatus OnUpdate()
         {
@@ -25,7 +21,10 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
                 return false;
             }
             else
+            {
+                Context.Value.Mover.StopMove();
                 return true;
+            }
         }
 
         private void CorrectDestinationPoint()

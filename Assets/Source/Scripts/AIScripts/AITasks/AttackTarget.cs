@@ -8,9 +8,13 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
 
         public override TaskStatus OnUpdate()
         {
-            Context.Value.Attacker.Attack();
+            if (Context.Value.Attacker.IsAttacking == false)
+            {
+                Context.Value.Attacker.Attack();
+                return TaskStatus.Success;
+            }
 
-            return TaskStatus.Success;
+            return TaskStatus.Running;
         }
     }
 }
