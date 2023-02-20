@@ -25,8 +25,8 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Reward
 
         public void CleanUp()
         {
-            foreach (IEnemy damageable in _damageables)
-                damageable.Died -= OnDied;
+            foreach (IEnemy enemy in _damageables)
+                enemy.Died -= OnDied;
         }
 
         private void OnDied(IEnemy enemy)
