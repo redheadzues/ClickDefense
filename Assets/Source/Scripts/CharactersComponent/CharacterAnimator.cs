@@ -11,8 +11,14 @@ namespace Assets.Source.Scripts.CharactersComponent
         private readonly int Idle = Animator.StringToHash("Idle");
         private readonly int Die = Animator.StringToHash("Die");
 
-        public void PlayRun() =>
+        private void Update()
+        {
+            print(_animator.speed);
+        }
+
+        public void PlayRun() => 
             _animator.SetTrigger(Run);
+
 
         public void PlayAttack() =>
             _animator.SetTrigger(Attack);

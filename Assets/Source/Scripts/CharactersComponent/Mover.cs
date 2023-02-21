@@ -9,27 +9,16 @@ namespace Assets.Source.Scripts.CharactersComponent
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private Context _context;
 
-        private void Awake()
-        {
-            _navMeshAgent.isStopped = true;
-        }
-
         public void StopMove()
         {
-            _navMeshAgent.isStopped = true;
             _navMeshAgent.velocity = Vector3.zero;
-            _animator.PlayIdle();
         }
 
         public void MoveToTarget()
         {
-            _navMeshAgent.SetDestination(_context.Target.position);
+            _animator.PlayRun();
 
-            if(_navMeshAgent.isStopped == true)
-            {
-                _animator.PlayRun();
-                _navMeshAgent.isStopped = false;
-            }
+            _navMeshAgent.SetDestination(_context.Target.position);
         }
     }
 }
