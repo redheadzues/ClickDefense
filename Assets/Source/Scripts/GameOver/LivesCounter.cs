@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class LivesCounter : MonoBehaviour
+namespace Assets.Source.Scripts.GameOver
 {
-    // Start is called before the first frame update
-    void Start()
+    public class LivesCounter
     {
-        
-    }
+        private int _lives;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public event Action<int> Changed;
+
+        public LivesCounter(int amount)
+        {
+            _lives = amount;
+        }
+
+        public void AddLive()
+        {
+            _lives++;
+            Changed?.Invoke(_lives);
+        }
+
+        public void RemoveLive()
+        {
+            _lives--;
+            Changed?.Invoke(_lives);
+        }
     }
 }

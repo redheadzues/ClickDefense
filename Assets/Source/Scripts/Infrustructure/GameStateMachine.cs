@@ -1,5 +1,6 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.Infrustructure.Services;
+using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Progress;
@@ -34,7 +35,8 @@ namespace Assets.Source.Scripts.Infrustructure
                     services.Single<IStaticDataService>(),
                     services.Single<ICoroutineRunner>(),
                     services.Single<IRewarder>(),
-                    services.Single<IAbilityFactory>())
+                    services.Single<IAbilityFactory>(),
+                    services.Single<IAssetProvider>())
                     
             };
         }

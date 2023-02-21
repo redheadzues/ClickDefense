@@ -1,4 +1,4 @@
-﻿using Assets.Source.Scripts.Enemies;
+﻿using Assets.Source.Scripts.GameOver;
 using UnityEditor;
 using UnityEngine;
 

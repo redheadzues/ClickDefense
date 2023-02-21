@@ -1,4 +1,4 @@
-﻿using Assets.Source.Scripts.Enemies;
+﻿using Assets.Source.Scripts.GameOver;
 using Assets.Source.Scripts.Infrustructure.StaticData;
 using System.Linq;
 using UnityEditor;

@@ -1,6 +1,8 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.Abilities;
 using Assets.Source.Scripts.AbilitiesSystem.Factories;
 using Assets.Source.Scripts.AbilitiesSystem.Tree;
+using Assets.Source.Scripts.GameOver;
+using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.ClickListener;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
@@ -23,11 +25,15 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly IAbilityFactory _abilityFactory;
         private readonly IRewarder _rewarder;
+        private readonly IAssetProvider _assetProvider;
+
         private ICharacterFactory _characterFactory;
         private IClickInformer _clickInformer;
         private PlayerModel _player;
         private Vawe _vawe;
         private PlayerAbilityRewarder _playerAbilityRewarder;
+        private LivesCounter _counter;
+        private GameOverer _gameOverer;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
@@ -38,7 +44,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
             IStaticDataService staticData,
             ICoroutineRunner coroutineRunner,
             IRewarder rewarder,
-            IAbilityFactory abilityFactory)
+            IAbilityFactory abilityFactory,
+            IAssetProvider assetProvider)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
@@ -50,6 +57,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _abilityFactory = abilityFactory;
             _rewarder = rewarder;
             _abilityFactory = abilityFactory;
+            _assetProvider = assetProvider;
         }
 
         public void Enter()
@@ -59,9 +67,18 @@ namespace Assets.Source.Scripts.Infrustructure.States
             CreateEnemySpawner();
             CreateUI();
             CreateAbilityRewarder();
+            CreateGameOverLogic();
             LoadSceneData();
 
             _curtain.Hide();
+        }
+
+        private void CreateGameOverLogic()
+        {
+            _counter = new LivesCounter(3);
+            EnemyTrigger enemyTrigger = _assetProvider.Instantiate("EnemyTrigger").GetComponent<EnemyTrigger>();
+            enemyTrigger.Construct(_counter);
+            _gameOverer = new GameOverer(_counter);
         }
 
         private void CreateClickInformer()
