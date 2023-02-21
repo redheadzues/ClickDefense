@@ -9,10 +9,10 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
 
         public override TaskStatus OnUpdate()
         {
-            if (Context.Value.Target == null)
+            if (Context.Value.Target == null || Context.Value.Target.gameObject.activeSelf == false)
                 return TaskStatus.Failure;
 
-            return Vector3.Distance(transform.position, Context.Value.Target.position) < 3
+            return Vector3.Distance(transform.position, Context.Value.Target.position) < Context.Value.Attributes.Range
                 ? TaskStatus.Success 
                 : TaskStatus.Failure;
         }

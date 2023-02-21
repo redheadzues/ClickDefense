@@ -6,7 +6,6 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
     public class MoveToTarget : Action
     {
         public SharedContext Context;
-        private float threshold = 3f;
 
         public override TaskStatus OnUpdate()
         {
@@ -15,7 +14,7 @@ namespace Assets.Source.Scripts.AIScripts.AITasks
 
         private bool CheckDistance()
         {
-            if (Vector3.Distance(transform.position, Context.Value.Target.position) > threshold)
+            if (Vector3.Distance(transform.position, Context.Value.Target.position) > Context.Value.Attributes.Range/2)
             {
                 CorrectDestinationPoint();
                 return false;

@@ -6,7 +6,6 @@ using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
-using Assets.Source.Scripts.Infrustructure.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.Shops;
 using Money;
@@ -24,7 +23,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly IAbilityFactory _abilityFactory;
         private readonly IRewarder _rewarder;
-        private ICharacterFactory _enemyFactory;
+        private ICharacterFactory _characterFactory;
         private IClickInformer _clickInformer;
         private PlayerModel _player;
         private Vawe _vawe;
@@ -78,15 +77,15 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreateEnemySpawner()
         {
-            _enemyFactory = new CharacterFactory(_clickInformer, _rewarder, _staticData);
-            EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
+            _characterFactory = new CharacterFactory(_clickInformer, _rewarder, _staticData);
+            EnemySpawner spawwner = new(_characterFactory, _staticData, _coroutineRunner);
             _vawe = new Vawe(spawwner, _saveload);
         }
 
         private void CreateUI()
         {
             _uiFactory.CreateRootCanvas();
-            _uiFactory.CreateHud(_player, _silverWallet, _vawe);
+            _uiFactory.CreateHud(_player, _silverWallet, _vawe, _characterFactory);
         }
 
         public void Exit()

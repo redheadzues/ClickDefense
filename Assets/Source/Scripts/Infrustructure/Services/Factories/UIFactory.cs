@@ -11,6 +11,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
     {
         private readonly IAssetProvider _assetProvider;
         private readonly IStaticDataService _staticData;
+
         private Transform _rootCanvas;
 
         public UIFactory(IAssetProvider assetProvider, IStaticDataService staticData)
@@ -38,12 +39,13 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             return tWindow;
         }
 
-        public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe)
+        public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe, ICharacterFactory characterFactory)
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud, _rootCanvas);
 
             hud.GetComponent<UIHud>().Construct(player, wallet, vawe);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
+            hud.GetComponent<ButtonAddCharacter>().Construct(characterFactory);
 
         }
     }
