@@ -29,14 +29,14 @@ namespace Assets.Source.Scripts.Infrustructure
                 [typeof(SceneConstructState)] = new SceneConstructState(
                     this,
                     services.Single<IUIFactory>(),
-                    curtain,
                     services.Single<ISaveLoadService>(),
                     services.Single<IWalletHolder>().SilverWallet,
                     services.Single<IStaticDataService>(),
                     services.Single<ICoroutineRunner>(),
                     services.Single<IRewarder>(),
                     services.Single<IAbilityFactory>(),
-                    services.Single<IAssetProvider>())
+                    services.Single<IAssetProvider>()),
+                [typeof(GameLoopState)] = new GameLoopState(this, curtain),
                     
             };
         }

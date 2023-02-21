@@ -2,5 +2,11 @@
 
 namespace Assets.Source.Scripts.GameOver
 {
-    public class TargetPoint : MonoBehaviour {}
+    public class TargetPoint : MonoBehaviour 
+    {
+        private void Awake()
+        {
+            Destroy(gameObject);
+        }
+    }
 }

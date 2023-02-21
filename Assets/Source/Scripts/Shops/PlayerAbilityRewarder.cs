@@ -8,7 +8,6 @@ using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace Assets.Source.Scripts.Shops
 {
@@ -17,7 +16,7 @@ namespace Assets.Source.Scripts.Shops
         private readonly Branch _abilityTree;
         private readonly IAbilityFactory _abilityFactory;
         private readonly AbilityContainer _container;
-        private IUIFactory _uiFactory;
+        private readonly IUIFactory _uiFactory;
         private CardSelectorWindow _cardSelector;
 
         public PlayerAbilityRewarder(
@@ -94,5 +93,6 @@ namespace Assets.Source.Scripts.Shops
             _cardSelector.CardSelected -= AddAbilityToPlayer;
             _cardSelector.Destroy();
         }
+
     }
 }

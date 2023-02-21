@@ -1,4 +1,5 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
+﻿using Assets.Source.Scripts.GameOver;
+using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI;
@@ -39,11 +40,11 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             return tWindow;
         }
 
-        public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe, ICharacterFactory characterFactory)
+        public void CreateHud(PlayerModel player, SilverWallet wallet, Vawe vawe, ICharacterFactory characterFactory, LivesCounter counter)
         {
             GameObject hud = _assetProvider.Instantiate(AssetPath.Hud, _rootCanvas);
 
-            hud.GetComponent<UIHud>().Construct(player, wallet, vawe);
+            hud.GetComponent<UIHud>().Construct(player, wallet, vawe, counter);
             hud.GetComponent<UIButtonNextVawe>().Construct(vawe);
             hud.GetComponent<ButtonAddCharacter>().Construct(characterFactory);
 

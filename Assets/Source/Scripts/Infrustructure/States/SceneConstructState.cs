@@ -11,6 +11,8 @@ using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.Shops;
 using Money;
+using System;
+using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
@@ -19,7 +21,6 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly GameStateMachine _gameStateMachine;
         private readonly IUIFactory _uiFactory;
         private readonly ISaveLoadService _saveload;
-        private readonly Curtain _curtain;
         private readonly SilverWallet _silverWallet;
         private readonly IStaticDataService _staticData;
         private readonly ICoroutineRunner _coroutineRunner;
@@ -34,11 +35,11 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private PlayerAbilityRewarder _playerAbilityRewarder;
         private LivesCounter _counter;
         private GameOverer _gameOverer;
+        private SceneContext _context;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
             IUIFactory uiFactory,
-            Curtain curtain,
             ISaveLoadService saveLoad,
             SilverWallet silverWallet,
             IStaticDataService staticData,
@@ -49,7 +50,6 @@ namespace Assets.Source.Scripts.Infrustructure.States
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
-            _curtain = curtain;
             _saveload = saveLoad;
             _silverWallet = silverWallet;
             _staticData = staticData;
@@ -63,14 +63,19 @@ namespace Assets.Source.Scripts.Infrustructure.States
         public void Enter()
         {
             CreateClickInformer();
+            CreateGameOverLogic();
             CreatePlayer();
             CreateEnemySpawner();
             CreateUI();
             CreateAbilityRewarder();
-            CreateGameOverLogic();
             LoadSceneData();
 
-            _curtain.Hide();
+            _gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
+        }
+
+        public void Exit()
+        {
+            _context = null;
         }
 
         private void CreateGameOverLogic()
@@ -102,11 +107,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void CreateUI()
         {
             _uiFactory.CreateRootCanvas();
-            _uiFactory.CreateHud(_player, _silverWallet, _vawe, _characterFactory);
-        }
-
-        public void Exit()
-        {
+            _uiFactory.CreateHud(_player, _silverWallet, _vawe, _characterFactory, _counter);
         }
 
         private void CreatePlayer()
@@ -120,5 +121,10 @@ namespace Assets.Source.Scripts.Infrustructure.States
         {
             _saveload.PushLoadedDataToSavers();
         }               
+    }
+
+    public class SceneContext
+    {
+
     }
 }

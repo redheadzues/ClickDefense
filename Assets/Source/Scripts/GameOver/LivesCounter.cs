@@ -6,6 +6,7 @@ namespace Assets.Source.Scripts.GameOver
     {
         private int _lives;
 
+        public int Lives => _lives;
         public event Action<int> Changed;
 
         public LivesCounter(int amount)
