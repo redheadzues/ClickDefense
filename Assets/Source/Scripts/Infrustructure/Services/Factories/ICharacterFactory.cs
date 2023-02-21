@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
-    public interface IEnemyFactory
+    public interface ICharacterFactory
     {
         GameObject CreateEnemy(Transform parent, EnemyTypeId enemyTypeId);
     }

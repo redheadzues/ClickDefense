@@ -12,7 +12,7 @@ public class ObjectsPool
     private List<Enemy> _pool = new List<Enemy>();
     Dictionary<EnemyTypeId, int> _createData = new Dictionary<EnemyTypeId, int>();
 
-    protected void InitializePool(IEnemyFactory enemyFactory, SceneStaticData sceneData)
+    protected void InitializePool(ICharacterFactory enemyFactory, SceneStaticData sceneData)
     {
         _container = new GameObject("EnemyContainer").transform;
         DetermineNumberOfInstancesToCreate(sceneData);
@@ -37,7 +37,7 @@ public class ObjectsPool
         return output != null;
     }
 
-    private void FillPool(IEnemyFactory enemyFactory)
+    private void FillPool(ICharacterFactory enemyFactory)
     {
         foreach (EnemyTypeId type in _createData.Keys)
         {

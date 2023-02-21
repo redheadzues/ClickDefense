@@ -9,8 +9,9 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
     {
         void Load();
         EnemyStaticData ForEnemy(EnemyTypeId typeId);
+        AllieStaticData ForAllie(AllieTypeId typeId);
         SceneStaticData ForLevel();
-        AbilityStaticData ForAbility(string name);
+        AbilityStaticData ForAbility(string id);
         Branch ForPlayerAbility();
         WindowBase ForWindow(WindowId id);
     }

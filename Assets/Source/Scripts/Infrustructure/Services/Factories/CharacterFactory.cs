@@ -9,17 +9,28 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.Factories
 {
-    public class EnemyFactory : IEnemyFactory
+    public class CharacterFactory : ICharacterFactory
     {
         private readonly IClickInformer _clickInformer;
         private readonly IRewarder _rewarder;
         private readonly IStaticDataService _staticData;
 
-        public EnemyFactory(IClickInformer clickInformer, IRewarder rewarder, IStaticDataService staticData)
+        public CharacterFactory(IClickInformer clickInformer, IRewarder rewarder, IStaticDataService staticData)
         {
             _clickInformer = clickInformer;
             _rewarder = rewarder;
             _staticData = staticData;
+        }
+
+        public GameObject CreateAllie(AllieTypeId typeId)
+        {
+            AllieStaticData allieData = _staticData.ForAllie(typeId);
+
+            GameObject allie = Object.Instantiate(allieData.Prefab);
+            allie.GetComponent<AttributeSetterComponent>().SetAttributes(allieData.Attributes);
+            allie.GetComponent<Health>().SetNewValue(allieData.HP);
+
+            return allie;
         }
 
         public GameObject CreateEnemy(Transform parent, EnemyTypeId enemyTypeId)

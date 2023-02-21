@@ -16,10 +16,12 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
         private Dictionary<string, AbilityStaticData> _abilities;
         private Dictionary<WindowId, WindowBase> _windows;
         private Branch _playerAbilities;
+        private Dictionary<AllieTypeId, AllieStaticData> _allie;
 
         public void Load()
         {
             _enemies = Resources.LoadAll<EnemyStaticData>("StaticData/Enemies").ToDictionary(x => x.EnemyTypeId, x => x);
+            _allie = Resources.LoadAll<AllieStaticData>("StaticData/Alie/AllieData").ToDictionary(x => x.AllieTypeId, x => x);
             _scenes = Resources.LoadAll<SceneStaticData>("StaticData/SceneData").ToDictionary(x => x.SceneKey, x => x);
             _abilities = Resources.LoadAll<AbilityStaticData>("StaticData/Abilities").ToDictionary(x => x.Id, x => x);
             _windows = Resources.LoadAll<WindowBase>("UI/Windows").ToDictionary(x => x.WindowId, x => x);
@@ -30,6 +32,11 @@ namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
             _enemies.TryGetValue(typeId, out EnemyStaticData enemyStaticData)
             ?
             enemyStaticData : null;
+
+        public AllieStaticData ForAllie(AllieTypeId typeId) =>
+            _allie.TryGetValue(typeId, out AllieStaticData allieStaticData)
+            ?
+            allieStaticData : null;
 
         public SceneStaticData ForLevel()
         {

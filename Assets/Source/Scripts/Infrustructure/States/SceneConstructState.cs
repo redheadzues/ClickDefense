@@ -24,7 +24,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly ICoroutineRunner _coroutineRunner;
         private readonly IAbilityFactory _abilityFactory;
         private readonly IRewarder _rewarder;
-        private IEnemyFactory _enemyFactory;
+        private ICharacterFactory _enemyFactory;
         private IClickInformer _clickInformer;
         private PlayerModel _player;
         private Vawe _vawe;
@@ -78,7 +78,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void CreateEnemySpawner()
         {
-            _enemyFactory = new EnemyFactory(_clickInformer, _rewarder, _staticData);
+            _enemyFactory = new CharacterFactory(_clickInformer, _rewarder, _staticData);
             EnemySpawner spawwner = new(_enemyFactory, _staticData, _coroutineRunner);
             _vawe = new Vawe(spawwner, _saveload);
         }

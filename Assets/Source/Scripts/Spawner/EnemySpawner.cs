@@ -19,7 +19,7 @@ public class EnemySpawner : ObjectsPool
 
     public event Action Finished;
 
-    public EnemySpawner(IEnemyFactory enemyFactory, IStaticDataService staticData, ICoroutineRunner coroutineRunner)
+    public EnemySpawner(ICharacterFactory enemyFactory, IStaticDataService staticData, ICoroutineRunner coroutineRunner)
     {
         _coroutineRunner = coroutineRunner;
 

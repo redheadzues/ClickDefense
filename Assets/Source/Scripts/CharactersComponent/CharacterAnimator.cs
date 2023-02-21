@@ -23,5 +23,8 @@ namespace Assets.Source.Scripts.CharactersComponent
         public void PlayDie() =>
             _animator.SetTrigger(Die);
 
+        public void SetSpeed(float speed) =>
+            _animator.speed = speed;
+
     }
 }
