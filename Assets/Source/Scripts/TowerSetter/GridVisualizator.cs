@@ -12,20 +12,17 @@ public class GridVisualizator : MonoBehaviour
 
     private VisualGridCell[,] _visualGrid;
 
-    private void OnEnable()
-    {
+    private void OnEnable() => 
         _modeSwitcher.BuildingModeChanged += OnBuildingModeChange;
-    }
 
-    private void Start()
-    {
+    private void Start() =>
         CreateVisualGrid();
-    }
 
-    private void OnDisable()
-    {
+    private void OnDisable() => 
         _modeSwitcher.BuildingModeChanged -= OnBuildingModeChange;
-    }
+
+    public Vector3 GetWorldPosition(Vector2Int gridPosition) =>
+        _visualGrid[gridPosition.x, gridPosition.y].transform.position;
 
     private void OnBuildingModeChange()
     {
@@ -44,7 +41,7 @@ public class GridVisualizator : MonoBehaviour
         for (int i = 0; i < _grid.Greed.GetLength(0); i++)
             for (int j = 0; j < _grid.Greed.GetLength(1); j++)
             {
-                if (_grid.Greed[i, j] == true)
+                if (_grid.Greed[i, j] == null)
                     _visualGrid[i, j].SetColor(_colorEnable);
                 else
                     _visualGrid[i, j].SetColor(_colorDisable);
@@ -66,4 +63,6 @@ public class GridVisualizator : MonoBehaviour
 
         ColorizeGrid();
     }
+
+
 }

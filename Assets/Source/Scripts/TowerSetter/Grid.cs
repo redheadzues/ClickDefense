@@ -2,24 +2,37 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
-    [SerializeField] protected int _columnsCount;
-    [SerializeField] protected int _rowsCount;
+    [SerializeField] private Vector2Int _gridSize;
 
-    private bool[,] _grid;
-    public bool[,] Greed => _grid;
+    private TestCubeMerge[,] _grid;
+    public TestCubeMerge[,] Greed => _grid;
 
     private void Awake()
     {
         CreateGrid();
     }
 
+    public Vector2Int GetEmptyCell()
+    {
+        for (int x = 0; x < _gridSize.x; x++)
+        {
+            for (int y = 0; y < _gridSize.y; y++)
+            {
+                if (_grid[x, y] == null)
+                    return new Vector2Int(x, y);
+            }
+        }
+
+        return -Vector2Int.one;
+    }
+
     private void CreateGrid()
     {
-        _grid = new bool[_columnsCount, _rowsCount];
+        _grid = new TestCubeMerge[_gridSize.x, _gridSize.y];
 
-        for (int i = 0; i < _columnsCount; i++)
-            for (int j = 0; j < _rowsCount; j++)
-                _grid[i, j] = true;
+        for (int i = 0; i < _gridSize.x; i++)
+            for (int j = 0; j < _gridSize.y; j++)
+                _grid[i, j] = null;
     }
 
     //public bool TryBuild(int positionX, int positionY, int borderSize)
