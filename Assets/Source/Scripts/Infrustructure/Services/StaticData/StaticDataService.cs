@@ -1,7 +1,7 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.StaticData;
-using Assets.Source.Scripts.UI;
+using Assets.Source.Scripts.UI.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;

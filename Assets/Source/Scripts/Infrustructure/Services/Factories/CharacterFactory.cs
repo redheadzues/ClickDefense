@@ -29,7 +29,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             GameObject allie = Object.Instantiate(allieData.Prefab);
             allie.GetComponent<AttributeSetterComponent>().SetAttributes(allieData.Attributes);
             allie.GetComponent<Health>().SetNewValue(allieData.HP);
-            MonoBehaviour.print(allie.transform.position);
+
             return allie;
         }
 

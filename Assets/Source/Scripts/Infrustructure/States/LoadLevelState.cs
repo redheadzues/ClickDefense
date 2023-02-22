@@ -1,7 +1,4 @@
-﻿using Assets.Source.Scripts.Infrustructure.Services.Factories;
-using UnityEngine;
-
-namespace Assets.Source.Scripts.Infrustructure.States
+﻿namespace Assets.Source.Scripts.Infrustructure.States
 {
     public class LoadLevelState : IPayLoadedState<string>
     {

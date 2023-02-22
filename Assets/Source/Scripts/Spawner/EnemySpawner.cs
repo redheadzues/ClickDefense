@@ -8,7 +8,7 @@ using Assets.Source.Scripts.Infrustructure;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.CharactersComponent;
 
-public class EnemySpawner : ObjectsPool
+public class EnemySpawner
 {
     private readonly float _secondsBetweenSpawn;
     private readonly List<Vector3> _spawnPoints = new List<Vector3>();
@@ -27,7 +27,7 @@ public class EnemySpawner : ObjectsPool
         _characterFactory = enemyFactory;
         _sceneData = staticData.ForLevel();
 
-        InitializePool(enemyFactory, _sceneData);
+        //InitializePool(enemyFactory, _sceneData);
         WriteSpawnPoint(_sceneData);
         _secondsBetweenSpawn = _sceneData.SecondsBetweenSpawn;
     }

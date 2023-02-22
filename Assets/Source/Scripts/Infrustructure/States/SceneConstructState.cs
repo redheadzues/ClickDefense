@@ -10,9 +10,9 @@ using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.Shops;
+using Assets.Source.Scripts.UI.Windows;
 using Money;
-using System;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Source.Scripts.Infrustructure.States
 {
@@ -29,6 +29,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private readonly IAssetProvider _assetProvider;
 
         private ICharacterFactory _characterFactory;
+        private EnemySpawner _spawwner;
         private IClickInformer _clickInformer;
         private PlayerModel _player;
         private Vawe _vawe;
@@ -36,6 +37,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private LivesCounter _counter;
         private GameOverer _gameOverer;
         private SceneContext _context;
+        private MainMenuWindow _window;
 
         public SceneConstructState(
             GameStateMachine gameStateMachine,
@@ -62,6 +64,27 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Enter()
         {
+            //Временная конструкция, для прототипирования
+
+            if (SceneManager.GetActiveScene().name != "MainMenu")
+                ConstructGameScene();
+            else
+            {
+                _uiFactory.CreateRootCanvas();
+                _window = _uiFactory.CreateWindow<MainMenuWindow>(WindowId.MainMenu);
+                _window.ButtonClicked += OnButtonStartGameClicked;
+            }
+        }
+
+        private void OnButtonStartGameClicked()
+        {
+            _window.ButtonClicked -= OnButtonStartGameClicked;
+            _window.Destroy();
+            _gameStateMachine.Enter<LoadLevelState, string>("Main");
+        }
+
+        private void ConstructGameScene()
+        {
             CreateClickInformer();
             CreateGameOverLogic();
             CreatePlayer();
@@ -70,7 +93,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             CreateAbilityRewarder();
             LoadSceneData();
 
-            //_gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
+            _gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
         }
 
         public void Exit()
@@ -83,7 +106,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _counter = new LivesCounter(3);
             EnemyTrigger enemyTrigger = _assetProvider.Instantiate("EnemyTrigger").GetComponent<EnemyTrigger>();
             enemyTrigger.Construct(_counter);
-            _gameOverer = new GameOverer(_counter);
+            _gameOverer = new GameOverer(_counter, _uiFactory, _gameStateMachine);
         }
 
         private void CreateClickInformer()
@@ -100,8 +123,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         private void CreateEnemySpawner()
         {
             _characterFactory = new CharacterFactory(_clickInformer, _rewarder, _staticData);
-            EnemySpawner spawwner = new(_characterFactory, _staticData, _coroutineRunner);
-            _vawe = new Vawe(spawwner, _saveload);
+            _spawwner = new EnemySpawner(_characterFactory, _staticData, _coroutineRunner);
+            _vawe = new Vawe(_spawwner, _saveload);
         }
 
         private void CreateUI()

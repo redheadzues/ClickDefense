@@ -1,6 +1,6 @@
 ﻿using Assets.Source.Scripts.GameOver;
 using Assets.Source.Scripts.Player;
-using Assets.Source.Scripts.UI;
+using Assets.Source.Scripts.UI.Windows;
 using Money;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 ﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
 using Assets.Source.Scripts.AbilitiesSystem.Tree;
 using Assets.Source.Scripts.Infrustructure.StaticData;
-using Assets.Source.Scripts.UI;
+using Assets.Source.Scripts.UI.Windows;
 
 namespace Assets.Source.Scripts.Infrustructure.Services.StaticData
 {

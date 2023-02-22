@@ -2,7 +2,7 @@
 using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
 using Assets.Source.Scripts.Player;
-using Assets.Source.Scripts.UI;
+using Assets.Source.Scripts.UI.Windows;
 using Money;
 using UnityEngine;
 
