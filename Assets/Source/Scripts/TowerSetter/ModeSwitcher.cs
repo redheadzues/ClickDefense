@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ModeSwitcher : MonoBehaviour
 {
-    [SerializeField] private Button _buttonBuildingMode;
+    //[SerializeField] private Button _buttonBuildingMode;
 
     public bool IsBuildModeActivated { get; private set; }
 
@@ -12,17 +12,23 @@ public class ModeSwitcher : MonoBehaviour
 
     private void OnEnable()
     {
-        _buttonBuildingMode.onClick.AddListener(OnbuttonBuildingModeClick);
+        //_buttonBuildingMode.onClick.AddListener(OnbuttonBuildingModeClick);
     }
 
     private void OnDisable()
     {
-        _buttonBuildingMode.onClick.RemoveListener(OnbuttonBuildingModeClick);
+        //_buttonBuildingMode.onClick.RemoveListener(OnbuttonBuildingModeClick);
     }
 
     private void Start()
     {
         BuildingModeChanged?.Invoke();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+            OnbuttonBuildingModeClick();
     }
 
     private void OnbuttonBuildingModeClick()

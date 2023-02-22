@@ -4,9 +4,8 @@ using UnityEngine.AI;
 public class TowerSetter : MonoBehaviour
 {
     //[SerializeField] private Tower _template;
-    [SerializeField] private BuildGrid _buildGrid;
+    //[SerializeField] private BuildGrid _buildGrid;
     [SerializeField] private ModeSwitcher _modeSwitcher;
-    [SerializeField] private NavMeshSurface _navMeshSurface;
     [SerializeField] private BulletSpawner _spawner;
 
     private Camera _mainCamera;
@@ -27,11 +26,10 @@ public class TowerSetter : MonoBehaviour
                 int x = Mathf.RoundToInt(hitInfo.point.x);
                 int y = Mathf.RoundToInt(hitInfo.point.z);
 
-                if (_buildGrid.TryBuild(x, y, 2) == true)
-                {
-                    //Tower tower = Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
-                    _navMeshSurface.BuildNavMesh();
-                }                    
+                //if (_buildGrid.TryBuild(x, y, 2) == true)
+                //{
+                //    //Tower tower = Instantiate(_template, new Vector3(x, _template.transform.localScale.y / 2, y), Quaternion.identity);
+                //}
             }
         }
     }

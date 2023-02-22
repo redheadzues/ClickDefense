@@ -33,7 +33,7 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             return allie;
         }
 
-        public GameObject CreateEnemy( EnemyTypeId enemyTypeId)
+        public GameObject CreateEnemy(EnemyTypeId enemyTypeId)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
             SceneStaticData sceneStaticData = _staticData.ForLevel();

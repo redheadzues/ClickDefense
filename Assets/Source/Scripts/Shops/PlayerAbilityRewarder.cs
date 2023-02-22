@@ -6,17 +6,22 @@ using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.UI.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Source.Scripts.Shops
 {
-    public class PlayerAbilityRewarder
+    public class PlayerAbilityRewarder : IDisposable
     {
         private readonly Branch _abilityTree;
         private readonly IAbilityFactory _abilityFactory;
         private readonly AbilityContainer _container;
         private readonly IUIFactory _uiFactory;
+        private readonly Vawe _vawe;
         private CardSelectorWindow _cardSelector;
 
         public PlayerAbilityRewarder(
@@ -30,8 +35,25 @@ namespace Assets.Source.Scripts.Shops
             _abilityFactory = abilityFactory;
             _container = container;
             _uiFactory = uiFactory;
-            vawe.Finished += OnVaweFinished;
+            _vawe = vawe;
+            _vawe.Finished += OnVaweFinished;
             _abilityTree.ResetOwnInLeafs();
+        }
+
+        ~PlayerAbilityRewarder()
+        {
+            Debug.Log("eeee");
+        }
+
+        public void Destroy()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            Debug.Log("Run Destroy");
+            _vawe.Finished -= OnVaweFinished;
         }
 
         private void OnVaweFinished()
@@ -92,7 +114,8 @@ namespace Assets.Source.Scripts.Shops
         {
             _cardSelector.CardSelected -= AddAbilityToPlayer;
             _cardSelector.Destroy();
-        }
+        }       
+
 
     }
 }

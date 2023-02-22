@@ -12,6 +12,7 @@ using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.Shops;
 using Assets.Source.Scripts.UI.Windows;
 using Money;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Source.Scripts.Infrustructure.States
@@ -85,6 +86,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         private void ConstructGameScene()
         {
+
             CreateClickInformer();
             CreateGameOverLogic();
             CreatePlayer();
@@ -98,6 +100,9 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Exit()
         {
+            _playerAbilityRewarder.Destroy();
+            _playerAbilityRewarder = null;
+            
             _context = null;
         }
 
@@ -146,8 +151,8 @@ namespace Assets.Source.Scripts.Infrustructure.States
         }               
     }
 
-    public class SceneContext
+    public class SceneContext 
     {
-
+        
     }
 }

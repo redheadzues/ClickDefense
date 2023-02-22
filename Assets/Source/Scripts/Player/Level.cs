@@ -8,7 +8,6 @@ namespace Player
     {
         private int _level;
 
-
         public event Action DataChanged;
         public int Value => _level;
 
