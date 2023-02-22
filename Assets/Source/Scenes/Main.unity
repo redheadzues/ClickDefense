@@ -906,6 +906,8 @@ GameObject:
   - component: {fileID: 1865272303}
   - component: {fileID: 1865272302}
   - component: {fileID: 1865272301}
+  - component: {fileID: 1865272305}
+  - component: {fileID: 1865272306}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -931,7 +933,7 @@ MonoBehaviour:
   _colorDisable: {r: 1, g: 0, b: 0, a: 1}
   _transformVisualGridParent: {fileID: 1865272304}
   _grid: {fileID: 1865272303}
-  _gridStartPosition: {x: -10, y: 0, z: 8}
+  _gridStartPosition: {x: -10, y: 0, z: 6}
 --- !u!114 &1865272302
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,8 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 090846154be92e2489367292c2c4b379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _columnsCount: 10
-  _rowsCount: 10
+  _gridSize: {x: 10, y: 8}
 --- !u!4 &1865272304
 Transform:
   m_ObjectHideFlags: 0
@@ -973,6 +974,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1865272305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865272300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416d80ca35e20da48a0216f628063b53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cube: {fileID: 7329400754908753927, guid: 8fe2ce0bf6854904ea8aae34e19923ce, type: 3}
+  _grid: {fileID: 1865272303}
+  _visualGrid: {fileID: 1865272301}
+  _cubeMover: {fileID: 1865272306}
+--- !u!114 &1865272306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865272300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e0d85a9ba40fbd4ead0f54f67f3147b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4933558659073115613
 PrefabInstance:
   m_ObjectHideFlags: 0

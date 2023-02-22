@@ -5,6 +5,7 @@ public class CubesMerger : MonoBehaviour
     [SerializeField] private TestCubeMerge _cube;
     [SerializeField] private Grid _grid;
     [SerializeField] private GridVisualizator _visualGrid;
+    [SerializeField] private CubeMover _cubeMover;
 
     private TestCubeMerge _selectedCube;
     private bool _isSelected;
@@ -28,7 +29,13 @@ public class CubesMerger : MonoBehaviour
     private void OnCellSelected(Vector2Int position)
     {
         _selectedCube = _grid.GetCube(position);
-        _isSelected = true;
+
+
+        if (_selectedCube != null)
+        {
+            _isSelected = true;
+            _cubeMover.StartMove(_selectedCube.transform);
+        }
     }
 
     private void InstantiateCube()

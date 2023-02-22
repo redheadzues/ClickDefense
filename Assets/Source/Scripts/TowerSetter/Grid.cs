@@ -30,7 +30,7 @@ public class Grid : MonoBehaviour
         _grid[position.x, position.y] = cube;
 
     public TestCubeMerge GetCube(Vector2Int position) => 
-        _grid[position.x, position,y];
+        _grid[position.x, position.y];
 
     private void CreateGrid()
     {

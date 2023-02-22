@@ -21,11 +21,18 @@ public class GridVisualizator : MonoBehaviour
     private void Start() =>
         CreateVisualGrid();
 
-    private void OnDisable() => 
+    private void OnDisable()
+    {
         _modeSwitcher.BuildingModeChanged -= OnBuildingModeChange;
+
+        for(int x = 0; x < _visualGrid.GetLength(0); x++)
+            for(int y = 0; y < _visualGrid.GetLength(1); y++)
+                _visualGrid[x, y].CellSelected -= OnCellSelected;   
+    }
 
     public Vector3 GetWorldPosition(Vector2Int gridPosition) =>
         _visualGrid[gridPosition.x, gridPosition.y].transform.position;
+    
 
     private void OnBuildingModeChange()
     {
