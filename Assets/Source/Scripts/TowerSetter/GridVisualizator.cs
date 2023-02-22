@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GridVisualizator : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GridVisualizator : MonoBehaviour
     [SerializeField] private Vector3 _gridStartPosition;
 
     private VisualGridCell[,] _visualGrid;
+
+    public event Action<Vector2Int> CellSelected;
 
     private void OnEnable() => 
         _modeSwitcher.BuildingModeChanged += OnBuildingModeChange;
@@ -26,25 +29,25 @@ public class GridVisualizator : MonoBehaviour
 
     private void OnBuildingModeChange()
     {
-        for (int i = 0; i < _grid.Greed.GetLength(0); i++)
-            for (int j = 0; j < _grid.Greed.GetLength(1); j++)
+        for (int x = 0; x < _grid.Greed.GetLength(0); x++)
+            for (int y = 0; y < _grid.Greed.GetLength(1); y++)
             {
                 if (_modeSwitcher.IsBuildModeActivated == true)
-                    _visualGrid[i, j].gameObject.SetActive(true);
+                    _visualGrid[x, y].gameObject.SetActive(true);
                 else
-                    _visualGrid[i, j].gameObject.SetActive(false);
+                    _visualGrid[x, y].gameObject.SetActive(false);
             }
     }
 
     private void ColorizeGrid()
     {
-        for (int i = 0; i < _grid.Greed.GetLength(0); i++)
-            for (int j = 0; j < _grid.Greed.GetLength(1); j++)
+        for (int x = 0; x < _grid.Greed.GetLength(0); x++)
+            for (int y = 0; y < _grid.Greed.GetLength(1); y++)
             {
-                if (_grid.Greed[i, j] == null)
-                    _visualGrid[i, j].SetColor(_colorEnable);
+                if (_grid.Greed[x, y] == null)
+                    _visualGrid[x, y].SetColor(_colorEnable);
                 else
-                    _visualGrid[i, j].SetColor(_colorDisable);
+                    _visualGrid[x, y].SetColor(_colorDisable);
             }
     }
 
@@ -52,17 +55,22 @@ public class GridVisualizator : MonoBehaviour
     {
         _visualGrid = new VisualGridCell[_grid.Greed.GetLength(0), _grid.Greed.GetLength(1)];
 
-        for (int i = 0; i < _grid.Greed.GetLength(0); i++)
-            for (int j = 0; j < _grid.Greed.GetLength(1); j++)
+        for (int x = 0; x < _grid.Greed.GetLength(0); x++)
+            for (int y = 0; y < _grid.Greed.GetLength(1); y++)
             {
-                Vector3 point = new Vector3(_gridStartPosition.x + i * 2, 0.6f, _gridStartPosition.z - j * 2);
-                VisualGridCell sprite = Instantiate(_spriteCell, point, Quaternion.Euler(90, 0, 0), _transformVisualGridParent);
-                sprite.transform.localScale *= 1.8f;
-                _visualGrid[i, j] = sprite;
+                Vector3 point = new Vector3(_gridStartPosition.x + x * 2, 0.6f, _gridStartPosition.z - y * 2);
+                VisualGridCell cell = Instantiate(_spriteCell, point, Quaternion.Euler(90, 0, 0), _transformVisualGridParent);
+                cell.transform.localScale *= 1.8f;
+                cell.PositionOnGrid = new Vector2Int(x, y);
+                cell.CellSelected += OnCellSelected;
+                _visualGrid[x, y] = cell;
             }
 
         ColorizeGrid();
     }
 
-
+    private void OnCellSelected(Vector2Int position)
+    {
+        CellSelected?.Invoke(position);
+    }
 }

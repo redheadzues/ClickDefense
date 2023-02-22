@@ -6,10 +6,29 @@ public class CubesMerger : MonoBehaviour
     [SerializeField] private Grid _grid;
     [SerializeField] private GridVisualizator _visualGrid;
 
+    private TestCubeMerge _selectedCube;
+    private bool _isSelected;
+
+    private void OnEnable()
+    {
+        _visualGrid.CellSelected += OnCellSelected;
+    }
+
+    private void OnDisable()
+    {
+        _visualGrid.CellSelected -= OnCellSelected;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
             InstantiateCube();
+    }
+
+    private void OnCellSelected(Vector2Int position)
+    {
+        _selectedCube = _grid.GetCube(position);
+        _isSelected = true;
     }
 
     private void InstantiateCube()
@@ -21,6 +40,11 @@ public class CubesMerger : MonoBehaviour
     private void SetOnPosition(TestCubeMerge cube)
     {
         Vector2Int gridPosition = _grid.GetEmptyCell();
+
+        if (gridPosition == -Vector2Int.one)
+            return;
+
         cube.transform.position = _visualGrid.GetWorldPosition(gridPosition);
+        _grid.SetCube(cube, gridPosition);
     }
 }

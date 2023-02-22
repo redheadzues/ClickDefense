@@ -26,6 +26,12 @@ public class Grid : MonoBehaviour
         return -Vector2Int.one;
     }
 
+    public void SetCube(TestCubeMerge cube, Vector2Int position) => 
+        _grid[position.x, position.y] = cube;
+
+    public TestCubeMerge GetCube(Vector2Int position) => 
+        _grid[position.x, position,y];
+
     private void CreateGrid()
     {
         _grid = new TestCubeMerge[_gridSize.x, _gridSize.y];
