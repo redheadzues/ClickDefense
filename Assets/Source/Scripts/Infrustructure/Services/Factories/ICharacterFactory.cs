@@ -6,6 +6,6 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
     public interface ICharacterFactory
     {
         GameObject CreateAllie(AllieTypeId typeId);
-        GameObject CreateEnemy(Transform parent, EnemyTypeId enemyTypeId);
+        GameObject CreateEnemy(EnemyTypeId enemyTypeId);
     }
 }

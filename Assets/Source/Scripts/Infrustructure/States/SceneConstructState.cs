@@ -70,7 +70,7 @@ namespace Assets.Source.Scripts.Infrustructure.States
             CreateAbilityRewarder();
             LoadSceneData();
 
-            _gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
+            //_gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
         }
 
         public void Exit()

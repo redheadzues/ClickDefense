@@ -17,7 +17,7 @@ MonoBehaviour:
   <Reward>k__BackingField: 1
   <Prefab>k__BackingField: {fileID: 3475198849781210094, guid: de638c1c7deaf894e863c640bb4d1d09, type: 3}
   <Attributes>k__BackingField:
-    Speed: 1
+    Speed: 3
     Damage: 1
     Range: 0
     AttackSpeed: 0

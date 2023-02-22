@@ -17,6 +17,7 @@ public class ButtonAddCharacter : MonoBehaviour
 
     private void CreateCharacter()
     {
+        print("good");
         GameObject allie = _factory.CreateAllie(AllieTypeId.Quinth);
         allie.transform.position = Vector3.up;
         allie.gameObject.SetActive(true);

@@ -29,15 +29,15 @@ namespace Assets.Source.Scripts.Infrustructure.Services.Factories
             GameObject allie = Object.Instantiate(allieData.Prefab);
             allie.GetComponent<AttributeSetterComponent>().SetAttributes(allieData.Attributes);
             allie.GetComponent<Health>().SetNewValue(allieData.HP);
-
+            MonoBehaviour.print(allie.transform.position);
             return allie;
         }
 
-        public GameObject CreateEnemy(Transform parent, EnemyTypeId enemyTypeId)
+        public GameObject CreateEnemy( EnemyTypeId enemyTypeId)
         {
             EnemyStaticData enemyData = _staticData.ForEnemy(enemyTypeId);
             SceneStaticData sceneStaticData = _staticData.ForLevel();
-            GameObject enemy = Object.Instantiate(enemyData.Prefab, parent);
+            GameObject enemy = Object.Instantiate(enemyData.Prefab);
 
             RegisterEnemy(enemy);
             SetupEnemy(enemyData, enemy, sceneStaticData.EnemyTargetPositionX);

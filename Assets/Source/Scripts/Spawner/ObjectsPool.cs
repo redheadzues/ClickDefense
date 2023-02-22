@@ -43,9 +43,9 @@ public class ObjectsPool
         {
             for (int i = 0; i < _createData[type]; i++)
             {
-                GameObject enemy = enemyFactory.CreateEnemy(_container, type);                
-                enemy.SetActive(false);                
-                _pool.Add(enemy.GetComponent<Enemy>());
+                //GameObject enemy = enemyFactory.CreateEnemy(_container, type);                
+                //enemy.SetActive(false);                
+                //_pool.Add(enemy.GetComponent<Enemy>());
             }
         }
     }

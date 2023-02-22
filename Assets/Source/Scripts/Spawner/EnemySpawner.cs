@@ -14,15 +14,17 @@ public class EnemySpawner : ObjectsPool
     private readonly List<Vector3> _spawnPoints = new List<Vector3>();
     private readonly SceneStaticData _sceneData;
     private readonly ICoroutineRunner _coroutineRunner;
+    private readonly ICharacterFactory _characterFactory;
     private List<EnemyTypeId> _vaweSpawnList = new List<EnemyTypeId>();
     private int _spawnIndex;
+    private int _deathCount;
 
     public event Action Finished;
 
     public EnemySpawner(ICharacterFactory enemyFactory, IStaticDataService staticData, ICoroutineRunner coroutineRunner)
     {
         _coroutineRunner = coroutineRunner;
-
+        _characterFactory = enemyFactory;
         _sceneData = staticData.ForLevel();
 
         InitializePool(enemyFactory, _sceneData);
@@ -50,6 +52,7 @@ public class EnemySpawner : ObjectsPool
     private void ResetSpawnList()
     {
         _vaweSpawnList.Clear();
+        _deathCount = 0;
         _spawnIndex = 0;
     }
 
@@ -62,22 +65,25 @@ public class EnemySpawner : ObjectsPool
     private bool Spawn()
     {
         if(_spawnIndex == _vaweSpawnList.Count)
-        {
-            Finished?.Invoke();
             return false;
-        }
 
-        if (TryGetObject(_vaweSpawnList[_spawnIndex] ,out Health enemy) == true)
-        {
-            enemy.transform.position = GetRandomPoint();
-            enemy.gameObject.SetActive(true);
-            enemy.ResetCurrentValue();
-
-            _spawnIndex++;
-        }
+        GameObject enemy = _characterFactory.CreateEnemy(_vaweSpawnList[_spawnIndex]);
+        enemy.transform.position = GetRandomPoint();
+        enemy.GetComponent<Death>().Happend += OnDeathHappend;
+        _spawnIndex++;
 
         return true;
     }
+
+    private void OnDeathHappend(Death death)
+    {
+        death.Happend -= OnDeathHappend;
+        _deathCount++;
+
+        if (_deathCount == _vaweSpawnList.Count)
+            Finished.Invoke();
+    }
+
 
     private Vector3 GetRandomPoint()
     {

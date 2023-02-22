@@ -34,7 +34,7 @@ namespace Assets.Source.Scripts.Enemies
             _targetPositionX = targetPosition;
             _typeId = typeId;
         }
-        private void OnDeathHappend()
+        private void OnDeathHappend(Death death)
         {
             Died?.Invoke(_reward);
         }

@@ -7,7 +7,7 @@ namespace Assets.Source.Scripts.CharactersComponent
     {
         [SerializeField] private Health _health;
 
-        public event Action Happend;
+        public event Action<Death> Happend;
 
         private void OnEnable()
         {
@@ -27,8 +27,8 @@ namespace Assets.Source.Scripts.CharactersComponent
 
         private void Die()
         {
-            Happend?.Invoke();
-            gameObject.SetActive(false);
+            Happend?.Invoke(this);
+            Destroy(gameObject);
         }
     }
 }
