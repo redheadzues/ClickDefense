@@ -9,9 +9,6 @@ using Assets.Source.Scripts.UI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using UnityEngine;
 
 namespace Assets.Source.Scripts.Shops
 {
@@ -40,11 +37,6 @@ namespace Assets.Source.Scripts.Shops
             _abilityTree.ResetOwnInLeafs();
         }
 
-        ~PlayerAbilityRewarder()
-        {
-            Debug.Log("eeee");
-        }
-
         public void Destroy()
         {
             Dispose();
@@ -52,7 +44,6 @@ namespace Assets.Source.Scripts.Shops
 
         public void Dispose()
         {
-            Debug.Log("Run Destroy");
             _vawe.Finished -= OnVaweFinished;
         }
 
@@ -115,7 +106,5 @@ namespace Assets.Source.Scripts.Shops
             _cardSelector.CardSelected -= AddAbilityToPlayer;
             _cardSelector.Destroy();
         }       
-
-
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BuildGrid : MonoBehaviour
+public class Grid : MonoBehaviour
 {
     [SerializeField] protected int _columnsCount;
     [SerializeField] protected int _rowsCount;
@@ -11,6 +11,15 @@ public class BuildGrid : MonoBehaviour
     private void Awake()
     {
         CreateGrid();
+    }
+
+    private void CreateGrid()
+    {
+        _grid = new bool[_columnsCount, _rowsCount];
+
+        for (int i = 0; i < _columnsCount; i++)
+            for (int j = 0; j < _rowsCount; j++)
+                _grid[i, j] = true;
     }
 
     //public bool TryBuild(int positionX, int positionY, int borderSize)
@@ -34,14 +43,7 @@ public class BuildGrid : MonoBehaviour
     //    }
     //}
 
-    private void CreateGrid()
-    {
-        _grid = new bool[_columnsCount, _rowsCount];
 
-        for (int i = 0; i < _columnsCount; i++)
-            for (int j = 0; j < _rowsCount; j++)
-                _grid[i, j] = true;
-    }
 
     //private bool CheckAvailabilityBuild(int positionX, int positionY)
     //{

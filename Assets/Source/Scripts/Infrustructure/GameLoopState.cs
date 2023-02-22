@@ -22,7 +22,7 @@ namespace Assets.Source.Scripts.Infrustructure
 
         public void Exit()
         {
-            _context = null;
+            
         }
     }
 }
