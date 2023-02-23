@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CubeMover : MonoBehaviour
@@ -5,6 +6,8 @@ public class CubeMover : MonoBehaviour
     private Camera _cameraMain;
     private float _distance;
     private Transform _movingTransform;
+
+    public event Action<Vector3> MouseReleased; 
 
     private void Awake()
     {
@@ -25,7 +28,15 @@ public class CubeMover : MonoBehaviour
             Ray ray = _cameraMain.ScreenPointToRay(Input.mousePosition);
             Vector3 rayPoint = ray.GetPoint(_distance);
             _movingTransform.position = new Vector3(rayPoint.x, 2f, rayPoint.z);
+
+            if (Input.GetMouseButtonUp(0) && _movingTransform != null)
+            {
+                _movingTransform = null;
+                MouseReleased?.Invoke(rayPoint);
+            }
         }
+
+
     }
 
 }

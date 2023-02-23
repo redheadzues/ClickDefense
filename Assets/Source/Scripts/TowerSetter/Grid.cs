@@ -32,6 +32,9 @@ public class Grid : MonoBehaviour
     public TestCubeMerge GetCube(Vector2Int position) => 
         _grid[position.x, position.y];
 
+    public void DeleteCube(Vector2Int position) => 
+        _grid[position.x, position.y] = null;
+
     private void CreateGrid()
     {
         _grid = new TestCubeMerge[_gridSize.x, _gridSize.y];
@@ -40,47 +43,16 @@ public class Grid : MonoBehaviour
             for (int j = 0; j < _gridSize.y; j++)
                 _grid[i, j] = null;
     }
+}
 
-    //public bool TryBuild(int positionX, int positionY, int borderSize)
-    //{
-    //    if (CheckAvailabilityBuild(positionX, positionY) == true)
-    //    {
-    //        Vector2 gridPosition = DefineGridPosition(positionX, positionY);
+public class GridDataCell
+{
+    public object Owner;
+    public TestCubeMerge Cube;
 
-    //        for (int i = (int)gridPosition.x - borderSize; i < gridPosition.x + borderSize + 1; i++)
-    //            if(i >= 0 && i < _columnsCount)
-    //                for (int j = (int)gridPosition.y - borderSize; j < gridPosition.y + borderSize + 1; j++)
-    //                    if(j >= 0 && j < _rowsCount)
-    //                        _grid[i, j] = false;
-
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        print("Нельзя");
-    //        return false;
-    //    }
-    //}
-
-
-
-    //private bool CheckAvailabilityBuild(int positionX, int positionY)
-    //{
-    //    Vector2 gridPosition = DefineGridPosition(positionX, positionY);
-
-    //    if ((gridPosition.x >= _columnsCount) || (gridPosition.x < 0))
-    //        return false;
-    //    if ((gridPosition.y >= _rowsCount) || (gridPosition.y < 0))
-    //        return false;
-
-    //    return _grid[(int)gridPosition.x, (int)gridPosition.y];
-    //}
-
-    //private Vector2  DefineGridPosition(int positionX, int positionY)
-    //{
-    //    int XpostitionOnGrid = positionX - ((int)_gridStartPosition.x);
-    //    int YpostitionOnGrid = ((int)_gridStartPosition.z) - positionY;
-
-    //    return new Vector2(XpostitionOnGrid, YpostitionOnGrid);
-    //}
+    public GridDataCell(object owner, TestCubeMerge cube)
+    {
+        Owner = owner;
+        Cube = cube;
+    }
 }

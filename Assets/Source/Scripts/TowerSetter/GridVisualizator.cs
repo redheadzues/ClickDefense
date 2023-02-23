@@ -13,7 +13,7 @@ public class GridVisualizator : MonoBehaviour
 
     private VisualGridCell[,] _visualGrid;
 
-    public event Action<Vector2Int> CellSelected;
+    public event Action<VisualGridCell> CellSelected;
 
     private void OnEnable() => 
         _modeSwitcher.BuildingModeChanged += OnBuildingModeChange;
@@ -32,6 +32,22 @@ public class GridVisualizator : MonoBehaviour
 
     public Vector3 GetWorldPosition(Vector2Int gridPosition) =>
         _visualGrid[gridPosition.x, gridPosition.y].transform.position;
+
+    public VisualGridCell GetCoverCell()
+    {
+
+        for(int x = 0; x < _visualGrid.GetLength(0); x++)
+        {
+            for (int y = 0; y < _visualGrid.GetLength(1); y++)
+            {
+                if (_visualGrid[x, y].IsMouseOver == true)
+                    return _visualGrid[x,y];
+            }
+        }
+
+        return null;
+
+    }
     
 
     private void OnBuildingModeChange()
@@ -76,8 +92,8 @@ public class GridVisualizator : MonoBehaviour
         ColorizeGrid();
     }
 
-    private void OnCellSelected(Vector2Int position)
+    private void OnCellSelected(VisualGridCell cell)
     {
-        CellSelected?.Invoke(position);
+        CellSelected?.Invoke(cell);
     }
 }
