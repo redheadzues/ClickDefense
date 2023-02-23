@@ -1,4 +1,4 @@
-using System;
+using Assets.Source.Scripts.MergingGrid;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
@@ -73,20 +73,5 @@ public class Grid : MonoBehaviour
     }
 }
 
-public class GridDataCell
-{
-    public object Owner;
-    public TestCubeMerge Cube;
 
-    public GridDataCell(object owner, TestCubeMerge cube)
-    {
-        Owner = owner;
-        Cube = cube;
-    }
-}
 
-public enum GridType
-{
-    Reserve,
-    Battle
-}
