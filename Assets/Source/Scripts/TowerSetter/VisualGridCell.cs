@@ -5,6 +5,7 @@ public class VisualGridCell : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
     [HideInInspector] public Vector2Int PositionOnGrid;
+    [HideInInspector] public GridType Owner;
 
     private bool _isMouseOver;
 
@@ -21,7 +22,7 @@ public class VisualGridCell : MonoBehaviour
         CellSelected?.Invoke(this);
     }
 
-    private void OnMouseOver()
+    private void OnMouseEnter()
     {
         _isMouseOver = true;
         _spriteRenderer.color = Color.red;

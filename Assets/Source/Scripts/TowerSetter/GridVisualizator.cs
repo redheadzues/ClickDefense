@@ -12,7 +12,9 @@ public class GridVisualizator : MonoBehaviour
     [SerializeField] private Vector3 _gridStartPosition;
 
     private VisualGridCell[,] _visualGrid;
+    private GridType _gridType;
 
+    public GridType GridType => _gridType;
     public event Action<VisualGridCell> CellSelected;
 
     private void OnEnable() => 
@@ -76,6 +78,7 @@ public class GridVisualizator : MonoBehaviour
 
     private void CreateVisualGrid()
     {
+        _gridType = _grid.GridType;
         _visualGrid = new VisualGridCell[_grid.Greed.GetLength(0), _grid.Greed.GetLength(1)];
 
         for (int x = 0; x < _grid.Greed.GetLength(0); x++)
@@ -86,6 +89,7 @@ public class GridVisualizator : MonoBehaviour
                 cell.transform.localScale *= 1.8f;
                 cell.PositionOnGrid = new Vector2Int(x, y);
                 cell.CellSelected += OnCellSelected;
+                cell.Owner = _grid.GridType;
                 _visualGrid[x, y] = cell;
             }
 

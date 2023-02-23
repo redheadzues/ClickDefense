@@ -1,15 +1,23 @@
+using System;
 using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
     [SerializeField] private Vector2Int _gridSize;
+    [SerializeField] private int _capacity;
+    [SerializeField] private GridType _gridType;
 
     private TestCubeMerge[,] _grid;
+
     public TestCubeMerge[,] Greed => _grid;
+    public GridType GridType => _gridType;  
 
     private void Awake()
     {
         CreateGrid();
+
+        if (_gridType == GridType.Reserve)
+            _capacity = _grid.Length;
     }
 
     public Vector2Int GetEmptyCell()
@@ -26,8 +34,28 @@ public class Grid : MonoBehaviour
         return -Vector2Int.one;
     }
 
-    public void SetCube(TestCubeMerge cube, Vector2Int position) => 
-        _grid[position.x, position.y] = cube;
+    public bool SetCube(TestCubeMerge cube, Vector2Int position)
+    {
+        if(GetCube(position) == null && CheckCapacity())
+        {
+            _grid[position.x, position.y] = cube;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool CheckCapacity()
+    {
+        int count = 0;
+
+        for (int x = 0; x < _gridSize.x; x++)
+            for (int y = 0; y < _gridSize.y; y++)
+                if (_grid[x, y] != null)
+                    count++;
+
+        return count < _capacity;
+    }
 
     public TestCubeMerge GetCube(Vector2Int position) => 
         _grid[position.x, position.y];
@@ -55,4 +83,10 @@ public class GridDataCell
         Owner = owner;
         Cube = cube;
     }
+}
+
+public enum GridType
+{
+    Reserve,
+    Battle
 }

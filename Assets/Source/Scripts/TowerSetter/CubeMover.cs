@@ -7,7 +7,7 @@ public class CubeMover : MonoBehaviour
     private float _distance;
     private Transform _movingTransform;
 
-    public event Action<Vector3> MouseReleased; 
+    public event Action MouseReleased; 
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class CubeMover : MonoBehaviour
             if (Input.GetMouseButtonUp(0) && _movingTransform != null)
             {
                 _movingTransform = null;
-                MouseReleased?.Invoke(rayPoint);
+                MouseReleased?.Invoke();
             }
         }
 
