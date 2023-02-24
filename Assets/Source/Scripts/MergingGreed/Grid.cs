@@ -8,7 +8,7 @@ namespace Assets.Source.Scripts.MergingGrid
         private int _capacity;
         private GridType _gridType;
 
-        private IGridCell[,] _grid;
+        private CellContent[,] _grid;
 
         public Vector2Int Size => _gridSize;
         public GridType GridType => _gridType;
@@ -39,7 +39,7 @@ namespace Assets.Source.Scripts.MergingGrid
             return -Vector2Int.one;
         }
 
-        public bool SetContent(IGridCell content, Vector2Int position)
+        public bool SetContent(CellContent content, Vector2Int position)
         {
             if (GetContent(position) == null && CheckCapacity())
             {
@@ -62,7 +62,7 @@ namespace Assets.Source.Scripts.MergingGrid
             return count < _capacity;
         }
 
-        public IGridCell GetContent(Vector2Int position) =>
+        public CellContent GetContent(Vector2Int position) =>
             _grid[position.x, position.y];
 
         public void DeleteContent(Vector2Int position) =>
@@ -70,7 +70,7 @@ namespace Assets.Source.Scripts.MergingGrid
 
         private void CreateGrid()
         {
-            _grid = new IGridCell[_gridSize.x, _gridSize.y];
+            _grid = new CellContent[_gridSize.x, _gridSize.y];
 
             for (int i = 0; i < _gridSize.x; i++)
                 for (int j = 0; j < _gridSize.y; j++)

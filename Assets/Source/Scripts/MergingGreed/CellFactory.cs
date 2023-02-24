@@ -24,20 +24,22 @@ namespace Assets.Source.Scripts.MergingGrid
 
             if (gridPosition != -Vector2Int.one)
             {
-                IGridCell gridCell = CreateGridCell();
+                IMergeableGridCell gridCell = CreateGridCell();
                 Vector3 positionToSet = _visualGrid.GetWorldPosition(gridPosition);
-                gridCell.SetContentOnPosition(positionToSet);
+                gridCell.Transform.position = positionToSet;
                 _reserveGrid.SetContent(gridCell, gridPosition);
 
             }
         }
 
-        private IGridCell CreateGridCell()
+        private IMergeableGridCell CreateGridCell()
         {
             GameObject character = _characterFactory.CreateAllie(AllieTypeId.Quinth);
             Allie allie = character.GetComponent<Allie>();
-            IGridCell gridCell = new CellContent();
+            IMergeableGridCell gridCell = new CellContent();
             gridCell.SetContent<Allie>(allie);
+            gridCell.Transform = new GameObject("PhysicsGridCell").transform;
+
             return gridCell;
         }
     }

@@ -1,24 +1,17 @@
-﻿using System;
+﻿using Assets.Source.Scripts.Allies;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
-    public class CellContent : IGridCell
+    public class CellContent
     {
-        private Dictionary<Type, ICellContent> _content;
+        private const int _orbCount = 3;
+        private Allie _allie;
+        private List<PowerOrb> _powerOrbs = new List<PowerOrb>();
+        private Transform _worldTransform;
 
-        TContent IGridCell.GetContent<TType, TContent>() =>
-        _content.ContainsKey(typeof(TType)) ? (TContent)_content[typeof(TType)] : default(TContent);
 
-        void IGridCell.SetContent<TType>(ICellContent content) => 
-            _content.Add(typeof(TType), content);
 
-        public void SetContentOnPosition(Vector3 position)
-        {
-
-            foreach(ICellContent value in _content.Values)
-                value.SetPosition(position);
-        }
     }
 }

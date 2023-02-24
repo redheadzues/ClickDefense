@@ -3,21 +3,8 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.Allies
 {
-    public class PowerOrb : MonoBehaviour, IMergeable
+    public class PowerOrb : MonoBehaviour
     {
-        public void Destroy()
-        {
 
-        }
-
-        public void Merge()
-        {
-
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-
-        }
     }
 }
