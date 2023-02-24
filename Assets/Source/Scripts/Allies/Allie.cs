@@ -10,12 +10,17 @@ namespace Assets.Source.Scripts.Allies
     {
         private const int _maxChildCount = 3;
         private List<IMergeableChild> _child = new List<IMergeableChild>();
-        private AllieTypeId _allieType;
+        public AllieTypeId _allieType;
         private int _level;
 
         public IReadOnlyList<IMergeableChild> Childs => _child;
         public Enum Type => _allieType;
         public int Level => _level;
+
+        public void Construct(AllieTypeId type)
+        {
+            _allieType = type;
+        }
 
         public void Destroy()
         {
@@ -30,10 +35,19 @@ namespace Assets.Source.Scripts.Allies
 
             if(merged is IMergableParent mergeableParent)
             {
-                if(_level == merged.Level && Type == merged.Type)
+
+
+                if (_level == merged.Level && Type.GetType() == merged.Type.GetType())
                 {
-                    _level++;
-                    return true;
+                    print("passed");
+
+                    if(Type.CompareTo(merged.Type) == 0)
+                    {
+                        _level++;
+                        print(_level);
+                        return true;
+                    }
+
                 }
             }
             //

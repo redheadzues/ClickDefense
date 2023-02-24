@@ -2,27 +2,23 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
-    public class Grid
+    public class Grid : MonoBehaviour
     {
-        private Vector2Int _gridSize;
-        private int _capacity;
-        private GridType _gridType;
+        [SerializeField] private Vector2Int _gridSize;
+        [SerializeField] private int _capacity;
+        [SerializeField] private GridType _gridType;
 
         private IMergeableGridCell[,] _grid;
 
         public Vector2Int Size => _gridSize;
         public GridType GridType => _gridType;
 
-        public Grid(Vector2Int gridSize, GridType gridType, int capacity = 0)
+        public void Start()
         {
-            _gridSize = gridSize;
-            _capacity = capacity;
-            _gridType = gridType;
+            CreateGrid();
 
             if (_gridType == GridType.Reserve)
                 _capacity = _grid.Length;
-
-            CreateGrid();
         }
 
         public Vector2Int GetEmptyCell()
@@ -33,6 +29,7 @@ namespace Assets.Source.Scripts.MergingGrid
                 {
                     if (_grid[x, y] == null)
                         return new Vector2Int(x, y);
+
                 }
             }
 
@@ -78,3 +75,6 @@ namespace Assets.Source.Scripts.MergingGrid
         }
     }
 }
+
+
+

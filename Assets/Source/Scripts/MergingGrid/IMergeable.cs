@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
@@ -9,15 +8,5 @@ namespace Assets.Source.Scripts.MergingGrid
         int Level { get; }
         bool Merge(IMergeable merged);
         void Destroy();
-    }
-
-    public interface IMergableParent : IMergeable
-    {
-        IReadOnlyList<IMergeableChild> Childs { get; }
-    }
-
-    public interface IMergeableChild : IMergeable
-    {
-
     }
 }
