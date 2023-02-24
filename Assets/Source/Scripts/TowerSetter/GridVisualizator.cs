@@ -9,7 +9,7 @@ public class GridVisualizator : MonoBehaviour
     [SerializeField] private Color _colorEnable;
     [SerializeField] private Color _colorDisable;
     [SerializeField] private Transform _transformVisualGridParent;
-    [SerializeField] private Grid _grid;
+    [SerializeField] private MonoBehaviourGrid _grid;
     [SerializeField] private Vector3 _gridStartPosition;
 
     private VisualGridCell[,] _visualGrid;

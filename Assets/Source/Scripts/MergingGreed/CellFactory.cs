@@ -8,10 +8,10 @@ namespace Assets.Source.Scripts.MergingGrid
     public class CellFactory
     {
         private readonly Grid _reserveGrid;
-        private readonly GridVisualizator _visualGrid;
+        private readonly VisualGrid _visualGrid;
         private readonly ICharacterFactory _characterFactory;
 
-        public CellFactory(Grid reserveGrid, GridVisualizator visualGrid, ICharacterFactory characterFactory)
+        public CellFactory(Grid reserveGrid, VisualGrid visualGrid, ICharacterFactory characterFactory)
         {
             _reserveGrid = reserveGrid;
             _visualGrid = visualGrid;
@@ -36,8 +36,7 @@ namespace Assets.Source.Scripts.MergingGrid
         {
             GameObject character = _characterFactory.CreateAllie(AllieTypeId.Quinth);
             Allie allie = character.GetComponent<Allie>();
-            IMergeableGridCell gridCell = new CellContent();
-            gridCell.SetContent<Allie>(allie);
+            IMergeableGridCell gridCell = new CellContent(allie);
             gridCell.Transform = new GameObject("PhysicsGridCell").transform;
 
             return gridCell;

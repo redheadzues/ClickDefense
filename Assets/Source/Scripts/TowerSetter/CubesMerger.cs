@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CubesMerger : MonoBehaviour
 {
-    [SerializeField] private List<Grid> _grids;
+    [SerializeField] private List<MonoBehaviourGrid> _grids;
     [SerializeField] private List<GridVisualizator> _visualGrids;
     [SerializeField] private CubeMover _cubeMover;
 
@@ -25,7 +25,7 @@ public class CubesMerger : MonoBehaviour
 
     private void OnCellSelected(VisualGridCell cell)
     {
-        Grid cellOwner = GetOwner(cell);
+        MonoBehaviourGrid cellOwner = GetOwner(cell);
 
         _selectedCube = cellOwner.GetCube(cell.PositionOnGrid);        
 
@@ -36,9 +36,9 @@ public class CubesMerger : MonoBehaviour
         }
     }
 
-    private Grid GetOwner(VisualGridCell cell)
+    private MonoBehaviourGrid GetOwner(VisualGridCell cell)
     {
-        foreach(Grid grid in _grids)
+        foreach(MonoBehaviourGrid grid in _grids)
             if(grid.GridType == cell.Owner)
                 return grid;
 
@@ -56,7 +56,7 @@ public class CubesMerger : MonoBehaviour
         }
         else
         {
-            Grid grid = GetOwner(visualCell);
+            MonoBehaviourGrid grid = GetOwner(visualCell);
 
             TestCubeMerge cube = grid.GetCube(visualCell.PositionOnGrid);
 
@@ -95,7 +95,7 @@ public class CubesMerger : MonoBehaviour
         cube.level++;
         Destroy(_selectedCube.gameObject);
 
-        Grid gridToMerge = GetOwner(_lastCell);
+        MonoBehaviourGrid gridToMerge = GetOwner(_lastCell);
 
         gridToMerge.DeleteCube(_lastCell.PositionOnGrid);
     }
@@ -107,13 +107,13 @@ public class CubesMerger : MonoBehaviour
 
     private void SetCubeOnNewPosition(VisualGridCell visualCell)
     {
-        Grid gridToSetCube = GetOwner(visualCell);
+        MonoBehaviourGrid gridToSetCube = GetOwner(visualCell);
 
         if(gridToSetCube.SetCube(_selectedCube, visualCell.PositionOnGrid))
         {
 
             _selectedCube.transform.position = visualCell.transform.position;
-            Grid gridForDeleteCell = GetOwner(_lastCell);
+            MonoBehaviourGrid gridForDeleteCell = GetOwner(_lastCell);
             gridForDeleteCell.DeleteCube(_lastCell.PositionOnGrid);
         }
         else

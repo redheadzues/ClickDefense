@@ -1,7 +1,7 @@
 using Assets.Source.Scripts.MergingGrid;
 using UnityEngine;
 
-public class Grid : MonoBehaviour
+public class MonoBehaviourGrid : MonoBehaviour
 {
     [SerializeField] private Vector2Int _gridSize;
     [SerializeField] private int _capacity;

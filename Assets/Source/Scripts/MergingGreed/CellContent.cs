@@ -1,17 +1,29 @@
-﻿using Assets.Source.Scripts.Allies;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
-    public class CellContent
+    public class CellContent : IMergeableGridCell  
     {
-        private const int _orbCount = 3;
-        private Allie _allie;
-        private List<PowerOrb> _powerOrbs = new List<PowerOrb>();
-        private Transform _worldTransform;
+        private readonly IMergeable _content;
+        private readonly Transform _transform;
 
+        public Transform Transform => _transform;
+        public IMergeable Content => _content;
 
+        public CellContent(IMergeable content, Transform transform)
+        {
+            _content = content;
+            _transform = transform;
+        }
 
+        public void Destroy()
+        {
+            _content.Destroy();
+        }
+
+        public bool Merge(IMergeableGridCell merged)
+        {
+            return _content.Merge(merged.Content);
+        }
     }
 }

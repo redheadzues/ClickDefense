@@ -2,7 +2,7 @@
 
 public class CubeSetter : MonoBehaviour
 {
-    [SerializeField] private Grid _reserveGrid;
+    [SerializeField] private MonoBehaviourGrid _reserveGrid;
     [SerializeField] private GridVisualizator _visualGrid;
     [SerializeField] private TestCubeMerge _cubePrefab;
 

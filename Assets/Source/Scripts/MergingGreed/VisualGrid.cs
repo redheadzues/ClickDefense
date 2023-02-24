@@ -1,13 +1,14 @@
-﻿using System;
+﻿using Assets.Source.Scripts.Infrustructure.Services.AssetManagment;
+using System;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
     public class VisualGrid : IDisposable
     {
-        private VisualGridCell _template;
+        private readonly IAssetProvider _assetProvider;
         private Transform _transformVisualGridParent;
-        private Grid _grid;
+        private readonly Grid _grid;
         private Vector3 _gridStartPosition;
 
         private VisualGridCell[,] _visualGrid;
@@ -17,10 +18,9 @@ namespace Assets.Source.Scripts.MergingGrid
         public GridType GridType => _gridType;
         public event Action<VisualGridCell> CellSelected;
 
-        public VisualGrid(VisualGridCell template, Transform transformVisualGridParent, Grid grid, Vector3 gridStartPosition)
+        public VisualGrid(IAssetProvider assetProvider, Grid grid, Vector3 gridStartPosition)
         {
-            _template = template;
-            _transformVisualGridParent = transformVisualGridParent;
+            _assetProvider = assetProvider;
             _grid = grid;
             _gridStartPosition = gridStartPosition;
 
@@ -70,6 +70,7 @@ namespace Assets.Source.Scripts.MergingGrid
 
         private void CreateVisualGrid()
         {
+            _transformVisualGridParent = new GameObject("VisualGridContainer").transform;
             _gridType = _grid.GridType;
             _visualGrid = new VisualGridCell[_grid.Size.x, _grid.Size.y];
 
@@ -85,7 +86,8 @@ namespace Assets.Source.Scripts.MergingGrid
         private void CreateVisualCell(int x, int y)
         {
             Vector3 point = new Vector3(_gridStartPosition.x + x * 2, 0.6f, _gridStartPosition.z - y * 2);
-            VisualGridCell cell = GameObject.Instantiate(_template, point, Quaternion.Euler(90, 0, 0), _transformVisualGridParent);
+            GameObject visualCell = _assetProvider.Instantiate(AssetPath.VisualGridCell, point, Quaternion.Euler(90, 0, 0), _transformVisualGridParent);
+            VisualGridCell cell = visualCell.GetComponent<VisualGridCell>();
             cell.transform.localScale *= 1.8f;
             cell.PositionOnGrid = new Vector2Int(x, y);
             cell.CellSelected += OnCellSelected;
