@@ -7,21 +7,21 @@ namespace Assets.Source.Scripts.MergingGrid
     {
         [SerializeField] private List<Grid> _grids;
         [SerializeField] private List<GridVisualizator> _visualGrids;
-        [SerializeField] private GridCellMover _cubeMover;
+        [SerializeField] private GridCellMover _cellMover;
 
         private IMergeableGridCell _selectedCell;
-        private VisualGridCell _lastCell;
+        private VisualGridCell _lastVisualCell;
 
         private void OnEnable()
         {
             _visualGrids.ForEach(x => x.CellSelected += OnCellSelected);
-            _cubeMover.MouseReleased += OnMouseReleased;
+            _cellMover.MouseReleased += OnMouseReleased;
         }
 
         private void OnDisable()
         {
             _visualGrids.ForEach(x => x.CellSelected -= OnCellSelected);
-            _cubeMover.MouseReleased -= OnMouseReleased;
+            _cellMover.MouseReleased -= OnMouseReleased;
         }
 
 
@@ -33,8 +33,8 @@ namespace Assets.Source.Scripts.MergingGrid
 
             if (_selectedCell != null)
             {
-                _cubeMover.StartMove(_selectedCell.Transform);
-                _lastCell = cell;
+                _cellMover.StartMove(_selectedCell.Transform);
+                _lastVisualCell = cell;
             }
         }
 
@@ -50,26 +50,39 @@ namespace Assets.Source.Scripts.MergingGrid
 
         private void OnMouseReleased()
         {
-            VisualGridCell visualCell = GetCoverCell();
+            VisualGridCell currentVisualCell = GetCoverCell();
 
-            if (visualCell == null || visualCell == _lastCell)
+            if (CheckValidCell(currentVisualCell))
             {
                 SetCellOnLastPosition();
             }
             else
             {
-                Grid grid = GetOwner(visualCell);
-
-                IMergeableGridCell cell = grid.GetContent(visualCell.PositionOnGrid);
+                IMergeableGridCell cell = GetContentFromGrid(currentVisualCell);
 
                 if (cell == null)
-                    SetCubeOnNewPosition(visualCell);
+                {
+                    SetCellOnNewPosition(currentVisualCell, _selectedCell);
+                    DeleteCellFromGrid(_lastVisualCell);
+                }
                 else
                 {
-                    if (cell.Merge(_selectedCell))
+                    IMergeableGridCell recivingCell = cell;
+                    IMergeableGridCell incomingCell = _selectedCell;
+
+                    if (IsNeedInvertMerge(cell))
                     {
-                        grid.DeleteContent(_lastCell.PositionOnGrid);
-                        _selectedCell.Destroy();
+                        recivingCell = _selectedCell;
+                        incomingCell = cell;
+                    }
+
+                    if (TryMerge(recivingCell, incomingCell))
+                    {
+                        DeleteCellFromGrid(_lastVisualCell);
+                        DeleteCellFromGrid(currentVisualCell);
+                        SetCellOnNewPosition(currentVisualCell, recivingCell);
+
+                        incomingCell.Destroy();
                     }
                     else
                     {
@@ -79,6 +92,28 @@ namespace Assets.Source.Scripts.MergingGrid
             }
 
             _selectedCell = null;
+        }
+
+        private bool CheckValidCell(VisualGridCell currentVisualCell)
+        {
+            return currentVisualCell == null || currentVisualCell == _lastVisualCell;
+        }
+
+        private IMergeableGridCell GetContentFromGrid(VisualGridCell currentVisualCell)
+        {
+            Grid grid = GetOwner(currentVisualCell);
+               
+            return grid.GetContent(currentVisualCell.PositionOnGrid);
+        }
+
+        private bool IsNeedInvertMerge(IMergeableGridCell cell)
+        {
+            return cell.Content is IMergeableChild && _selectedCell.Content is IMergableParent;
+        }
+
+        private bool TryMerge(IMergeableGridCell recivingCell, IMergeableGridCell incomingCell)
+        {
+            return recivingCell.Merge(incomingCell);
         }
 
         private VisualGridCell GetCoverCell()
@@ -96,23 +131,23 @@ namespace Assets.Source.Scripts.MergingGrid
 
         private void SetCellOnLastPosition()
         {
-            _selectedCell.Transform.position = _lastCell.transform.position;
+            _selectedCell.Transform.position = _lastVisualCell.transform.position;
         }
 
-        private void SetCubeOnNewPosition(VisualGridCell visualCell)
+        private void SetCellOnNewPosition(VisualGridCell visualCell, IMergeableGridCell gridCell)
         {
             Grid gridToSetCube = GetOwner(visualCell);
 
-            if (gridToSetCube.SetContent(_selectedCell, visualCell.PositionOnGrid))
-            {
-
-                _selectedCell.Transform.position = visualCell.transform.position;
-
-                Grid gridForDeleteCell = GetOwner(_lastCell);
-                gridForDeleteCell.DeleteContent(_lastCell.PositionOnGrid);
-            }
+            if (gridToSetCube.SetContent(gridCell, visualCell.PositionOnGrid))
+                gridCell.Transform.position = visualCell.transform.position;
             else
                 SetCellOnLastPosition();
+        }
+
+        private void DeleteCellFromGrid(VisualGridCell visualCell)
+        {
+            Grid gridForDeleteCell = GetOwner(visualCell);
+            gridForDeleteCell.DeleteContent(visualCell.PositionOnGrid);
         }
     }
 }

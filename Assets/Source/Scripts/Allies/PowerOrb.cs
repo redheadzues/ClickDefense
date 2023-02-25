@@ -7,7 +7,7 @@ namespace Assets.Source.Scripts.Allies
     public class PowerOrb : MonoBehaviour, IMergeableChild
     {
         public int _level;
-        private PowerOrbTypeId _powerOrbTypeId;
+        public PowerOrbTypeId _powerOrbTypeId;
 
         public Enum Type => _powerOrbTypeId;
         public int Level => _level;
@@ -26,7 +26,7 @@ namespace Assets.Source.Scripts.Allies
         public bool Merge(IMergeable merged)
         {
             if (merged is IMergableParent parrent)
-                return parrent.Merge(this);
+                return false;
 
             if(merged is IMergeableChild)
             {

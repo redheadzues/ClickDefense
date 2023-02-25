@@ -22,9 +22,7 @@ namespace Assets.Source.Scripts.MergingGrid
             _content.Destroy();
         }
 
-        public bool Merge(IMergeableGridCell merged)
-        {
-            return _content.Merge(merged.Content);
-        }
+        public bool Merge(IMergeableGridCell merged) => 
+            _content.Merge(merged.Content);
     }
 }

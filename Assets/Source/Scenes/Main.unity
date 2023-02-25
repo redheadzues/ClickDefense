@@ -673,7 +673,7 @@ MonoBehaviour:
   _visualGrids:
   - {fileID: 1865272301}
   - {fileID: 1684005720}
-  _cubeMover: {fileID: 1472638551}
+  _cellMover: {fileID: 1472638551}
 --- !u!4 &1472638553
 Transform:
   m_ObjectHideFlags: 0
@@ -703,7 +703,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reserveGrid: {fileID: 1865272303}
   _visualGrid: {fileID: 1865272301}
-  _cubePrefab: {fileID: 7329400754908753927, guid: 8fe2ce0bf6854904ea8aae34e19923ce, type: 3}
 --- !u!1 &1480808903
 GameObject:
   m_ObjectHideFlags: 0
@@ -949,8 +948,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _modeSwitcher: {fileID: 1684005721}
   _spriteCell: {fileID: -8698182649527871742, guid: 598754a082e61394aa07501e51f9235f, type: 3}
-  _colorEnable: {r: 0, g: 1, b: 0.062781096, a: 1}
-  _colorDisable: {r: 1, g: 0, b: 0, a: 1}
   _transformVisualGridParent: {fileID: 1684005723}
   _grid: {fileID: 1684005722}
   _gridStartPosition: {x: -2, y: 0, z: 6}
@@ -1087,8 +1084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _modeSwitcher: {fileID: 1865272302}
   _spriteCell: {fileID: -8698182649527871742, guid: 598754a082e61394aa07501e51f9235f, type: 3}
-  _colorEnable: {r: 0, g: 1, b: 0.062781096, a: 1}
-  _colorDisable: {r: 1, g: 0, b: 0, a: 1}
   _transformVisualGridParent: {fileID: 1865272304}
   _grid: {fileID: 1865272303}
   _gridStartPosition: {x: -10, y: 0, z: 6}

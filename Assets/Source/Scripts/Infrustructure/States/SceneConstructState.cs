@@ -8,13 +8,10 @@ using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.Services.Reward;
 using Assets.Source.Scripts.Infrustructure.Services.SaveLoad;
 using Assets.Source.Scripts.Infrustructure.Services.StaticData;
-using Assets.Source.Scripts.MergingGrid;
 using Assets.Source.Scripts.Player;
 using Assets.Source.Scripts.Shops;
 using Assets.Source.Scripts.UI.Windows;
 using Money;
-using System;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Source.Scripts.Infrustructure.States
@@ -79,6 +76,14 @@ namespace Assets.Source.Scripts.Infrustructure.States
             }
         }
 
+        public void Exit()
+        {
+            _playerAbilityRewarder.Destroy();
+            _playerAbilityRewarder = null;
+
+            _context = null;
+        }
+
         private void OnButtonStartGameClicked()
         {
             _window.ButtonClicked -= OnButtonStartGameClicked;
@@ -100,13 +105,6 @@ namespace Assets.Source.Scripts.Infrustructure.States
             _gameStateMachine.Enter<GameLoopState, SceneContext>(_context);
         }
 
-        public void Exit()
-        {
-            _playerAbilityRewarder.Destroy();
-            _playerAbilityRewarder = null;
-            
-            _context = null;
-        }
 
         private void CreateGameOverLogic()
         {

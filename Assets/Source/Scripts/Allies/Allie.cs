@@ -19,8 +19,8 @@ namespace Assets.Source.Scripts.Allies
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.S))
-                _children.ForEach(x => print(x.Type));
+            if (Input.GetKeyDown(KeyCode.S))
+                print(_children.Count);
         }
 
         public void Construct(AllieTypeId type)
@@ -122,12 +122,41 @@ namespace Assets.Source.Scripts.Allies
             {
                 if (child.Merge(mergeableChild))
                 {
-                    child.SetParrent(transform);
+                    mergeableChild.SetParrent(null);
+                    mergeableChild.Destroy();
+                    MergeSelfChild();
                     return true;
                 }
             }
 
             return false;
+        }
+
+
+        private void MergeSelfChild()
+        {
+            while (TryMergeSelfChild()) ;
+        }
+        private bool TryMergeSelfChild()
+        {
+            for(int i = 0; i < _children.Count - 1; i++)
+            {
+                if (_children[i].Merge(_children[i+1]))
+                {
+                    RemoveChild(i+1);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void RemoveChild(int i)
+        {
+            _children[i].SetParrent(null);
+            _children[i].Destroy();
+            _children[i] = null;
+            _children.RemoveAll(x => x == null);
         }
     }
 }
