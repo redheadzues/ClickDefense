@@ -9,13 +9,19 @@ namespace Assets.Source.Scripts.Allies
     public class Allie : MonoBehaviour, IMergableParent
     {
         private const int _maxChildCount = 3;
-        private List<IMergeableChild> _child = new List<IMergeableChild>();
+        private List<IMergeableChild> _children = new List<IMergeableChild>();
         public AllieTypeId _allieType;
         private int _level;
 
-        public IReadOnlyList<IMergeableChild> Childs => _child;
+        public IReadOnlyList<IMergeableChild> Children => _children;
         public Enum Type => _allieType;
         public int Level => _level;
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.S))
+                _children.ForEach(x => print(x.Type));
+        }
 
         public void Construct(AllieTypeId type)
         {
@@ -24,7 +30,7 @@ namespace Assets.Source.Scripts.Allies
 
         public void Destroy()
         {
-            _child.ForEach(child => child.Destroy());
+            _children.ForEach(child => child.Destroy());
             Destroy(gameObject);
         }
 
@@ -35,19 +41,11 @@ namespace Assets.Source.Scripts.Allies
 
             if(merged is IMergableParent mergeableParent)
             {
-
-
-                if (_level == merged.Level && Type.GetType() == merged.Type.GetType())
+                if (_level == merged.Level && Type.Equals(merged.Type) && MergeChildren(mergeableParent, isCheckCopy: true))
                 {
-                    print("passed");
-
-                    if(Type.CompareTo(merged.Type) == 0)
-                    {
-                        _level++;
-                        print(_level);
-                        return true;
-                    }
-
+                    MergeChildren(mergeableParent, isCheckCopy: false);
+                    _level++;
+                    return true;
                 }
             }
             //
@@ -60,6 +58,44 @@ namespace Assets.Source.Scripts.Allies
             return false;
         }
 
+        private bool MergeChildren(IMergableParent mergeableParent, bool isCheckCopy)
+        {
+            List<IMergeableChild> inputChildrenCopy = mergeableParent.Children.Copy();
+            List<IMergeableChild> selfChildrenCopy = _children.Copy();
+
+
+            for (int inputIndex = 0; inputIndex < inputChildrenCopy.Count; inputIndex++)
+            {
+                for (int selfIndex = 0; selfIndex < selfChildrenCopy.Count; selfIndex++)
+                {
+                    if (inputChildrenCopy[inputIndex] != null)
+                    {
+                        if (selfChildrenCopy[selfIndex].Merge(inputChildrenCopy[inputIndex]))
+                            inputChildrenCopy[inputIndex] = null;
+                    }
+                }
+            }
+
+            inputChildrenCopy.RemoveAll(x => x == null);
+
+            if (selfChildrenCopy.Count + inputChildrenCopy.Count > _maxChildCount)
+                return false;
+
+            foreach (IMergeableChild inputChild in inputChildrenCopy)
+                selfChildrenCopy.Add(inputChild);
+
+            if (isCheckCopy == false)
+                _children = selfChildrenCopy;
+
+            foreach (var child in selfChildrenCopy)
+                child.Destroy();
+
+            foreach (var child in inputChildrenCopy)
+                child.Destroy();
+
+            return true;
+        }
+
         private bool TryAcceptChild(IMergeableChild mergeableChild)
         {
             if (TryMergeChild(mergeableChild))
@@ -70,9 +106,10 @@ namespace Assets.Source.Scripts.Allies
 
         private bool TryAddChild(IMergeableChild mergeableChild)
         {
-            if (_child.Count < _maxChildCount)
+            if (_children.Count < _maxChildCount)
             {
-                _child.Add(mergeableChild);
+                _children.Add(mergeableChild);
+                mergeableChild.SetParrent(transform);
                 return true;
             }
 
@@ -81,10 +118,13 @@ namespace Assets.Source.Scripts.Allies
 
         private bool TryMergeChild(IMergeableChild mergeableChild)
         {
-            foreach (IMergeableChild child in _child)
+            foreach (IMergeableChild child in _children)
             {
                 if (child.Merge(mergeableChild))
+                {
+                    child.SetParrent(transform);
                     return true;
+                }
             }
 
             return false;

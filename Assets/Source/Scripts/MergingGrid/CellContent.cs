@@ -18,6 +18,7 @@ namespace Assets.Source.Scripts.MergingGrid
 
         public void Destroy()
         {
+            Object.Destroy(_transform.gameObject);
             _content.Destroy();
         }
 

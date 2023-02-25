@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
 {
-    public class CubesMerger : MonoBehaviour
+    public class CellMerger : MonoBehaviour
     {
         [SerializeField] private List<Grid> _grids;
         [SerializeField] private List<GridVisualizator> _visualGrids;
@@ -66,8 +66,15 @@ namespace Assets.Source.Scripts.MergingGrid
                     SetCubeOnNewPosition(visualCell);
                 else
                 {
-                    if (cell.Merge(_selectedCell) == false)
+                    if (cell.Merge(_selectedCell))
+                    {
+                        grid.DeleteContent(_lastCell.PositionOnGrid);
+                        _selectedCell.Destroy();
+                    }
+                    else
+                    {
                         SetCellOnLastPosition();
+                    }
                 }
             }
 
@@ -85,13 +92,6 @@ namespace Assets.Source.Scripts.MergingGrid
             }
 
             return null;
-        }
-
-        private void MergeCubes(IMergeableGridCell cube)
-        {
-            _selectedCell.Destroy();
-            Grid gridToMerge = GetOwner(_lastCell);
-            gridToMerge.DeleteContent(_lastCell.PositionOnGrid);
         }
 
         private void SetCellOnLastPosition()

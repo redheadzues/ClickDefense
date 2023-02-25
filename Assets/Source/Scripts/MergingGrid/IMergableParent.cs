@@ -4,6 +4,6 @@ namespace Assets.Source.Scripts.MergingGrid
 {
     public interface IMergableParent : IMergeable
     {
-        IReadOnlyList<IMergeableChild> Childs { get; }
+        IReadOnlyList<IMergeableChild> Children { get; }
     }
 }

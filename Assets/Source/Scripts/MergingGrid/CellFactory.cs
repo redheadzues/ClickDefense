@@ -1,6 +1,7 @@
 ﻿using Assets.Source.Scripts.Allies;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
+using System;
 using UnityEngine;
 
 namespace Assets.Source.Scripts.MergingGrid
@@ -17,6 +18,22 @@ namespace Assets.Source.Scripts.MergingGrid
         {
             if (Input.GetKeyDown(KeyCode.Q))
                 InstantiateCube();
+
+            if (Input.GetKeyDown(KeyCode.W))
+                InstantiateSphere();
+        }
+
+        private void InstantiateSphere()
+        {
+            Transform cellTransform = new GameObject("MergeableCell").transform;
+            GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            PowerOrb orb = sphere.AddComponent<PowerOrb>();
+            IMergeableGridCell cell = new CellContent(orb, cellTransform);
+            orb.transform.SetParent(cell.Transform);
+            orb.transform.localPosition = Vector3.zero;
+            Destroy(orb.GetComponent<Collider>());
+
+            SetOnEmptyPosition(cell);
         }
 
         public void Construct(ICharacterFactory characterFactory)
@@ -32,6 +49,7 @@ namespace Assets.Source.Scripts.MergingGrid
             IMergeableGridCell cell = new CellContent(allie, cellTransform);
             allie.transform.SetParent(cell.Transform);
             allie.transform.localPosition = Vector3.zero;
+            Destroy(cube.GetComponent<Collider>());
 
 
 
