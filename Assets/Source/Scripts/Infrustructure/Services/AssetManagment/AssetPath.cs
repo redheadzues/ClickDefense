@@ -6,6 +6,6 @@
         public const string Enemy = "Enemy/Smile";
         public const string RootCanvas = "UI/RootCanvas";
         public const string AbilityCard = "UI/Elements/AbilityCard";
-        public const string VisualGridCell = "GridRenderer";
+        public const string MergingGrid = "MergingGrid/MergingGrid";
     }
 }

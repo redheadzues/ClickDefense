@@ -31,5 +31,14 @@ namespace Assets.Source.Scripts.CharactersComponent
                 HealthChanged?.Invoke(_currentValue);
             }
         }
+
+        public void TakeHeal(int healValue)
+        {
+            if(healValue > 0)
+            {
+                _currentValue += healValue;
+                HealthChanged?.Invoke(_currentValue);
+            }
+        }
     }
 }

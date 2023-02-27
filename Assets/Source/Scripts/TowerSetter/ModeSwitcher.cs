@@ -4,21 +4,9 @@ using UnityEngine.UI;
 
 public class ModeSwitcher : MonoBehaviour
 {
-    //[SerializeField] private Button _buttonBuildingMode;
-
     public bool IsBuildModeActivated { get; private set; }
 
     public event Action BuildingModeChanged;
-
-    private void OnEnable()
-    {
-        //_buttonBuildingMode.onClick.AddListener(OnbuttonBuildingModeClick);
-    }
-
-    private void OnDisable()
-    {
-        //_buttonBuildingMode.onClick.RemoveListener(OnbuttonBuildingModeClick);
-    }
 
     private void Start()
     {
@@ -41,5 +29,5 @@ public class ModeSwitcher : MonoBehaviour
         BuildingModeChanged?.Invoke();
     }
 
-    // new Vector3(2.8f,18.2f,-1.8f);
+
 }

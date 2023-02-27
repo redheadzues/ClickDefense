@@ -18,7 +18,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
         public void Add<TEffect>(TEffect effect) where TEffect : IEffect
         {
-            if(effect is ILastingEffect lastingEffect)
+            if (effect is ILastingEffect lastingEffect)
                 AddEffectInSystem(lastingEffect);
 
             if(effect is IInstantEffect instantEffect)
@@ -34,17 +34,17 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         {
             _activeEffects.Add(effect);
             SubscribeOnEffect(effect);
-            PassSetterNewValues();
+            SendSetterNewValues();
         }
 
         private void RemoveEffectFromSystem(ILastingEffect effect)
         {
             UnsubscribeOnEffect(effect);
             _activeEffects.Remove(effect);
-            PassSetterNewValues();
+            SendSetterNewValues();
         }
 
-        private void PassSetterNewValues()
+        private void SendSetterNewValues()
         {
             SetCurrentAttributesChanger();
             _setter.ChangeCurrentAttributes(_currentEffectChanger);

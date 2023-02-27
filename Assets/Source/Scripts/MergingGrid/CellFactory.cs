@@ -31,6 +31,7 @@ namespace Assets.Source.Scripts.MergingGrid
             IMergeableGridCell cell = new CellContent(orb, cellTransform);
             orb.transform.SetParent(cell.Transform);
             orb.transform.localPosition = Vector3.zero;
+
             Destroy(orb.GetComponent<Collider>());
 
             SetOnEmptyPosition(cell);

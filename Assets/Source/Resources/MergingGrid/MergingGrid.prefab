@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 923492783028840892}
   - component: {fileID: 923492783028840867}
-  - component: {fileID: 923492783028840866}
   - component: {fileID: 923492783028840865}
   m_Layer: 0
   m_Name: ReserveGrid
@@ -49,18 +48,6 @@ MonoBehaviour:
   _gridSize: {x: 2, y: 10}
   _capacity: 0
   _gridType: 0
---- !u!114 &923492783028840866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 923492783028840864}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ddcda7cd6b54ba4788886d57025630c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &923492783028840865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6fd47b60c89ae4f9752ad012e86441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _modeSwitcher: {fileID: 923492783028840866}
+  _modeSwitcher: {fileID: 7050947956488908067}
   _spriteCell: {fileID: -8698182649527871742, guid: 598754a082e61394aa07501e51f9235f, type: 3}
   _transformVisualGridParent: {fileID: 923492783028840892}
   _grid: {fileID: 923492783028840867}
@@ -88,7 +75,6 @@ GameObject:
   m_Component:
   - component: {fileID: 923492783184937239}
   - component: {fileID: 923492783184937238}
-  - component: {fileID: 923492783184937237}
   - component: {fileID: 923492783184937236}
   m_Layer: 0
   m_Name: BattleGrid
@@ -127,18 +113,6 @@ MonoBehaviour:
   _gridSize: {x: 10, y: 10}
   _capacity: 5
   _gridType: 1
---- !u!114 &923492783184937237
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 923492783184937241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ddcda7cd6b54ba4788886d57025630c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &923492783184937236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6fd47b60c89ae4f9752ad012e86441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _modeSwitcher: {fileID: 923492783184937237}
+  _modeSwitcher: {fileID: 7050947956488908067}
   _spriteCell: {fileID: -8698182649527871742, guid: 598754a082e61394aa07501e51f9235f, type: 3}
   _transformVisualGridParent: {fileID: 923492783184937239}
   _grid: {fileID: 923492783184937238}
@@ -168,6 +142,7 @@ GameObject:
   - component: {fileID: 923492783446641684}
   - component: {fileID: 923492783446641691}
   - component: {fileID: 923492783446641686}
+  - component: {fileID: 7050947956488908067}
   m_Layer: 0
   m_Name: MergeOperator
   m_TagString: Untagged
@@ -235,6 +210,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reserveGrid: {fileID: 923492783028840867}
   _visualGrid: {fileID: 923492783028840865}
+--- !u!114 &7050947956488908067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923492783446641690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ddcda7cd6b54ba4788886d57025630c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7112558370761060528
 GameObject:
   m_ObjectHideFlags: 0

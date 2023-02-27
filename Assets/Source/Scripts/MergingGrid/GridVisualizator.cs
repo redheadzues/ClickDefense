@@ -79,6 +79,7 @@ namespace Assets.Source.Scripts.MergingGrid
                     cell.PositionOnGrid = new Vector2Int(x, y);
                     cell.CellSelected += OnCellSelected;
                     cell.Owner = _grid.GridType;
+                    cell.SetColor(Color.green);
                     _visualGrid[x, y] = cell;
                 }
         }

@@ -24,14 +24,10 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
             _effectsFactory = new EffectsFactory(this, effectViewSwitcher, effectHandler);
         }
 
-        private void Update()
-        {
+        private void Update() => 
             Updated?.Invoke(Time.deltaTime);
-        }
 
-        public void TakeEffect(GamePlayEffectStaticData effectData)
-        {
+        public void TakeEffect(GamePlayEffectStaticData effectData) => 
             _effectsFactory.Create(effectData);
-        }
     }
 }
