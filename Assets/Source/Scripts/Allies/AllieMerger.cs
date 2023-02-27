@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.Allies
 {
-    public class Allie : MonoBehaviour, IMergableParent
+    public class AllieMerger : MonoBehaviour, IMergableParent
     {
         private const int _maxChildCount = 3;
         private List<IMergeableChild> _children = new List<IMergeableChild>();

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Source.Scripts.Allies
 {
-    public class PowerOrb : MonoBehaviour, IMergeableChild
+    public class PowerOrbMerger : MonoBehaviour, IMergeableChild
     {
         public int _level;
         public PowerOrbTypeId _powerOrbTypeId;

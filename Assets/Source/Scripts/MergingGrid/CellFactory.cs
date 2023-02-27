@@ -27,7 +27,7 @@ namespace Assets.Source.Scripts.MergingGrid
         {
             Transform cellTransform = new GameObject("MergeableCell").transform;
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            PowerOrb orb = sphere.AddComponent<PowerOrb>();
+            PowerOrbMerger orb = sphere.AddComponent<PowerOrbMerger>();
             IMergeableGridCell cell = new CellContent(orb, cellTransform);
             orb.transform.SetParent(cell.Transform);
             orb.transform.localPosition = Vector3.zero;
@@ -46,7 +46,7 @@ namespace Assets.Source.Scripts.MergingGrid
         {
             Transform cellTransform = new GameObject("MergeableCell").transform;
             GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            Allie allie = cube.AddComponent<Allie>();
+            AllieMerger allie = cube.AddComponent<AllieMerger>();
             IMergeableGridCell cell = new CellContent(allie, cellTransform);
             allie.transform.SetParent(cell.Transform);
             allie.transform.localPosition = Vector3.zero;
