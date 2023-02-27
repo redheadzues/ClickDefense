@@ -1,4 +1,4 @@
-﻿namespace Assets.Source.Scripts.Allies
+﻿namespace Assets.Source.Scripts.PowerOrbs
 {
     public enum PowerOrbTypeId
     {

@@ -1,13 +1,15 @@
-﻿using Assets.Source.Scripts.MergingGrid;
+﻿using Assets.Source.Scripts.AbilitiesSystem.StaticData;
+using Assets.Source.Scripts.MergingGrid;
 using System;
 using UnityEngine;
 
-namespace Assets.Source.Scripts.Allies
+namespace Assets.Source.Scripts.PowerOrbs
 {
-    public class PowerOrbMerger : MonoBehaviour, IMergeableChild
+    public class PowerOrb : MonoBehaviour, IMergeableChild
     {
-        public int _level;
-        public PowerOrbTypeId _powerOrbTypeId;
+        private int _level;
+        private PowerOrbTypeId _powerOrbTypeId;
+        private GamePlayEffectStaticData _effectData;
 
         public Enum Type => _powerOrbTypeId;
         public int Level => _level;
@@ -17,9 +19,18 @@ namespace Assets.Source.Scripts.Allies
             _powerOrbTypeId = PowerOrbTypeId.Cold;
         }
 
+        public void Construct(PowerOrbTypeId typeId, GamePlayEffectStaticData effectData)
+        {
+            _powerOrbTypeId = typeId;
+            _effectData = effectData;
+        }
+
+        public GamePlayEffectStaticData GiveEffect() => 
+            _effectData;
+
         public void Destroy()
         {
-            if(transform.parent == null)
+            if (transform.parent == null)
                 Destroy(gameObject);
         }
 
@@ -28,9 +39,9 @@ namespace Assets.Source.Scripts.Allies
             if (merged is IMergableParent parrent)
                 return false;
 
-            if(merged is IMergeableChild)
+            if (merged is IMergeableChild)
             {
-                if(Level == merged.Level && Type.Equals(merged.Type))
+                if (Level == merged.Level && Type.Equals(merged.Type))
                 {
                     _level++;
                     return true;

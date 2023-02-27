@@ -6,7 +6,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
     public interface ILastingEffect : IEffect
     {
         GamePlayAttributesChanger CurrentAttributeChanger { get; }
-        event Action<LastingEffect> Ended;
+        event Action<ILastingEffect> Ended;
         event Action AttributesChanged;
         event Action<int> DamageHappend;
     }
@@ -17,7 +17,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
     }
 
     public interface IEffect
-    {   
-
+    {
+        void Abort();
     }
 }

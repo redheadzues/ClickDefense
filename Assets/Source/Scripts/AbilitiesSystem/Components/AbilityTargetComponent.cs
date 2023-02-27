@@ -29,5 +29,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Components
 
         public void TakeEffect(GamePlayEffectStaticData effectData) => 
             _effectsFactory.Create(effectData);
+
+
     }
 }

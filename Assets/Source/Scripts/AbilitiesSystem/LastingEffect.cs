@@ -15,7 +15,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
         private float _elapsedFrequency;
 
         public GamePlayAttributesChanger CurrentAttributeChanger { get; private set; }
-        public event Action<LastingEffect> Ended;
+        public event Action<ILastingEffect> Ended;
         public event Action<int> DamageHappend;
         public event Action AttributesChanged;
 
@@ -27,6 +27,12 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             CurrentAttributeChanger = effectData.AttributesChanger;
             _updater = updater;
             _updater.Updated += OnUpdate;
+        }
+
+        public void Abort()
+        {
+            _updater.Updated -= OnUpdate;
+            Ended?.Invoke(this);
         }
 
 
@@ -43,8 +49,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem
 
             if (_elapsedDuration >= _duration)
             {
-                _updater.Updated -= OnUpdate;
-                Ended?.Invoke(this);
+                Abort();
             }
         }
     }

@@ -81,9 +81,6 @@ namespace Assets.Source.Scripts.Infrustructure.States
 
         public void Exit()
         {
-            _playerAbilityRewarder.Destroy();
-            _playerAbilityRewarder = null;
-
             _context = null;
         }
 

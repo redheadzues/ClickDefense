@@ -15,7 +15,7 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
             _effectHandler = effectHandler;
         }
 
-        public void Create(GamePlayEffectStaticData effectData)
+        public IEffect Create(GamePlayEffectStaticData effectData)
         {
             IEffect effect = GetEffectByType(effectData);
 
@@ -23,6 +23,8 @@ namespace Assets.Source.Scripts.AbilitiesSystem.Factories
 
             if (effectData.VFXPrefab != null)
                 _effectViewSwitcher.AddEffectView(effect, effectData.VFXPrefab);
+
+            return effect;
         }
 
         private IEffect GetEffectByType(GamePlayEffectStaticData effectData)

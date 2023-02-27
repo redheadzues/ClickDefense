@@ -16,6 +16,7 @@ namespace Assets.Source.Scripts.Allies
         public IReadOnlyList<IMergeableChild> Children => _children;
         public Enum Type => _allieType;
         public int Level => _level;
+        public event Action OrbsUpdated; 
 
         private void Update()
         {
@@ -23,10 +24,8 @@ namespace Assets.Source.Scripts.Allies
                 print(_children.Count);
         }
 
-        public void Construct(AllieTypeId type)
-        {
+        public void Construct(AllieTypeId type) => 
             _allieType = type;
-        }
 
         public void Destroy()
         {
@@ -41,24 +40,18 @@ namespace Assets.Source.Scripts.Allies
 
             if(merged is IMergableParent mergeableParent)
             {
-                if (_level == merged.Level && Type.Equals(merged.Type) && MergeChildren(mergeableParent, isCheckCopy: true))
+                if (_level == merged.Level && Type.Equals(merged.Type) && MergeChildrenWithOtherParrent(mergeableParent, isCheckCopy: true))
                 {
-                    MergeChildren(mergeableParent, isCheckCopy: false);
+                    MergeChildrenWithOtherParrent(mergeableParent, isCheckCopy: false);
                     _level++;
                     return true;
                 }
             }
-            //
-            //
-            //
-            //try MERGE CHILD TO OTHER AFTER ADD
-            //
-            //
-            //
+
             return false;
         }
 
-        private bool MergeChildren(IMergableParent mergeableParent, bool isCheckCopy)
+        private bool MergeChildrenWithOtherParrent(IMergableParent mergeableParent, bool isCheckCopy)
         {
             List<IMergeableChild> inputChildrenCopy = mergeableParent.Children.Copy();
             List<IMergeableChild> selfChildrenCopy = _children.Copy();
@@ -99,7 +92,10 @@ namespace Assets.Source.Scripts.Allies
         private bool TryAcceptChild(IMergeableChild mergeableChild)
         {
             if (TryMergeChild(mergeableChild))
+            {
+                OrbsUpdated?.Invoke();
                 return true;
+            }
 
             return TryAddChild(mergeableChild);
         }
@@ -110,6 +106,7 @@ namespace Assets.Source.Scripts.Allies
             {
                 _children.Add(mergeableChild);
                 mergeableChild.SetParrent(transform);
+                OrbsUpdated?.Invoke();
                 return true;
             }
 
@@ -135,10 +132,14 @@ namespace Assets.Source.Scripts.Allies
 
         private void MergeSelfChild()
         {
-            while (TryMergeSelfChild()) ;
+            while (TryMergeSelfChild());
+            OrbsUpdated?.Invoke();
         }
         private bool TryMergeSelfChild()
         {
+            if (_children.Count <= 1)
+                return false;
+
             for(int i = 0; i < _children.Count - 1; i++)
             {
                 if (_children[i].Merge(_children[i+1]))

@@ -26,8 +26,9 @@ namespace Assets.Source.Scripts.AbilitiesSystem
             }
         }
 
-        private void OnEffectEnded(LastingEffect effect)
+        private void OnEffectEnded(ILastingEffect effect)
         {
+            effect.Ended -= OnEffectEnded;  
             EffectViewCell cell = _viewCells.FirstOrDefault(x => x.Effect == effect);
             Object.Destroy(cell.ViewParticle);
             _viewCells.Remove(cell);

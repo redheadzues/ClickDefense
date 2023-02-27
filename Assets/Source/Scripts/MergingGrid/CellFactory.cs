@@ -1,6 +1,7 @@
 ﻿using Assets.Source.Scripts.Allies;
 using Assets.Source.Scripts.Infrustructure.Services.Factories;
 using Assets.Source.Scripts.Infrustructure.StaticData;
+using Assets.Source.Scripts.PowerOrbs;
 using System;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace Assets.Source.Scripts.MergingGrid
         {
             Transform cellTransform = new GameObject("MergeableCell").transform;
             GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            PowerOrbMerger orb = sphere.AddComponent<PowerOrbMerger>();
+            PowerOrb orb = sphere.AddComponent<PowerOrb>();
             IMergeableGridCell cell = new CellContent(orb, cellTransform);
             orb.transform.SetParent(cell.Transform);
             orb.transform.localPosition = Vector3.zero;
