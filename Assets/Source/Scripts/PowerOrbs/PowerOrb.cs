@@ -8,7 +8,7 @@ namespace Assets.Source.Scripts.PowerOrbs
     public class PowerOrb : MonoBehaviour, IMergeableChild
     {
         private int _level;
-        private PowerOrbTypeId _powerOrbTypeId;
+        public PowerOrbTypeId _powerOrbTypeId;
         private GamePlayEffectStaticData _effectData;
 
         public Enum Type => _powerOrbTypeId;
